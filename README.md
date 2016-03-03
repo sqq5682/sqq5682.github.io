@@ -1,6 +1,6 @@
 # 左右
 
-This is a blog created by Qiang Song. The blog is live at [azeril.me](http://sqq5682.github.io/).
+This is a blog created by Qiang Song. The blog is live at [sqq5682.github.io](http://sqq5682.github.io/).
 
 ## Thanks
 
