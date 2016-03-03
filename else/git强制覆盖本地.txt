@@ -1,0 +1,87 @@
+如何强制本地文件覆写上一个git拉？ 该方案是以下几点： 一个正在修改的模板，我们正在研究一个网站 他将图像添加到图像目录（但忘记将它们添加在 源代码控制） 他是通过邮件发送后的图像 我添加了图像的源代码控制之下，并与其他更改推到一起的Github 他不能拉的更新从Github的Git并不想覆盖他的文件。 我得到的错误是： 错误：未轨迹的工作树文件“公共/影像/ icon.gif'将被覆盖 如何强制git的覆盖呢？这家伙是一个设计师-通常我解决所有冲突的手，服务器有，他只是需要更新的最新版本
+本文地址 ：CodeGo.net/66453/ 
+------------------------------------------------------------------------------------------------------------------------- 
+1. 我认为这是正确的做法：
+git fetch --all
+git reset --hard origin/master
+git fetch下载远程最新的，但不尝试，或重订任何东西。 然后，git resetmaster分支重置到你刚才牵强。 
+2. 试试这个：
+git reset --hard HEAD
+git pull
+应该做你想做的。 
+3. 刚clean -f没有帮助。如果您有未轨迹目录，-d选项还需要：
+git reset --hard HEAD
+git clean -f -d
+git pull
+
+4. 它看起来像最好的办法就是先做好：
+git clean
+要删除所有未轨迹档案，然后继续混帐拉.... 
+5. 像刺猬，我认为答案是可怕的。但是 CodeGo.net，尽管他可能会更好，我不认为它是优雅，因为它可能是。我发现这样做的方法是“取”，并与已定义的策略“合并”。这应该让这个当地的变化，只要他们不是您想要强制覆盖的文件之一保留。 你的优先个变化做
+ git add *
+ git commit -a -m "auto dev server commit"
+然后取的更改和覆盖如果有冲突
+ git fetch origin master
+ git merge -s recursive -X theirs origin/master
+
+6. 我希望做一个，但我没有足够的代表为... 我想，而不是做给
+git fetch --all
+git reset --hard origin/master
+我想咨询下
+git fetch origin
+git reset --hard origin/master
+无需获取所有的遥控器，如果你要恢复到原点/ master分支吧？ 
+7. 您可能会发现扔掉的局部变化有所帮助：
+git checkout <your-branch> -f
+然后做一个清理（删除未轨迹文件从工作树）：
+git clean -f
+如果你想删除不露痕迹目录除了未轨迹文件：
+git clean -fd
+
+8. 我已经重新提交我通过要求一个答案： 而不是使用git pull，尝试GITfetch --all其次是git reset --hard origin/master 
+9. 这些似乎是可怕的答案，可怕的发生了什么事@劳里按照大卫Avsajanishvili建议的意义。 而（GIT> v1.7.6）：
+git stash --include-untracked
+git pull
+稍后，您可以清洁藏匿的历史。 手动，一个接1：
+$ git stash list
+stash@{0}: WIP on <branch>: ...
+stash@{1}: WIP on <branch>: ...
+$ git stash drop stash@{0}
+$ git stash drop stash@{1}
+残酷，全在一次：
+$ git stash clear
+当然，如果你想回到你藏什么：
+$ git stash list
+...
+$ git stash apply stash@{5}
+
+10. 那工作过的唯一的事情是：
+git reset --hard HEAD~5
+这将带您回到5提交，然后用
+git pull
+发现的：在寻找如何撤消 
+11. 所有这些解决方案的问题是，他们都是其中一个或一个更大的问题是，他们取出从Web服务器，这是我们不希望所有未轨迹文件，因为总是需要它们的服务器上，而不是配置文件关于Git的回购。这里是最干净的解决方案，我们
+# Fetch the newest code 
+git fetch 
+# Delete all files which are being added, so there 
+# are no conflicts with untracked files 
+for file in `git diff HEAD..origin/master --name-status | awk '/^A/ {print $2}'`
+do
+ rm -f -- "$file"
+done
+# Checkout all files which were locally modified
+for file in `git diff --name-status | awk '/^[CDMRTUX]/ {print $2}'`
+do
+ git checkout -- "$file"
+done
+# Finally pull all the changes (you could merge as well e.g. 'merge origin/master') 
+git pull 
+该取最新的数据。如果有其中被添加到存储库并删除那些未轨迹文件从本地存储库这将冲突的任何文件的检查。该检出所有在本地修改，最后我们做一个拉来更新到最新版本，但这个文件没有任何冲突，因为未轨迹文件，这是在回购不存在了，所有的本地修改的文件已经在如在回购。 
+12. 我有一个类似的问题。我不得不这样做：
+git reset --hard HEAD
+git clean -f
+git pull
+
+13. 我有这个问题。没有人给这个建议，但它的工作 我解决了它方式： 删除所有文件。刚刚离开的。git目录。git reset --hard HEADgit pullgit push现在，它的工作原理。 
+14. 我认为有两种可能的冲突，必须单独解决，而据我可以告诉概无上述答案涉及两个： 是未轨迹本地文件需要删除，手动（更安全），或者在其他的答案建议，由git clean -f -d是不是在远程分支需要被删除。国际海事组织实现这一目标的最简单的方法是使用：git reset --hard origin/master（替换'主人'以任何分支您正在处理，并运行git fetch origin先） 
+15. 我有问题和原因，即使是干净的git-F-D不会做。这是为什么：对于原因，如果你的文件是由GIT（通过gitignore项忽略，我仍然困扰着有关与后面的拉覆盖这一点，但一个干净不会删除它，除非你加上-X。

@@ -1,0 +1,21 @@
+$ git init                初始化git
+
+$ git commit -m "remove"  提交本地已经删除的文件,
+
+$ git commit -a           提交文件
+
+$ git push origin master  推送文件 
+
+$ git pull origin branch  拉取文件
+
+git config --list         看所有用户
+
+$ git remote add origin git@github.com:sqq5682/sqq5682.github.io.git 关联远程仓库
+
+
+提交流程 先$ git add -A   再 $ git commit -m "提交信息注释"   $ git push origin branch
+
+
+
+
+
