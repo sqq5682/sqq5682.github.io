@@ -1,0 +1,95 @@
+.head{
+	position: relative;
+	width:100%;
+	z-index: -2;
+	overflow: hidden;	
+}
+
+.head .head_bg{
+	width:100%;
+	display: block;
+	height:100%;
+}
+
+.head .head_font{
+	position: absolute;
+	left:50%;
+	top:40%;
+	margin-left: -300px;
+/*
+      filter:alpha(opacity=10);  
+      -moz-opacity:0.1;  
+      -khtml-opacity: 0.1;  
+      opacity: 0.1; 
+	  */
+}
+
+.content{
+	width:100%;
+	background:#D4D4D4;
+	
+	padding-top:35px;
+	padding-bottom:50px;
+}
+
+.content .content_list{
+	width:1200px;
+	position: relative;
+	margin:0 auto;
+	overflow:hidden;
+}
+
+.content .content_list .item{
+	width:400px;
+	position: absolute;
+	overflow: hidden;
+
+}
+
+.content .content_list .item img{
+	margin:5px;
+	border:5px solid #FFF;
+	width:380px;
+	display: block;
+	border-radius: 2px;
+}
+
+
+.content .suoqu{
+	margin: 0 auto;
+	margin-top:40px;
+	width:478px;
+}
+
+
+.content .suoqu img{
+	display:block;
+	width:100%;
+}
+
+
+.content .content_list .cols{
+	width:400px;
+	overflow: hidden;
+	float:left;
+	
+}
+
+.content .content_list .cols img{
+
+	margin:5px;
+	margin-top:10px;
+	border:5px solid #FFF;
+	width:380px;
+	display: block;
+	border-radius: 2px;	
+	
+	
+}
+
+
+
+
+
+
+
