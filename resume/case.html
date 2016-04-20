@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<!-- saved from url=(0025)http://jilaotou.com/case/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<title>案例_北京网站建设|北京企业建站|北京建站公司|北京网页设计－西游互动官网</title>
+	<meta name="description" content="中国领先互联网品牌－西游互动，最具国际化视野的网络品牌服务商，以网站建设、平面设计、微信开发为核心业务。专注互联网品牌营销，辅助企业构建全球化竞争力。">
+	<meta name="keywords" content="北京网站建设|北京高端网站建设|北京网页设计制作|北京网站建设公司|北京网站设计|西游互动">
+	<link type="text/css" rel="stylesheet" href="css/common.css">
+	<link type="text/css" rel="stylesheet" href="css/anli.css">
+</head>
+<body>
+	<!--
+	<div class='top'>
+		<p class='top_tel'>24H.TEL：157 0166 7455</p>
+		<img class='logo' src='/templets/default/images/logo.png'/>
+		<ul class='nav'>
+			<li>
+				<a href='/'>　　首页</a>
+			</li>
+			<li>
+				<a href='/about'>关于我们</a>
+			</li>
+			<li>
+				<a href='/service'>服务项目</a>
+			</li>
+			<li>
+				<a href='/case'>案例中心</a>
+			</li>			<li>				<a href='/news'>新闻资讯</a>			</li>			
+			<li>
+				<a href='/contact'>联系我们</a>
+			</li>
+			<li>
+				<img src='/templets/default/images/san.png'/>
+			</li>			
+		</ul>
+
+		<div class='top_bg'></div>
+	</div>
+	-->
+			<div class="header">
+			<div class="header_con">
+				<img class="logo" src="images/logo.png">
+				<ul>
+					<li>
+						<a href="/">首页</a>
+					</li>
+					<li>
+						<a href="/about.html">关于我们</a>
+					</li>
+					<li>
+						<a href="/service.html">服务项目</a>
+					</li>
+					<li>
+						<a href="/case.html">案列中心</a>
+					</li>
+					<li>
+						<a href="/news.html">新闻资讯</a>
+					</li>
+					<li>
+						<a href="/contact.html">联系我们</a>
+					</li>
+				</ul>
+			</div>
+			<div class="header_bg"></div>
+		</div>
+	<div class="head">
+		<p class="head-text">设计是文化的承载，品牌的表达</p>
+		<img class="head_bg" src="images/anli_banner.jpg">
+		<img class="head_font" src="images/anli_font.png">
+	</div>
+
+	<div class="content">
+		<div class="content_list">
+			<div class="cols">
+				<img src="images/1-150R4102226119.jpg">
+	
+			</div>
+			
+			<div class="cols">
+				<img src="images/1-150R4102040153.jpg">
+				
+			</div>
+			
+			<div class="cols">
+				<img src="images/1-150R410210U49.jpg">
+			
+			</div>
+		</div>
+
+		<div class="suoqu">
+			<a href="http://wpa.qq.com/msgrd?v=3&amp;uin=330423693&amp;site=qq&amp;menu=yes" title="点击立即咨询" target="_blank"><img src="images/18.png"></a>
+		</div>
+
+	</div>
+	<div class="footer">
+
+	<ul>
+
+		<li><img src="images/us1.png"></li>
+
+		<li><img src="images/us2.png"></li>
+
+		<li><img src="images/us3.png"></li>
+
+		<li><img src="images/us4.png"></li>
+
+	</ul>
+
+	<p>
+
+		<span class="ft_lf">BEIJING WEST INTERACTIVE TECHNOLOGY CO.,LTD</span>
+
+
+		<span class="ft_rt">版权所有 @2015 北京西游互动科技有限公司</span>
+        
+
+	</p>
+
+</div>
+<div class="sidebar">
+	<ul>
+		<li><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=330423693&amp;site=qq&amp;menu=yes" target="_blank"><img src="images/img58.png"></a></li>
+		<li><a><img src="images/img59.png"></a></li>
+		<li><a class="go_top"><img src="images/img60.png"></a></li>
+	</ul>
+</div>
+
+<script src="js/jquery.min.js"></script>
+<script>
+
+$(function(){
+
+	var h = $(window).height();
+	$('.section1').height(h);
+
+	$('.title-btn').click(function(){
+		$('body,html').animate({ scrollTop: h }, 500);
+	});
+
+	$('.go_top').click(function(){
+		$('body,html').animate({ scrollTop: 0 }, 500);
+	});
+
+});
+</script>
+
+
+	<script type="text/javascript">
+
+
+
+
+	// 从数组中取出最小值
+	function getMin(arr){
+		var min = arr[0];
+		for(i in arr){
+			if(arr[i] < min){
+				min = arr[i];
+			}
+		}
+
+		return min;
+	}
+
+
+	// 从数组中取出最小值
+	function getMax(arr){
+		var max = arr[0];
+		for(i in arr){
+			if(arr[i] > max){
+				max = arr[i];
+			}
+		}
+
+		return max;
+	}
+
+
+	// 从数组中找出对应值的下表
+	function getMinIndex(array,value){
+		for(var key in array){
+			if(array[key] == value){
+				return key;
+			}
+		}
+	}
+
+
+window.onload = function(){
+
+
+	var page = 1;  // 加载的页数
+	var staut = 0; // 当前加载状态 1表示正在请求ajax
+
+	var arr = [];
+	var min;
+	var index;
+
+	function reloadDom(){
+
+		$('.content .content_list .cols').each(function(i){
+
+			if(i<3){
+				arr[i] = $('.content .content_list .cols').eq(i).innerHeight();
+/*
+				$('.content .content_list .cols').eq(i).css({
+					'position':'absolute',
+					'left':i * ($('.content .content_list .cols').width())
+				})
+*/
+
+			}else{
+				min = getMin(arr); // 获取数组中最小值
+				index = getMinIndex(arr,min);	// 拿到最小值对应的下标
+
+/*
+				$('.content .content_list .cols').eq(i).css({
+					'position':'absolute',
+					'top':arr[index] + 'px',
+					'left':index * ($('.content .content_list .cols').eq(i).width())
+				})
+*/
+				arr[index] += parseInt($('.content .content_list .cols').eq(i).innerHeight());
+				//$('.content .content_list').css('height',getMax(arr) + 300);
+				
+			}
+
+		})	
+
+	}
+	reloadDom();
+	// 浏览器发生滚动
+	$(window).scroll(function(){
+
+		// 如果滚动到底部
+		if(($(window).height()-$(window).scrollTop())< 300){
+
+			if(staut == 0){
+				staut=1;
+				page++;
+				$.get('/api/activitys.php?page='+page,function(data){
+					var array = eval('('+data+')');
+
+					for(var i in array){
+
+						min = getMin(arr); // 获取数组中最小值
+						index = getMinIndex(arr,min);	// 拿到最小值对应的下标
+
+						var str ="<img src='" + array[i]['litpic'] + "'/>";
+
+
+						var elm = $(str).css({
+/*							'position':'absolute',
+							'top':arr[index]+'px',
+							'left':index * ($('.content .content_list .cols').width())*/
+						})
+
+						$(".content_list .cols").eq(index).append(elm);
+
+						elm.attr('onload',function(){
+							arr[index] += elm.innerHeight();
+							//$('.content_list').css('height',getMax(arr));
+							reloadDom();
+						})
+
+					}
+
+
+					staut = 0;
+
+				})
+			}
+
+		}
+
+	})
+	
+}
+
+
+</script>
+
+</body></html>
