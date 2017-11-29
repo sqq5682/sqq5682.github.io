@@ -19,5 +19,5 @@ header-img: "img/plane.jpg"
 > 勿忘初心
 
 <center>
-    <p><img src="../img/Zero.png" align="center"></p>
+    <p><img src="../img/hacker.png" align="center"></p>
 </center>
