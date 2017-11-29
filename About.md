@@ -6,7 +6,7 @@ header-img: "img/plane.jpg"
 ---
 
 <center>
-    <p><img src="http://dreamofbook.qiniudn.com/Zero.png" align="center"></p>
+    <p><img src="../img/Zero.png" align="center"></p>
 </center>
 
 我叫宋强强，来自河南周口新安集镇，12年6月毕业于河南工业职业技术学院，所学专业计算机应用技术，目前在[优购网](http://m.yougou.com)工作，职业web前端开发。
@@ -19,5 +19,5 @@ header-img: "img/plane.jpg"
 > 勿忘初心
 
 <center>
-    <p><img src="http://dreamofbook.qiniudn.com/hacker.png" align="center"></p>
+    <p><img src="../img/Zero.png" align="center"></p>
 </center>
