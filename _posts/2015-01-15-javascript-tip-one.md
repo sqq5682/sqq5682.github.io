@@ -6,7 +6,7 @@ tags: [Tool, ]
 description: 那些年，收集的javascript代码（二）
 ---
 
-<h3>一、JavaScript跨平台事件</h3>
+#### 一、JavaScript跨平台事件
 
 对于跨平台事件我们一般这么写(只例举添加事件)：
 
@@ -43,7 +43,7 @@ description: 那些年，收集的javascript代码（二）
 	    }
 	}
 
-<h3>二、合并两个Array并去掉重复项</h3>
+#### 二、合并两个Array并去掉重复项
 
 	Array.prototype.unique = function() {
 	    var a = this.concat();
@@ -63,13 +63,13 @@ description: 那些年，收集的javascript代码（二）
 	var array3 = array1.concat(array2).unique();
 	// ["a","b","c"]
 
-<h3>三、typeof === "undefined" vs. != null</h3>
+#### 三、typeof === "undefined" vs. != null
 
 	if(typeof neverDeclared == "undefined") //no errors
 
 	if(neverDeclared == null) //throws ReferenceError: neverDeclared is not defined,so，typeof === "undefined" is better!
 
-<h3>四、setTimeout(fn, 0)的意义</h3>
+#### 四、setTimeout(fn, 0)的意义
 
 浏览器同时要做很多事，这些事情以队列的方式存在，执行JavaScript只是其中之一，setTimeout(fn, 0)表面上看是立即执行的意思，但实际上只是在浏览器事件队列中添加了一个新的事件，由于队列是先进先出，所以fn会等等到当前队列中的事件执行完后再执行。由于JavaScript的定时器回调函数是异步执行的，所以产生的效果就是等页面上同步事件(包括页面渲染与同步JS代码)执行完之后再执行。
 
@@ -88,7 +88,7 @@ description: 那些年，收集的javascript代码（二）
 
 one会报错，因为页面执行到这里时还没有img，但two却可以。
 
-<h3>五、增强版取URL中的参数</h3>
+#### 五、增强版取URL中的参数
 
 	function getQueryString() {
 	  var result = {}, queryString = location.search.substring(1),
@@ -103,11 +103,11 @@ one会报错，因为页面执行到这里时还没有img，但two却可以。
 	// demo
 	var myParam = getQueryString()["myParam"];
 
-<h3>六、检查一个object是否是jQuery object</h3>
+#### 六、检查一个object是否是jQuery object
 
 	if(obj instanceof jQuery)
 
-<h3>七、检查一个数是否为整数或浮点数</h3>
+#### 七、检查一个数是否为整数或浮点数
 
 	function isInt(n) {
 	   return typeof n === 'number' &amp;&amp; n % 1 == 0;
@@ -122,7 +122,7 @@ one会报错，因为页面执行到这里时还没有img，但two却可以。
 	  return n===+n &amp;&amp; n!==(n|0);
 	}
 
-<h3>八、用JavaScript添加style节点</h3>
+#### 八、用JavaScript添加style节点
 
 	var css = 'h1 { background: red; }',
 	    head = document.getElementsByTagName('head')[0],
@@ -136,7 +136,7 @@ one会报错，因为页面执行到这里时还没有img，但two却可以。
 	}
 	head.appendChild(style);
 
-<h3>九、如何跳出双重循环</h3>
+#### 九、如何跳出双重循环
 
 	function foo ()
 	{
@@ -150,7 +150,7 @@ one会报错，因为页面执行到这里时还没有img，但two却可以。
 	    }
 	}
 
-<h3>十、把一个Array追加到另一个Array上</h3>
+#### 十、把一个Array追加到另一个Array上
 
 	var a=[1,2],b=[3,4,5];
 
@@ -158,7 +158,7 @@ one会报错，因为页面执行到这里时还没有img，但two却可以。
 
 	/*a: [1, 2, 3, 4, 5]*/
 
-<h3>十一、用jQuery把页面上的一个tag换成另一个tag</h3>
+#### 十一、用jQuery把页面上的一个tag换成另一个tag
 
 如把页面上所有的codr换为pre：
 
@@ -178,7 +178,7 @@ jQuery代码：
 	    return $("<pre />").append($(this).contents());
 	});
 
-<h3>十二、取数组中的最小值和最大值</h3>
+#### 十二、取数组中的最小值和最大值
 
 	var arr = new Array();
 	arr[0] = 100;
@@ -187,7 +187,7 @@ jQuery代码：
 	var min = Math.min.apply(null, arr),
 	    max = Math.max.apply(null, arr);
 
-<h3>十三、取两个数组交集</h3>
+#### 十三、取两个数组交集
 
 	/* finds the intersection of 
 	 * two arrays in a simple fashion.  
@@ -223,12 +223,12 @@ jQuery代码：
 
 注释中已经说明了，传入的数组要已经排过序的。
 
-<h3>十四、统计一个字符串中某段子串出现的次数</h3>
+#### 十四、统计一个字符串中某段子串出现的次数
 
 	var temp = "This is a string.";
 	var count = temp.match(/is/g).length;
 
-<h3>十五、方法返回多个值</h3>
+#### 十五、方法返回多个值
 
 	//One
 	var mValues= function(){  
@@ -253,7 +253,7 @@ jQuery代码：
 	var valOne= values.a;
 	var valTwo = values.b;
 
-<h3>十六、Array迭代器</h3>
+#### 十六、Array迭代器
 
 	function createIterator(x) {
 	    var i = 0;
@@ -272,7 +272,7 @@ jQuery代码：
 
 注意，如果数组中有0、false、""、null、NaN迭代器将会停止。
 
-<h3>十七、根据日计算年龄</h3>
+#### 十七、根据日计算年龄
 
 	function getAge(dateString) {
 	    var today = new Date();
@@ -286,7 +286,7 @@ jQuery代码：
 	}
 	console.log(getAge("2005,8,1"));//6
 
-<h3>十八、判断当前页面是否被放入了iframe中</h3>
+#### 十八、判断当前页面是否被放入了iframe中
 
 	if(self==top){
 	      //not in iframe
@@ -296,11 +296,11 @@ jQuery代码：
 
 这段代码可以用来防止网页被放入iframe中，不过如果别人定义了self和top变量覆盖了浏览器默认值可能会失效。
 
-<h3>十九、把arguments转换为Array</h3>
+#### 十九、把arguments转换为Array
 
 	var args = Array.prototype.slice.call(arguments, 0);
 
-<h3>二十、日期格式化</h3>
+#### 二十、日期格式化
 
 来源：[javascript日期格式化函数，跟C#中的使用方法类似](http://www.cnblogs.com/artwl/archive/2011/12/29/2305853.html)
 
@@ -373,7 +373,7 @@ jQuery代码：
 	console.log(d.toString("yyyy年 MMM dd EEE"));    //2012年 七月 27 星期五
 	console.log(d.toString("yyyy MMM dd EEE","en"));    //2012 Jul 27 Fri
 
-<h3>二十一、JavaScript正则中test小用法</h3>
+#### 二十一、JavaScript正则中test小用法
 
 	var str="a12b123c1234e12345";
 	var reg=/a(\d{2})b(\d{3})c(\d{4})/;
@@ -381,7 +381,7 @@ jQuery代码：
 	console.log(RegExp.$1,RegExp.$2,RegExp.$3,RegExp.$4);
 	// output:12 123 1234 
 
-<h3>二十二、JavaScript判断浏览器类型及主版本</h3>
+#### 二十二、JavaScript判断浏览器类型及主版本
 
 	function getBrowserInfo(){
 	    var Sys = {};

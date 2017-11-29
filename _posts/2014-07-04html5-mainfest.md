@@ -6,20 +6,20 @@ tags: [Tool, ]
 description: html5中创建manifest缓存以及更新方法
 ---
 
-####一、什么是 Cache Manifest####
+#### 一、什么是 Cache Manifest
 
 	MIME TYPE：text/cache-manifest
 
 需要由你创建的：NAME.manifest,作用：主要是配置需要缓存的文件
 
-####二、如何实现####
+#### 二、如何实现
 
-#####1.在服务器上添加MIME TYPE支:#####
+##### 1.在服务器上添加MIME TYPE支:
 
 比如 Apache 中可在 .htaccess 中添加：
 AddType text/cache-manifest manifest
 
-#####2.创建 NAME.manifest:#####
+##### 2.创建 NAME.manifest:
 
 其中第一行的 CACHE MANIFEST 标识是一定要有的（测试时发现火狐不加也能缓存成功，但不知是否有其他影响）；
 CACHE / NETWORK / FACKBACK 三个关键字用于不同功能，CACHE 缓存；NETWORK指不想缓存的页面；FALLBACK是指当没有响应时的替代方案，比如我想请求某个页面，但这个页面的服务器挂了，那么，我可以显示另外一个指定的页面文件编码最好使用utf-8；行开头“#”是注释；

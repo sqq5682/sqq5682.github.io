@@ -8,7 +8,7 @@ description: nodejs学习：安装express及配置app.js文件
 
 express.js是nodejs的一个MVC开发框架，并且支持jade等多种模板。下面简单来说说express的安装和app.js文件的配置，然后在今后的教程中一步一步使用express.js搭建个聊天室。
 
-####安装express.js####
+#### 安装express.js
 
 如果你安装了npm，安装变得很简单，只需要在终端中运行下面的代码即可：
 
@@ -37,11 +37,11 @@ require()是node.js提供的函数，可以让你引入其他模块以调用模�
 
 第二行的express.createServer()就是在建立server，而中间的module.exports也是涉及到node.js的模块机制，以后再说。
 
-####express的app.js的详细配置说明####
+#### express的app.js的详细配置说明
 
 express.js继承自connect模块，所以如果你的node_modules文件夹下没有connect模块也是不行的。
 
-#####设置views路径和模板#####
+##### 设置views路径和模板
 
 我们再来看下面两行：
 
@@ -52,7 +52,7 @@ express.js继承自connect模块，所以如果你的node_modules文件夹下没
 
 而app.set('view engine', 'jade');是设置express.js所使用的render engine。除了Jade之外，express.js还支持EJS(embedded javascript)、Haml、CoffeScript和jQuery template等js模板。
 
-#####app.use配置#####
+##### app.use配置
 
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
@@ -66,7 +66,7 @@ app.router()是route requests，但express.js的官方文件是这句可有可�
 
 express.static()也是一个Connect內建的middleware来处理静态的requests，例如css、js、img文件等。所以static()里面指定的文件夹中的文件会直接作为静态资源吐出来。
 
-#####app.configure设置#####
+##### app.configure设置
 
 	app.configure('development', function(){
 	   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));

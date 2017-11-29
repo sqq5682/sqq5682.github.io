@@ -6,7 +6,7 @@ tags: [Tool, ]
 description: 那些年，收集的javascript代码（一）
 ---
 
-<h3>一、取URL中的参数</h3>
+#### 一、取URL中的参数
 
 function getParameterByName(name) {
     var match = RegExp('[?&amp;]' + name + '=([^&amp;]*)')
@@ -14,7 +14,7 @@ function getParameterByName(name) {
     return match &amp;&amp; decodeURIComponent(match[1].replace(/\+/g, ' '));
 }
 
-<h3>二、正则分组</h3>
+#### 二、正则分组
 
 	var testStr="<div><img src='/a.jpg' alt='' /><span>test<img src='/b.jpg' alt='' /><span>TTest<img src='/c.png' alt='' /></div>";
 	var reg=/<img\ssrc='(.*?)'\s+alt=''\s*\/>/g;
@@ -28,7 +28,7 @@ function getParameterByName(name) {
 	Array ["/a.jpg", "/b.jpg", "/c.png"]
 	*/
 
-<h3>三、为什么parseInt(1/0,19)的结果为18</h3>
+#### 三、为什么parseInt(1/0,19)的结果为18
 
 1/0的结果是Infinity，所以parseInt(1/0,19)等同于parseInt("Infinity",19)，而在19进制中：
 
@@ -56,7 +56,7 @@ function getParameterByName(name) {
 
 i表示18，所以parseInt(1/0,19)的结果为18。
 
-<h3>四、jQuery中获取设置checkbox选中状态</h3>
+#### 四、jQuery中获取设置checkbox选中状态
 
 由于在jQuery1.6以后.attr("checked")的返回结果是 checked，所以一般用下面两种方法获取选中状态：
 
@@ -76,16 +76,16 @@ i表示18，所以parseInt(1/0,19)的结果为18。
 	$('#checkboxID').attr('checked','checked')
 	$('#checkboxID').removeAttr('checked')
 
-<h3>五、jQuery中判断一个元素是否存在</h3>
+#### 五、jQuery中判断一个元素是否存在
 
 	if ($(selector).length)
 
-<h3>六、用JavaScript对URL进行编码</h3>
+#### 六、用JavaScript对URL进行编码
 
 	var myUrl = "http://example.com/index.html?param=1&amp;anotherParam=2";
 	var myOtherUrl = "http://example.com/index.html?url=" + encodeURIComponent(myUrl);
 
-<h3>七、jQuery中event.preventDefault() 与 return false 的区别</h3>
+#### 七、jQuery中event.preventDefault() 与 return false 的区别
 
 	//Demo1 event.preventDefault()
 	$('a').click(function (e) {
@@ -103,13 +103,13 @@ i表示18，所以parseInt(1/0,19)的结果为18。
 
 jQuery中return false相当于同时调用e.preventDefault 和 e.stopPropagation。要注意的是，在原生js中，return false仅仅相当于调用了e.preventDefault。
 
-<h3>八、JavaScript检查一个字符串是否为空最简单的方法</h3>
+#### 八、JavaScript检查一个字符串是否为空最简单的方法
 
 	if (strValue) {
 	    //do something
 	}
 
-<h3>九、用JavaScript添加和删除class</h3>
+#### 九、用JavaScript添加和删除class
 
 	//Add Class
 	document.getElementById("MyElement").className += " MyClass";
@@ -117,7 +117,7 @@ jQuery中return false相当于同时调用e.preventDefault 和 e.stopPropagatio
 	//Remove Class
 	document.getElementById("MyElement").className = document.getElementById("MyElement").className.replace(/(?:^|\s)MyClass(?!\S)/,'');
 
-<h3>十、在jQuery中取消一个ajax请求</h3>
+#### 十、在jQuery中取消一个ajax请求
 
 	var xhr = $.ajax({
 	    type: "POST",
@@ -131,7 +131,7 @@ jQuery中return false相当于同时调用e.preventDefault 和 e.stopPropagatio
 	//取消请求
 	xhr.abort()
 
-<h3>十一、JavaScript删除数组中的项 delete vs splice</h3>
+#### 十一、JavaScript删除数组中的项 delete vs splice
 
 	var myArray=["a","b","c"];
 	delete myArray[0];
@@ -156,12 +156,12 @@ jQuery中return false相当于同时调用e.preventDefault 和 e.stopPropagatio
 
 上面的代码已经说明区别了，一个是设置为undefined，一个是真正的删除了。
 
-<h3>十二、JavaScript中16进制与10进制相互转换</h3>
+#### 十二、JavaScript中16进制与10进制相互转换
 
 	var sHex=(255).toString(16);//ff
 	var iNum=parseInt("ff",16);//255
 
-<h3>十三、JavaScript多行字符串</h3>
+#### 十三、JavaScript多行字符串
 
 如何在JavaScript中方便地写一个多行字符串呢，有三种方案，你自己选吧：
 
@@ -174,7 +174,7 @@ jQuery中return false相当于同时调用e.preventDefault 和 e.stopPropagatio
 	//three
 	var testHtml3=["a","b","c"].join("");
 
-<h3>十四、JavaScript中!!操作符是什么</h3>
+#### 十四、JavaScript中!!操作符是什么
 
 	console.log(!!10);//true
 	console.log(!!0);//false
@@ -183,7 +183,7 @@ jQuery中return false相当于同时调用e.preventDefault 和 e.stopPropagatio
 
 简单地说就是把右侧的值转为bool值
 
-<h3>十五、JavaScript实现endsWith</h3>
+#### 十五、JavaScript实现endsWith
 
 	String.prototype.endsWith = function(suffix) {
 	    return this.indexOf(suffix, this.length - suffix.length) !== -1;
@@ -194,7 +194,7 @@ jQuery中return false相当于同时调用e.preventDefault 和 e.stopPropagatio
 	    return str.indexOf(suffix, str.length - suffix.length) !== -1;
 	}
 
-<h3>十六、JavaScript中克隆对象</h3>
+#### 十六、JavaScript中克隆对象
 
 	function clone(obj) {
 	    // Handle the 3 simple types, and null or undefined
@@ -228,19 +228,19 @@ jQuery中return false相当于同时调用e.preventDefault 和 e.stopPropagatio
 	    throw new Error("Unable to copy obj! Its type isn't supported.");
 	}
 
-<h3>十七、JavaScript字符与ASCII码间的转换</h3>
+#### 十七、JavaScript字符与ASCII码间的转换
 
 	console.log("\n".charCodeAt(0));//10
 	console.log(String.fromCharCode(65));//A
 
-<h3>十八、JavaScript中浮点数的相等判断不能用 ==</h3>
+#### 十八、JavaScript中浮点数的相等判断不能用 ==
 
 	console.log(0.1+0.2 == 0.3);//false
 	console.log(Math.abs(0.1+0.2 - 0.3) < 0.000001);//true
 
 如上所示，浮点数相等判断要用差的绝对值小于某一个数来判断。至于原因可以参考这里：[http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html](http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html)
 
-<h3>十九、JavaScript中base64编码</h3>
+#### 十九、JavaScript中base64编码
 
 	var Base64 = {
 	// private property
@@ -382,7 +382,7 @@ jQuery中return false相当于同时调用e.preventDefault 和 e.stopPropagatio
 	//decode
 	Base64.decode("VGVzdA=="); // Test
 
-<h3>二十、jQuery中each跟map的区别</h3>
+#### 二十、jQuery中each跟map的区别
 
 each跟map都可以用来遍历Array或Object，区别是each不改变原来的Array或Object，map是操作给定的Array或Object返回一个新Array或Object。Demo:
 
@@ -397,7 +397,7 @@ each跟map都可以用来遍历Array或Object，区别是each不改变原来的A
 
 map会占用更多的内存，所以如果只是遍历建议用each。
 
-<h3>二十一、判断一个对象是否为数组</h3>
+#### 二十一、判断一个对象是否为数组
 
 	function isArray(obj){
 	    return Object.prototype.toString.call(obj) == "[object Array]";
@@ -405,7 +405,7 @@ map会占用更多的内存，所以如果只是遍历建议用each。
 
 不能用instanceof 和 constructor来判断，原因参考：[http://perfectionkills.com/instanceof-considered-harmful-or-how-to-write-a-robust-isarray/](http://perfectionkills.com/instanceof-considered-harmful-or-how-to-write-a-robust-isarray/)
 
-<h3>二十二、通过原型继承创建一个新对象</h3>
+#### 二十二、通过原型继承创建一个新对象
 
 	function inherit(p){
 	    if(!p){
