@@ -2,7 +2,7 @@
 layout: page
 title: "工具"
 description: "我的小小工具箱"
-header-img: "img/autumn.jpg"
+header-img: "img/autumn.jpg?v=1"
 ---
 
 
