@@ -7,11 +7,14 @@ description: CSS3实现经过图片闪光的效果
 ---
 
 html部分
+
 	<p>
 	   <a><img src='http://www.nowamagic.net/librarys/images/201402/2014_02_15_01.jpg'></a>
 	   <i></i>
 	</p>
+
 css3部分
+
 	.overimg{
 	   position: relative;
 	   display: block;

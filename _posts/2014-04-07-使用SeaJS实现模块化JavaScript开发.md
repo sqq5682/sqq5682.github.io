@@ -157,7 +157,9 @@ index.html加载了init模块，并使用此模块的initPage方法初始化页�
 SeaJS项目目前托管在GitHub上，主页为[https://github.com/seajs/seajs/](https://github.com/seajs/seajs/) 。可以到其git库的build目录下下载sea.js（已压缩）或sea-debug.js（未压缩）。
 
 下载完成后放到项目的相应位置，然后在页面中通过script标签引入，你就可以使用SeaJS了。
+
 ##### SeaJS基本开发原则
+
 在讨论SeaJS的具体使用前，先介绍一下SeaJS的模块化理念和开发原则。
 
 使用SeaJS开发JavaScript的基本原则就是：一切皆为模块。引入SeaJS后，编写JavaScript代码就变成了编写一个又一个模块，SeaJS中模块的概念有点类似于面向对象中的类——模块可以拥有数据和方法，数据和方法可以定义为公共或私有，公共数据和方法可以供别的模块调用。
@@ -165,23 +167,22 @@ SeaJS项目目前托管在GitHub上，主页为[https://github.com/seajs/seajs/]
 另外，每个模块应该都定义在一个单独js文件中，即一个对应一个模块。
 
 下面介绍模块的编写和调用。
-<h2 id="-">模块的定义及编写
-<h3 id="-define">模块定义函数define
+
+**模块的定义及编写**
+
+**模块定义函数define**
+
 SeaJS中使用“define”函数定义一个模块。因为SeaJS的文档并没有关于define的完整参考，所以我阅读了SeaJS源代码，发现define可以接收三个参数：
 
-<code lang="javascript">
-
-/**
-* Defines a module.
-* @param {string=} id The module id.
-* @param {Array.|string=} deps The module dependencies.
-* @param {function()|Object} factory The module factory function.
-*/
-fn.define = function(id, deps, factory) {
-   //code of function…
-}
-
-
+	/**
+	* Defines a module.
+	* @param {string=} id The module id.
+	* @param {Array.|string=} deps The module dependencies.
+	* @param {function()|Object} factory The module factory function.
+	*/
+	fn.define = function(id, deps, factory) {
+	   //code of function…
+	}
 
 上面是我从SeaJS源码中摘录出来的，define可以接收的参数分别是模块ID，依赖模块数组及工厂函数。我阅读源代码后发现define对于不同参数个数的解析规则如下：
 
@@ -193,109 +194,102 @@ fn.define = function(id, deps, factory) {
 
 但是，包括SeaJS的官方示例在内几乎所有用到define的地方都只传递一个工厂函数进去，类似与如下代码：
 
-<code lang="javascript">
-
-define(function(require, exports, module) {
-   //code of the module...
-});
-
-
+	define(function(require, exports, module) {
+	   //code of the module...
+	});
 
 个人建议遵循SeaJS官方示例的标准，用一个参数的define定义模块。那么id和deps会怎么处理呢？
 
-id是一个模块的标识字符串，define只有一个参数时，id会被默认赋值为此js文件的绝对路径。如example.com下的a.js文件中使用define定义模块，则这个模块的ID会赋值为 <a href="http://example.com/a.js">http://example.com/a.js</a> ，没有特别的必要建议不要传入id。deps一般也不需要传入，需要用到的模块用require加载即可。
-<h3 id="-factory-">工厂函数factory解析
+id是一个模块的标识字符串，define只有一个参数时，id会被默认赋值为此js文件的绝对路径。如example.com下的a.js文件中使用define定义模块，则这个模块的ID会赋值为 [http://example.com/a.js](http://example.com/a.js) ，没有特别的必要建议不要传入id。deps一般也不需要传入，需要用到的模块用require加载即可。
+
+**工厂函数factory解析**
+
 工厂函数是模块的主体和重点。在只传递一个参数给define时（推荐写法），这个参数就是工厂函数，此时工厂函数的三个参数分别是：
-<ul>
-   <li>require——模块加载函数，用于记载依赖模块。</li>
-   <li>exports——接口点，将数据或方法定义在其上则将其暴露给外部调用。</li>
-   <li>module——模块的元数据。</li>
-</ul>
+
+> require——模块加载函数，用于记载依赖模块。
+> exports——接口点，将数据或方法定义在其上则将其暴露给外部调用。
+> module——模块的元数据。
+
 这三个参数可以根据需要选择是否需要显示指定。
 
 下面说一下module。module是一个对象，存储了模块的元信息，具体如下：
-<ul>
-   <li>module.id——模块的ID。</li>
-   <li>module.dependencies——一个数组，存储了此模块依赖的所有模块的ID列表。</li>
-   <li>module.exports——与exports指向同一个对象。</li>
-</ul>
-<h3 id="-">三种编写模块的模式
+
+> module.id——模块的ID。
+> module.dependencies——一个数组，存储了此模块依赖的所有模块的ID列表。
+> module.exports——与exports指向同一个对象。
+
+**三种编写模块的模式**
+
 第一种定义模块的模式是基于exports的模式：
 
-<code lang="javascript">
-define(function(require, exports, module) {
-   var a = require('a'); //引入a模块
-   var b = require('b'); //引入b模块
+	define(function(require, exports, module) {
+	   var a = require('a'); //引入a模块
+	   var b = require('b'); //引入b模块
 
-   var data1 = 1; //私有数据
+	   var data1 = 1; //私有数据
 
-   var func1 = function() { //私有方法
-      return a.run(data1);
-   }
+	   var func1 = function() { //私有方法
+	      return a.run(data1);
+	   }
 
-   exports.data2 = 2; //公共数据
+	   exports.data2 = 2; //公共数据
 
-   exports.func2 = function() { //公共方法
-      return 'hello';
-   }
-});
+	   exports.func2 = function() { //公共方法
+	      return 'hello';
+	   }
+	});
 
 
 上面是一种比较“正宗”的模块定义模式。除了将公共数据和方法附加在exports上，也可以直接返回一个对象表示模块，如下面的代码与上面的代码功能相同：
 
-<code lang="javascript">
+	define(function(require) {
+	   var a = require('a'); //引入a模块
+	   var b = require('b'); //引入b模块
+	   var data1 = 1; //私有数据
+	   var func1 = function() { //私有方法
+	      return a.run(data1);
+	   }
 
-define(function(require) {
-   var a = require('a'); //引入a模块
-   var b = require('b'); //引入b模块
-   var data1 = 1; //私有数据
-   var func1 = function() { //私有方法
-      return a.run(data1);
-   }
-
-   return {
-      data2: 2,
-      func2: function() {
-         return 'hello';
-      }
-   };
-});
+	   return {
+	      data2: 2,
+	      func2: function() {
+	         return 'hello';
+	      }
+	   };
+	});
 
 
 如果模块定义没有其它代码，只返回一个对象，还可以有如下简化写法：
 
-<code lang="javascript">define({
-   data: 1,
-   func: function() {
-      return 'hello';
-   }
-});
+	define({
+	   data: 1,
+	   func: function() {
+	      return 'hello';
+	   }
+	});
 
 
 第三种方法对于定义纯JSON数据的模块非常合适。
-<h2 id="-">模块的载入和引用
-<h3 id="-">模块的寻址算法
+
+**模块的载入和引用**
+
+**模块的寻址算法**
+
 上文说过一个模块对应一个js文件，而载入模块时一般都是提供一个字符串参数告诉载入函数需要的模块，所以就需要有一套从字符串标识到实际模块所在文件路径的解析算法。SeaJS支持如下标识：
 
-绝对地址——给出js文件的绝对路径。
+绝对地址——给出js文件的绝对路径。如:
 
-如
+	require("http://example/js/a");
 
-<code lang="javascript">
-require("http://example/js/a");
-
-
-就代表载入 <a href="http://example/js/a.js">http://example/js/a.js</a> 。
+就代表载入 [http://example/js/a.js](http://example/js/a.js)。
 
 相对地址——用相对调用载入函数所在js文件的相对地址寻找模块。
 
-例如在 <a href="http://example/js/b.js">http://example/js/b.js</a> 中载入
+例如在 [http://example/js/b.js](http://example/js/b.js) 中载入
 
-<code lang="javascript">require("./c");
+require("./c");
 
-
-
-则载入 <a href="http://example/js/c.js">http://example/js/c.js</a> 。
+则载入 [http://example/js/c.js](http://example/js/c.js) 。
 
 基址地址——如果载入字符串标识既不是绝对路径也不是以”./”开头，则相对SeaJS全局配置中的“base”来寻址，这种方法稍后讨论。
 
@@ -303,61 +297,57 @@ require("http://example/js/a");
 
 载入css时，如
 
-<code lang="javascript">require("./module1-style.css");
-
-
+	require("./module1-style.css");
 
 路径中含有”?”时，如
 
-<code lang="javascript">require(<a href="http://example/js/a.json?cb=func">http://example/js/a.json?cb=func</a>);
-
-
+	require(<a href="http://example/js/a.json?cb=func">http://example/js/a.json?cb=func</a>);
 
 路径以”#”结尾时，如
 
-<code lang="javascript">require("http://example/js/a.json#");
-
-
+	require("http://example/js/a.json#");
 
 根据应用场景的不同，SeaJS提供了三个载入模块的API，分别是seajs.use，require和require.async，下面分别介绍。
-<h3 id="seajs-use">seajs.use
+
+**seajs.use**
+
 seajs.use主要用于载入入口模块。入口模块相当于C程序的main函数，同时也是整个模块依赖树的根。上面在TinyApp小例子中，init就是入口模块。seajs.use用法如下：
 
-<code lang="javascript">//单一模式
-seajs.use('./a');
-//回调模式
-seajs.use('./a', function(a) {
-   a.run();
-});
-//多模块模式
-seajs.use(['./a', './b'], function(a, b) {
-   a.run();
-   b.run();
-});
+	//单一模式
+	seajs.use('./a');
+	//回调模式
+	seajs.use('./a', function(a) {
+	   a.run();
+	});
+	//多模块模式
+	seajs.use(['./a', './b'], function(a, b) {
+	   a.run();
+	   b.run();
+	});
 
 
 一般seajs.use只用在页面载入入口模块，SeaJS会顺着入口模块解析所有依赖模块并将它们加载。如果入口模块只有一个，也可以通过给引入sea.js的script标签加入”data-main”属性来省略seajs.use，例如，上面TinyApp的index.html也可以改为如下写法：
 
-<code lang="html"><!DOCTYPE HTML>
-
-<html lang="zh-CN">
-<head>
-   <meta charset="UTF-8">
-   <title>TinyApp</title>
-</head>
-<body>
-   <p class="content"></p>
-   <script src="./sea.js" data-main="./init"></script>
-</body>
-</html>
+	<!DOCTYPE HTML>
+	<html lang="zh-CN">
+	<head>
+	   <meta charset="UTF-8">
+	   <title>TinyApp</title>
+	</head>
+	<body>
+	   <p class="content"></p>
+	   <script src="./sea.js" data-main="./init"></script>
+	</body>
+	</html>
 
 
 这种写法会令html更加简洁。
-<h3 id="require">require
+
+**require**
+
 require是SeaJS主要的模块加载方法，当在一个模块中需要用到其它模块时一般用require加载：
 
-<code lang="javascript">var m = require('/path/to/module/file');
-
+	var m = require('/path/to/module/file');
 
 这里简要介绍一下SeaJS的自动加载机制。上文说过，使用SeaJS后html只要包含sea.js即可，那么其它js文件是如何加载进来的呢？SeaJS会首先下载入口模块，然后顺着入口模块使用正则表达式匹配代码中所有的require，再根据require中的文件路径标识下载相应的js文件，对下载来的js文件再迭代进行类似操作。整个过程类似图的遍历操作（因为可能存在交叉循环依赖所以整个依赖数据结构是一个图而不是树）。
 
@@ -365,43 +355,40 @@ require是SeaJS主要的模块加载方法，当在一个模块中需要用到�
 
 传给require的路径标识必须是字符串字面量，不能是表达式，如下面使用require的方法是错误的：
 
-<code lang="javascript">require('module' + '1');
-require('Module'.toLowerCase());
+	require('module' + '1');
+	require('Module'.toLowerCase());
 
 
 这都会造成SeaJS无法进行正确的正则匹配以下载相应的js文件。
-<h3 id="require-async">require.async
+
+**require.async**
+
 上文说过SeaJS会在html页面打开时通过静态分析一次性记载所有需要的js文件，如果想要某个js文件在用到时才下载，可以使用require.async：
 
-<code lang="javascript">
-require.async('/path/to/module/file', function(m) {
-   //code of callback...
-});
-
+	require.async('/path/to/module/file', function(m) {
+	   //code of callback...
+	});
 
 这样只有在用到这个模块时，对应的js文件才会被下载，也就实现了JavaScript代码的按需加载。
-<h2>SeaJS的全局配置
+#### SeaJS的全局配置
 SeaJS提供了一个seajs.config方法可以设置全局配置，接收一个表示全局配置的配置对象。具体使用方法如下：
 
-<code lang="javascript">
-seajs.config({
-   base: 'path/to/jslib/',
-   alias: {
-      'app': 'path/to/app/'
-   },
-   charset: 'utf-8',
-   timeout: 20000,
-   debug: false
-});
+	seajs.config({
+	   base: 'path/to/jslib/',
+	   alias: {
+	      'app': 'path/to/app/'
+	   },
+	   charset: 'utf-8',
+	   timeout: 20000,
+	   debug: false
+	});
 
 
-其中base表示基址寻址时的基址路径。例如base设置为 <a href="http://example.com/js/3-party/">http://example.com/js/3-party/</a> ，则
+其中base表示基址寻址时的基址路径。例如base设置为 [http://example.com/js/3-party/](http://example.com/js/3-party/) ，则
 
-<code lang="javascript">var $ = require('jquery');
+	var $ = require('jquery');
 
-
-
-会载入 <a href="http://example.com/js/3-party/jquery.js">http://example.com/js/3-party/jquery.js</a> 。
+会载入 [http://example.com/js/3-party/jquery.js](http://example.com/js/3-party/jquery.js)。
 
 alias可以对较长的常用路径设置缩写。
 
@@ -411,7 +398,7 @@ timeout表示下载文件的最大时长，以毫秒为单位。
 
 debug表示是否工作在调试模式下。
 
-####SeaJS如何与现有JS库配合使用
+#### SeaJS如何与现有JS库配合使用
 
 要将现有JS库如jQuery与SeaJS一起使用，只需根据SeaJS的的模块定义规则对现有库进行一个封装。例如，下面是对jQuery的封装方法：
 

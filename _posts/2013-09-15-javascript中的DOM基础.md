@@ -16,7 +16,7 @@ DOM 有三个等级，分别是 DOM1、DOM2、DOM3，并且 DOM1 在 1998 年 10
 
 PS：IE 中的所有 DOM 对象都是以 COM 对象的形式实现的，这意味着 IE 中的 DOM可能会和其他浏览器有一定的差异。
 
-##### 1.节点
+**1.节点**
 
 加载 HTML 页面时，Web 浏览器生成一个树型结构，用来表示页面内部结构。DOM 将这种树型结构理解为由节点组成。
 
@@ -28,7 +28,7 @@ PS：IE 中的所有 DOM 对象都是以 COM 对象的形式实现的，这意�
 
 PS：后面我们经常把标签称作为元素，是一个意思。
 
-##### 2.节点种类：元素节点、文本节点、属性节点。
+**2.节点种类：元素节点、文本节点、属性节点。**
 
 <div title="属性节点">测试 Div</div>
 
@@ -42,7 +42,7 @@ W3C 提供了比较方便简单的定位节点的方法和属性，以便我们�
 
 ![](../img/uploads/2013/09/13.jpg)
 
-##### 1.getElementById()方法
+**1.getElementById()方法**
 
 getElementById()方法，接受一个参数：获取元素的 ID。如果找到相应的元素则返回该元素的 HTMLDivElement 对象，如果不存在，则返回 null。
 
@@ -64,14 +64,14 @@ PS：id 表示一个元素节点的唯一性，不能同时给两个或以上的
 
 当我们通过 getElementById()获取到特定元素节点时，这个节点对象就被我们获取到了，而通过这个节点对象，我们可以访问它的一系列属性。
 
-#### 元素节点属性
+**元素节点属性**
 
 ![](../img/uploads/2013/09/14.jpg)
 
 	document.getElementById('box').tagName;//DIV
 	document.getElementById('box').innerHTML;//测试 Div
 
-#### HTML 属性的属性
+**HTML 属性的属性**
 
 ![](../img/uploads/2013/09/15.jpg)
 
@@ -95,7 +95,7 @@ PS：id 表示一个元素节点的唯一性，不能同时给两个或以上的
 	alert(document.getElementById('box').bbb);//获取自定义属性的值，非 IE 不支持
 
 
-#### 2.getElementsByTagName()方法
+**2.getElementsByTagName()方法**
 
 getElementsByTagName()方法将返回一个对象数组 HTMLCollection(NodeList)，这个数组保存着所有相同元素名的节点列表。
 
@@ -112,7 +112,7 @@ PS：IE 浏览器在使用通配符的时候，会把文档最开始的 html 的
 
 PS：不管是 getElementById 还是 getElementsByTagName，在传递参数的时候，并不是所有浏览器都必须区分大小写，为了防止不必要的错误和麻烦，我们必须坚持养成区分大小写的习惯。
 
-#### 3.getElementsByName()方法
+**3.getElementsByName()方法**
 
 getElementsByName()方法可以获取相同名称(name)的元素，返回一个对象数组HTMLCollection(NodeList)。
 
@@ -123,7 +123,7 @@ getElementsByName()方法可以获取相同名称(name)的元素，返回一个�
 
 PS：对于并不是 HTML 合法的属性，那么在 JS 获取的兼容性上也会存在差异，IE 浏览器支持本身合法的 name 属性，而不合法的就会出现不兼容的问题。
 
-#### 4.getAttribute()方法
+**4.getAttribute()方法**
 
 getAttribute()方法将获取元素中某个属性的值。它和直接使用.属性获取属性值的方法有一定区别。
 
@@ -137,7 +137,7 @@ getAttribute()方法将获取元素中某个属性的值。它和直接使用.�
 
 PS：HTML 通用属性 style 和 onclick，IE7 更低的版本 style 返回一个对象，onclick 返回一个函数式。虽然 IE8 已经修复这个 bug，但为了更好的兼容，开发人员只有尽可能避免使用 getAttribute()访问 HTML 属性了，或者碰到特殊的属性获取做特殊的兼容处理。
 
-#### 5.setAttribute()方法
+**5.setAttribute()方法**
 
 setAttribute()方法将设置元素中某个属性和值。它需要接受两个参数：属性名和值。如果属性本身已存在，那么就会被覆盖。
 
@@ -147,7 +147,7 @@ setAttribute()方法将设置元素中某个属性和值。它需要接受两个
 
 PS：在 IE7 及更低的版本中，使用 setAttribute()方法设置 class 和 style 属性是没有效果的，虽然 IE8 解决了这个 bug，但还是不建议使用。
 
-#### 6.removeAttribute()方法
+**6.removeAttribute()方法**
 
 	removeAttribute()可以移除 HTML 属性。
 	document.getElementById('box').removeAttribute('style');//移除属性
@@ -157,7 +157,7 @@ PS：IE6 及更低版本不支持 removeAttribute()方法。
 
 #### 三．DOM 节点
 
-##### 1.node 节点属性
+**1.node 节点属性**
 
 节点可以分为元素节点、属性节点和文本节点，而这些节点又有三个非常有用的属性，分别为：nodeName、nodeType 和 nodeValue。
 
@@ -168,15 +168,15 @@ PS：IE6 及更低版本不支持 removeAttribute()方法。
 	document.getElementById('box').nodeType;//1，元素节点
 
 
-##### 2.层次节点属性
+**2.层次节点属性**
 
 节点的层次结构可以划分为：父节点与子节点、兄弟节点这两种。当我们获取其中一个元素节点的时候，就可以使用层次节点属性来获取它相关层次的节点。
 
-#### 层次节点属性
+**层次节点属性**
 
 ![](../img/uploads/2013/09/17.jpg)
 
-#### 1.childNodes 属性
+**1.childNodes 属性**
 
 childeNodes 属性可以获取某一个元素节点的所有子节点，这些子节点包含元素子节点和文本子节点。
 
@@ -210,7 +210,7 @@ PS：innerHTML 和 nodeValue 第一个区别，就是取值的。那么第二个
 	abcbox.innerHTML = 'abc';//结果为：abc
 
 
-#### 2.firstChild 和 lastChild 属性
+**2.firstChild 和 lastChild 属性**
 
 firstChild 用于获取当前元素节点的第一个子节点，相当于 childNodes[0]；lastChild 用于获取当前元素节点的最后一个子节点，相当于 childNodes[box.childNodes.length - 1]。
 
@@ -218,13 +218,13 @@ firstChild 用于获取当前元素节点的第一个子节点，相当于 child
 	alert(box.lastChild.nodeValue);//获取最后一个子节点的文本内容
 
 
-#### 3.ownerDocument 属性
+**3.ownerDocument 属性**
 
 ownerDocument 属性返回该节点的文档对象根节点，返回的对象相当于 document。
 
 	alert(box.ownerDocument === document);//true，根节点
 
-#### 4.parentNode、previousSibling、nextSibling 属性
+**4.parentNode、previousSibling、nextSibling 属性**
 
 parentNode 属性返回该节点的父节点，previousSibling 属性返回该节点的前一个同级节点，nextSibling 属性返回该节点的后一个同级节点。
 
@@ -232,7 +232,7 @@ parentNode 属性返回该节点的父节点，previousSibling 属性返回该�
 	alert(box.lastChild.previousSibling);//获取前一个同级节点
 	alert(box.firstChild.nextSibling);//获取后一个同级节点
 
-#### 5.attributes 属性
+**5.attributes 属性**
 
 attributes 属性返回该节点的属性节点集合。
 
@@ -245,7 +245,7 @@ attributes 属性返回该节点的属性节点集合。
 	document.getElementById('box').attributes.getNamedItem('id'); //Attr
 
 
-#### 6.忽略空白文本节点
+**6.忽略空白文本节点**
 
 	var body = document.getElementsByTagName('body')[0];//获取 body 元素节点
 	alert(body.childNodes.length);//得到子节点个数，IE3 个，非 IE7 个
@@ -298,7 +298,7 @@ DOM 不单单可以查找节点，也可以创建节点、复制节点、插入�
 
 ![](../img/uploads/2013/09/18.jpg)
 
-#### 1.write()方法
+**1.write()方法**
 
 write()方法可以把任意字符串插入到文档中去。
 
@@ -308,13 +308,13 @@ write()方法可以把任意字符串插入到文档中去。
 
 	')';//输出任意字符串
 
-#### 2.createElement()方法
+**2.createElement()方法**
 
 createElement()方法可以创建一个元素节点。
 
 	document.createElement('p');//创建一个元素节点
 
-#### 3.appendChild()方法
+**3.appendChild()方法**
 
 appendChild()方法讲一个新节点添加到某个节点的子节点列表的末尾上。
 
@@ -325,7 +325,7 @@ appendChild()方法讲一个新节点添加到某个节点的子节点列表的�
 
 添加子节点末尾
 
-#### 4.createTextNode()方法
+**4.createTextNode()方法**
 
 createTextNode()方法创建一个文本节点。
 
@@ -333,7 +333,7 @@ createTextNode()方法创建一个文本节点。
 	p.appendChild(text);//将文本节点添加到子节点末尾
 
 
-#### 5.insertBefore()方法
+**5.insertBefore()方法**
 
 insertBefore()方法可以把节点创建到指定节点的前面。
 
@@ -368,13 +368,13 @@ PS：createElement 在创建一般元素节点的时候，浏览器的兼容性�
 	document.getElementsByTagName('body')[0].appendChild(input);
 
 
-#### 6.repalceChild()方法
+**6.repalceChild()方法**
 
 replaceChild()方法可以把节点替换成指定的节点。
 
 	box.parentNode.replaceChild(p,box);//把<div>换成了&nbsp;</div>
 
-#### 7.cloneNode()方法
+**7.cloneNode()方法**
 
 cloneNode()方法可以把子节点复制出来。
 
@@ -383,7 +383,7 @@ cloneNode()方法可以把子节点复制出来。
 	box.appendChild(clone);//添加到子节点列表末尾
 
 
-#### 8.removeChild()方法
+**8.removeChild()方法**
 
 removeChild()方法可以把
 
