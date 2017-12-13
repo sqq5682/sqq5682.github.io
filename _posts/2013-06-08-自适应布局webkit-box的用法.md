@@ -12,19 +12,13 @@ description: 自适应布局webkit-box的用法
 
 Flexible Box Model有几个属性：
 
-> 1、box-orient 在父元素上设置   子元素排列 vertical (垂直) or horizontal（水平）> 
-
-> 2、box-flex 在子元素上设置   兄弟元素之间比例，仅作一个系数> 
-
-> 3、box-align 在父元素上设置    box 排列> 
-
-> 4、box-direction 在父元素上设置    box 方向  可设置reverse排序相反> 
-
-> 5、box-flex-group 在子元素上设置   以组为单位的流体系数> 
-
-> 6、box-ordinal-group 以组为单位的子元素排列方向> 
-
-> 7、box-pack 在父元素上设置   可设置center和vertically
+* 1、box-orient 在父元素上设置   子元素排列 vertical (垂直) or horizontal（水平）> 
+* 2、box-flex 在子元素上设置   兄弟元素之间比例，仅作一个系数> 
+* 3、box-align 在父元素上设置    box 排列> 
+* 4、box-direction 在父元素上设置    box 方向  可设置reverse排序相反> 
+* 5、box-flex-group 在子元素上设置   以组为单位的流体系数> 
+* 6、box-ordinal-group 以组为单位的子元素排列方向> 
+* 7、box-pack 在父元素上设置   可设置center和vertically
 
 
 演示效果如图：
