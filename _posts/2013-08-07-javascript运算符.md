@@ -99,7 +99,7 @@ PS： typeof 操作符、new 操作符，也可以称之为 typeof 运算符、n
 
 ECMAScript 定义了 5 个算术运算符，加减乘除求模(取余)。如果在算术运算的值不是数值，那么后台会先使用 Number()转型函数将其转换为数值(隐式转换)。
 
-**1.加法**
+1.加法
 
 	var box = 1 + 2;//等于 3
 	var box = 1 + NaN;//NaN，只要有一个 NaN 就为 NaN
@@ -113,7 +113,7 @@ ECMAScript 定义了 5 个算术运算符，加减乘除求模(取余)。如果�
 	var box = 10 + 对象;//10[object Object]，如果有 toString()或 valueOf()则返回 10+返回数的值
 
 
-**2.减法**
+2.减法
 
 	var box = 100 - 70;//等于 30
 	var box = -100 - 70;//等于-170
@@ -131,7 +131,7 @@ ECMAScript 定义了 5 个算术运算符，加减乘除求模(取余)。如果�
 	var box = 100 - 对象;//NaN，如果有 toString()或 valueOf()则返回 10-返回数的值
 
 
-**3.乘法**
+3.乘法
 
 	var box = 100 * 70;//7000
 	var box = 100 * NaN;//NaN，只要有一个 NaN 即为 NaN
@@ -146,7 +146,7 @@ ECMAScript 定义了 5 个算术运算符，加减乘除求模(取余)。如果�
 
 
 
-**4.除法**
+4.除法
 
 	var box = 100 / 70;//1.42....
 	var box = 100 / NaN;//NaN
@@ -160,7 +160,7 @@ ECMAScript 定义了 5 个算术运算符，加减乘除求模(取余)。如果�
 	var box = 100 / 对象;//NaN，如果有 toString()或 valueOf()则返回 10 / 返回数的值
 
 
-**5.求模**
+5.求模
 
 	var box = 10 % 3;//1，余数为 1
 	var box = 100 % NaN;//NaN
