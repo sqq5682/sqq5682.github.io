@@ -229,7 +229,7 @@ https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code
     }
 
 
-[https://mp.weixin.qq.com/wiki/10/6380dc743053a91c544ffd2b7c959166.html](全局返回码说明)
+[全局返回码说明](https://mp.weixin.qq.com/wiki/10/6380dc743053a91c544ffd2b7c959166.html)
 
 ### 第三步：刷新access_token（如果需要）
 
@@ -324,7 +324,7 @@ https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&grant_type=refres
     }
 
 
-[https://mp.weixin.qq.com/wiki/10/6380dc743053a91c544ffd2b7c959166.html](全局返回码说明)
+[全局返回码说明](https://mp.weixin.qq.com/wiki/10/6380dc743053a91c544ffd2b7c959166.html)
 
 ### 第四步：拉取用户信息(需scope为 snsapi_userinfo)
 
@@ -441,7 +441,7 @@ https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&grant_type=refres
     }
 
 
-[https://mp.weixin.qq.com/wiki/10/6380dc743053a91c544ffd2b7c959166.html](全局返回码说明)
+[全局返回码说明](https://mp.weixin.qq.com/wiki/10/6380dc743053a91c544ffd2b7c959166.html)
 
 附：检验授权凭证（access_token）是否有效
 

@@ -6,7 +6,7 @@ tags: [git ]
 description: git中配置github的账号
 ---
 
-这里说的是window下操作，首先要有一个[https://github.com/](github)账号，以及安装[http://git-scm.com/download/](git)软件
+这里说的是window下操作，首先要有一个[github](https://github.com/)账号，以及安装[git](http://git-scm.com/download/)软件
 
 1.先输入ssh-keygen –t rsa –C “邮箱地址”,注意ssh-keygen之间是没有空格的,其他的之间是有空格的
 
