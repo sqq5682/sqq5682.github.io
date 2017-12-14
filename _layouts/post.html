@@ -71,17 +71,6 @@ layout: default
 </article>
 <!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
 <script>
-    async("/js/anchor.min.js",function(){
-        anchors.options = {
-          visible: 'always',
-          placement: 'right',
-          icon: '#'
-        };
-        anchors.add().remove('.intro-header h1').remove('.subheading');
-    })
-</script>
-<!-- Highlight.js -->
-<script>
     //async load function 
     function async(u, c) {
       var d = document, t = 'script',
@@ -91,7 +80,16 @@ layout: default
       if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
       s.parentNode.insertBefore(o, s);
     }
-    async("/js/highlight.min.js",function(){
+    async("https://sqq5682.github.io/js/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading');
+    })
+    //Highlight.js
+    async("https://sqq5682.github.io/js/highlight.min.js",function(){
         hljs.initHighlightingOnLoad();
     })
 </script>
