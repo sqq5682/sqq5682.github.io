@@ -1,13 +1,13 @@
 ---
 layout: post
-title: github pages博客Jekyll添加Gitment评论系统
+title: github pages博客Jekyll添加Gitment评论
 categories: [blog ]
 tags: [Gitment ]
-description: github pages博客Jekyll添加Gitment评论系统
+description: github pages博客Jekyll添加Gitment评论
 ---
 
 
-前一段时间在Github Pages上使用Jekyll搭建了个人博客[sqq5682.github.io](http://sqq5682.github.io//cn)，现在把之前的wordpress博客上的内容搬了过来，添加评论系统时，找了几个国内的，有的需要备案的，搜了一下找到了gitment，gitment是imsun利用github上的issues做的评论系统，项目地址为[https://github.com/imsun/gitment](https://github.com/imsun/gitment)，然后着手开始自己的博客评论系统新建，同时也写一下。
+前一段时间在Github Pages上使用Jekyll搭建了个人博客[sqq5682.github.io](http://sqq5682.github.io//cn)，现在把之前的wordpress博客上的内容搬了过来，添加评论时，找了几个国内的，有的需要备案的，搜了一下找到了gitment，gitment是imsun利用github上的issues做的评论，项目地址为[https://github.com/imsun/gitment](https://github.com/imsun/gitment)，然后着手开始自己的博客评论新建，同时也写一下。
 
 **注册OAuth Application**
 
@@ -48,7 +48,7 @@ description: github pages博客Jekyll添加Gitment评论系统
 	</script>
 
 
-这时打开文章页面会看到，Error: Comments Not Initialized，提示该篇博文的评论系统还没初始化
+这时打开文章页面会看到，Error: Comments Not Initialized，提示该篇博文的评论还没初始化
 
 ![](../img/uploads/2017/12/18.jpg)
 
