@@ -21,7 +21,7 @@ header-img: "img/plane.jpg"
 <center>
     <p><img src="../img/hacker.png" align="center"></p>
 </center>
-
+{{ site.gitment.id }} -- {{ site.gitment.secret }}
 <!-- 基于Github的Issues的评论 -->
 <div id="gitmentContainer"></div>
 <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">

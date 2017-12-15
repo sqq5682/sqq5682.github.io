@@ -22,6 +22,15 @@ description: github pages博客Jekyll添加Gitment评论系统
 
 **在jekyll博客引用gitment代码**
 
+为了灵活和方便管理，可以在_config.yml中配置好全局参数：
+
+	# Gitment
+	gitment
+		id:ebd2bxxxxxxxx
+		secret:701e6d334e75xxxxxxxxxxxxxx
+
+然后在文章页面添加如下代码
+
 	<div id="container"></div>
 	<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
 	<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
@@ -38,11 +47,28 @@ description: github pages博客Jekyll添加Gitment评论系统
 	gitment.render('container')
 	</script>
 
-为了灵活和方便管理，可以在_config.yml中配置好全局参数：
+这时打开文章页面会看到，Error: Comments Not Initialized，提示该篇博文的评论系统还没初始化
 
-	# Gitment
-	gitment
-		id:ebd2bxxxxxxxx
-		secret:701e6d334e75xxxxxxxxxxxxxx
+![](../img/uploads/2017/12/18.jpg)
 
+在右边点Login with GitHub，在GitHub进行授权后页面会刷新成：Initialize Comments
 
+![](../img/uploads/2017/12/19.jpg)
+
+接着点击Initialize Comments按钮后，进行初始化就可以评论了
+
+![](../img/uploads/2017/12/20.jpg)
+
+同时也可以在对应的github仓库看到相应的issue
+
+![](../img/uploads/2017/12/17.jpg)
+
+ps:我碰到一个问题在上述点击Initialize Comments后有个错误提示为
+
+	Error: Issues are disabled for this repo
+
+出现这个问题，是由于对应的issue page没打开，可以在如下对应issue 打上对勾 就行了
+
+![](../img/uploads/2017/12/17.jpg)
+
+如果碰到其他问题，可以看这里[gitment 错误处理](https://github.com/imsun/gitment/issues)

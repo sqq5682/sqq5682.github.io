@@ -54,6 +54,11 @@ defaults:
       author: "sqq5682"
       header-img: "img/fantasy.jpg" # We don't want posts without a header image, that whould mean white on white
 
+# Gitment
+gitment:
+    id:ebd2b99342db7807f07d
+    secret:701e6d334e758da50e537704a3c2d0a38654445c
+    
 # Comments 
 comments :
   provider : duoshuo
