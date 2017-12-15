@@ -9,7 +9,7 @@ header-img: "img/plane.jpg"
     <p><img src="../img/Zero.png" align="center"></p>
 </center>
 
-我叫宋强强，来自河南周口新安集镇，12年6月毕业于河南工业职业技术学院，所学专业计算机应用技术，目前在[优购网](http://m.yougou.com)工作，职业web前端开发。
+我叫宋强强，来自河南周口，12年6月毕业于河南工业职业技术学院，所学专业计算机应用技术，目前在[优购网](http://m.yougou.com)工作，职业web前端开发。
 
 之前，博客一直在论坛和社区里，其实很早就想有一个完全属于自己、有自己的独立域名的博客，写一些自己所遇到的困难和解决的方法，这样的话对技术方面会很有效的提高和积累，同时也能锻炼自己的书面表达能力，何乐而不为呢？
 
@@ -28,11 +28,11 @@ header-img: "img/plane.jpg"
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-    owner: 'sqq5682',
-    repo: 'sqq5682.github.io',
+    owner: '{{ site.github_username }}',
+    repo: '{{ site.urlName }}',
     oauth: {
-        client_id: 'ebd2b99342db7807f07d',
-        client_secret: '701e6d334e758da50e537704a3c2d0a38654445c',
+        client_id: '{{ site.gitmentId }}',
+        client_secret: '{{ site.gitmentSecret }}',
     },
 });
 gitment.render('gitmentContainer');

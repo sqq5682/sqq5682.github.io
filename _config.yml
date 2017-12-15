@@ -5,6 +5,7 @@ tagline: "左右"
 description: "勿忘初心"  
 baseurl: ""
 url: "http://sqq5682.github.io"  
+urlName: "sqq5682.github.io"  
 #url: "http://localhost:4000"
 
 # About/contact
@@ -54,13 +55,9 @@ defaults:
       author: "sqq5682"
       header-img: "img/fantasy.jpg" # We don't want posts without a header image, that whould mean white on white
 
-# Comments 
-comments :
-  provider : duoshuo
-  duoshuo :
-    short_name : sqq5682
-  disqus :
-      short_name : sqq5682
+# Gitment
+gitmentId:ebd2b99342db7807f07d
+gitmentSecret:701e6d334e758da50e537704a3c2d0a38654445c
 
 # Analytics and webmaster tools stuff goes here
 google_analytics: UA-66863061-1

@@ -207,15 +207,17 @@ IE依靠滤镜实现渐变。startColorstr表示起点的颜色，endColorstr表
 正如上面看到的示例，如果您不指定一个角度，它会根据起始位置自动定义。如果你想更多的控制渐变的方向，您不妨设置角度试试。例如，下面的两个渐变具有相同的起点left center，但是加上一个30度的角度。
 
 没有角度的示例代码：
-background: -moz-linear-gradient(left, #ace, #f96);
-background: -webkit-linear-gradient(left,#ace,#f96);
-background: -o-linear-gradient(left, #ace, #f96);
+
+	background: -moz-linear-gradient(left, #ace, #f96);
+	background: -webkit-linear-gradient(left,#ace,#f96);
+	background: -o-linear-gradient(left, #ace, #f96);
 
 
 加上30度的角度代码：
-background: -moz-linear-gradient(left 30deg, #ace, #f96);
-background: -webkit-gradient(linear, 0 0, 100% 100%, from(#ace),to(#f96));
-background: -o-linear-gradient(30deg, #ace, #f96);
+
+	background: -moz-linear-gradient(left 30deg, #ace, #f96);
+	background: -webkit-gradient(linear, 0 0, 100% 100%, from(#ace),to(#f96));
+	background: -o-linear-gradient(30deg, #ace, #f96);
 
 
 效果图如下：
