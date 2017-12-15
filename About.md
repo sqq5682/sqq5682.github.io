@@ -21,3 +21,19 @@ header-img: "img/plane.jpg"
 <center>
     <p><img src="../img/hacker.png" align="center"></p>
 </center>
+
+<!-- 基于Github的Issues的评论 -->
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+    owner: 'sqq5682',
+    repo: 'sqq5682.github.io',
+    oauth: {
+        client_id: 'ebd2b99342db7807f07d',
+        client_secret: '701e6d334e758da50e537704a3c2d0a38654445c',
+    },
+});
+gitment.render('gitmentContainer');
+</script>
