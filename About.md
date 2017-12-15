@@ -21,9 +21,6 @@ header-img: "img/plane.jpg"
 <center>
     <p><img src="../img/hacker.png" align="center"></p>
 </center>
-{% if site.gitment %}
-{{ site.gitment.id }} -- {{ site.gitment.secret }}
-{% endif %}
 <!-- 基于Github的Issues的评论 -->
 <div id="gitmentContainer"></div>
 <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">

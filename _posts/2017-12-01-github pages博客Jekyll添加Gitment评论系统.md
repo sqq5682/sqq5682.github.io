@@ -35,17 +35,18 @@ description: github pages博客Jekyll添加Gitment评论系统
 	<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
 	<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 	<script>  
-	var gitment = new Gitment({
-	  id: '页面 ID', // 可选。默认为 location.href  比如我本人的就删除了
-	  owner: '你的 GitHub Name',              //比如我的叫anTtutu  
-	  repo: '存储评论的 repo',                 //比如我的叫anTtutu.github.io  
-	  oauth: {  
-	    client_id: '你的 client ID',          //比如我的828***********  
-	    client_secret: '你的 client secret',  //比如我的49e************************  
-	  },
-	})
-	gitment.render('container')
+	var gitment = new Gitment({  
+	  id: '页面 ID', // 可选。默认为 location.href  比如我本人的就删除了  
+	  owner: '你的 GitHub Name',              //比如我的叫anTtutu    
+	  repo: '存储评论的 repo',                 //比如我的叫anTtutu.github.io    
+	  oauth: {    
+	    client_id: '你的 client ID',          //比如我的828***********    
+	    client_secret: '你的 client secret',  //比如我的49e************************    
+	  },  
+	})  
+	gitment.render('container')  
 	</script>
+
 
 这时打开文章页面会看到，Error: Comments Not Initialized，提示该篇博文的评论系统还没初始化
 

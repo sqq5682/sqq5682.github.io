@@ -23,10 +23,6 @@ github_username: sqq5682
 facebook_username:  
 weibo_username:  
 zhihu_username: song-qiang-qiang  
-# Gitment
-gitment:
-    id:ebd2b99342db7807f07d
-    secret:701e6d334e758da50e537704a3c2d0a38654445c
 
 # Build settings  
 # use Github Flavored Markdown !important  
