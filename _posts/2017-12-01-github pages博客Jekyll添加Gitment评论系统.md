@@ -13,7 +13,7 @@ description: github pages博客Jekyll添加Gitment评论系统
 
 首先登录自己的github，在Github头像下拉菜单 > Settings > 左边Developer settings下的OAuth Application > Register a new application，填写下面信息，如下：
 
-![](../img/uploads/2017/12/15.jpg)
+![](../img/uploads/2017/12/25.jpg)
 
 > Authorization callback URL  一定要写自己Github Pages的URL  比如我填的是http://sqq5682.github.io  
 
