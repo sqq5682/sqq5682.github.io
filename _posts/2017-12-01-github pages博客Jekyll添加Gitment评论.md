@@ -7,7 +7,7 @@ description: github pages博客Jekyll添加Gitment评论
 ---
 
 
-前一段时间在Github Pages上使用Jekyll搭建了个人博客[sqq5682.github.io](http://sqq5682.github.io//cn)，现在把之前的wordpress博客上的内容搬了过来，添加评论时，找了几个国内的，有的需要备案的，搜了一下找到了gitment，gitment是imsun利用github上的issues做的评论，项目地址为[https://github.com/imsun/gitment](https://github.com/imsun/gitment)，然后着手开始自己的博客评论新建，同时也写一下。
+前一段时间在Github Pages上使用Jekyll搭建了个人博客[sqq5682.github.io](http://sqq5682.github.io)，现在把之前的wordpress博客上的内容搬了过来，添加评论时，找了几个国内的，有的需要备案的，搜了一下找到了gitment，gitment是imsun利用github上的issues做的评论，项目地址为[gitment](https://github.com/imsun/gitment)，然后着手开始自己的博客评论新建，同时也写一下。
 
 **注册OAuth Application**
 
@@ -26,8 +26,8 @@ description: github pages博客Jekyll添加Gitment评论
 
 	# Gitment
 	gitment
-		id:ebd2bxxxxxxxx
-		secret:701e6d334e75xxxxxxxxxxxxxx
+	   id:ebd2bxxxxxxxx
+	   secret:701e6d334e75xxxxxxxxxxxxxx
 
 然后在文章页面添加如下代码
 
@@ -72,4 +72,4 @@ ps:我碰到一个问题在上述点击Initialize Comments后有个错误提示�
 
 ![](../img/uploads/2017/12/21.jpg)
 
-如果碰到其他问题，可以看这里[gitment 错误处理](https://github.com/imsun/gitment/issues)
+如果碰到其他问题，可以看这里[gitment错误处理](https://github.com/imsun/gitment/issues)
