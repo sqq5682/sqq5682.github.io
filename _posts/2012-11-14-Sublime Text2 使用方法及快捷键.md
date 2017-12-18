@@ -28,7 +28,7 @@ sublime text2的基本操作。
 用 Command+P 后 : (或是Ctrl+G)加上数字可以跳转到相应的行。
 而更酷的是你可以用 Command+P 加上一些关键词跳转到某个文件同时加上 @ 来列出/跳转到目标文件中的某个函数，或是同时加上 # 来在目标文件中进行搜索，或是同时加上 : 和数字来跳转到目标文件中相应的行。
 
-** miulti-selection（多重选择）：**
+**miulti-selection（多重选择）：**
 
 允许在页面中同时存在多个光标
 
@@ -37,7 +37,7 @@ sublime text2的基本操作。
 通过反复按下 Control/Command + D 即可将全文中与光标当前所在位置的词相同的词逐一加入选择，而直接按下 Alt+F3(Windows) 或是 Ctrl+Command+G(Mac) 即可一次性选择所有相同的词。
 按下鼠标中键来进行垂直方向的纵列选择，也可以进入多重编辑状态。
 
-** indent guide（缩进指示）：**
+**indent guide（缩进指示）：**
 
 （缩进指示已经被集成进 Sublime Text 2 中，不需要安装插件了。）
 
