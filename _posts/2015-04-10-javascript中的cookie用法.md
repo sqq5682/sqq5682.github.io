@@ -167,8 +167,6 @@ cookie 名的参数为 cname。
 	   }
 	}
 
-> myCookie.set(name,value,time)//设置Cookie的name
-
-> myCookie.get(name)//获取Cookie的name
-
+> myCookie.set(name,value,time)//设置Cookie的name  
+> myCookie.get(name)//获取Cookie的name  
 > myCookie.delete(name)//删除Cookie的name
