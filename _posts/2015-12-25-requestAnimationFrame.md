@@ -2,8 +2,8 @@
 layout: post
 title: requestAnimationFrame-性能更好的js动画实现方式
 categories: [blog ]
-tags: [Tool, ]
-description: 一年阅读惨淡的收场
+tags: [requestAnimationFrame ]
+description: requestAnimationFrame-性能更好的js动画实现方式
 ---
 
 用js来实现动画，我们一般是借助setTimeout或setInterval这两个函数，css3动画出来后，我们又可以使用css3来实现动画了，而且性能和流畅度也得到了很大的提升。但是css3动画还是有不少局限性，比如不是所有属性都能参与动画、动画缓动效果太少、无法完全控制动画过程等等。所以有的时候我们还是不得不使用setTimeout或setInterval的方式来实现动画，可是setTimeout和setInterval有着严重的性能问题，虽然某些现代浏览器对这两函个数进行了一些优化，但还是无法跟css3的动画性能相提并论。这个时候，就该requestAnimationFrame出马了。
@@ -12,8 +12,7 @@ requestAnimationFrame 是专门为实现高性能的帧动画而设计的一个A
 
 requestAnimationFrame 比起 setTimeout、setInterval的优势主要有两点：
 
-> 1、requestAnimationFrame 会把每一帧中的所有DOM操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
->
+> 1、requestAnimationFrame 会把每一帧中的所有DOM操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。  
 > 2、在隐藏或不可见的元素中，requestAnimationFrame将不会进行重绘或回流，这当然就意味着更少的的cpu，gpu和内存使用量。
 
 像setTimeout、setInterval一样，requestAnimationFrame是一个全局函数。调用requestAnimationFrame后，它会要求浏览器根据自己的频率进行一次重绘，它接收一个回调函数作为参数，在即将开始的浏览器重绘时，会调用这个函数，并会给这个函数传入调用回调函数时的时间作为参数。由于requestAnimationFrame的功效只是一次性的，所以若想达到动画效果，则必须连续不断的调用requestAnimationFrame，就像我们使用setTimeout来实现动画所做的那样。requestAnimationFrame函数会返回一个资源标识符，可以把它作为参数传入cancelAnimationFrame函数来取消requestAnimationFrame的回调。怎么样，是不是也跟setTimeout的clearTimeout很相似啊。
