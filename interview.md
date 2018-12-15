@@ -7,42 +7,33 @@ header-img: "img/plane.jpg"
 
 ### vue相关部分
 
-
-
 #### 什么是mvvm？
 
 
 > MVVM是Model-View-ViewModel的缩写。mvvm是一种设计思想。Model 层代表数据模型，也可以在Model中定义数据修改和操作的业务逻辑；View 代表UI 组件，它负责将数据模型转化成UI 展现出来，ViewModel 是一个同步View 和 Model的对象。
 
-在MVVM架构下，View 和 Model 之间并没有直接的联系，而是通过ViewModel进行交互，Model 和 ViewModel 之间的交互是双向的， 因此View 数据的变化会同步到Model中，而Model 数据的变化也会立即反应到View 上。
-
-ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而View 和 Model 之间的同步工作完全是自动的，无需人为干涉，因此开发者只需关注业务逻辑，不需要手动操作DOM, 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。
+在MVVM架构下，View 和 Model 之间并没有直接的联系，而是通过ViewModel进行交互，Model 和 ViewModel 之间的交互是双向的， 因此View 数据的变化会同步到Model中，而Model 数据的变化也会立即反应到View 上。  
+ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而View和Model之间的同步工作完全是自动的，无需人为干涉，因此开发者只需关注业务逻辑，不需要手动操作DOM, 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。
 
 #### mvvm和mvc区别？
 
-> mvc和mvvm其实区别并不大。都是一种设计思想。主要就是mvc中Controller演变成mvvm中的viewModel。mvvm主要解决了mvc中大量的DOM 操作使页面渲染性能降低，加载速度变慢，影响用户体验。和当 Model 频繁发生变化，开发者需要主动更新到View 。
+> mvc和mvvm其实区别并不大。都是一种设计思想。主要就是mvc中Controller演变成mvvm中的viewModel。mvvm主要解决了mvc中大量的DOM操作使页面渲染性能降低，加载速度变慢，影响用户体验。和当Model频繁发生变化，开发者需要主动更新到View 。
 
 #### vue的优点是什么？
 
 
-低耦合。视图（View）可以独立于Model变化和修改，一个ViewModel可以绑定到不同的"View"上，当View变化的时候Model可以不变，当Model变化的时候View也可以不变。
-
-可重用性。你可以把一些视图逻辑放在一个ViewModel里面，让很多view重用这段视图逻辑。
-
-独立开发。开发人员可以专注于业务逻辑和数据的开发（ViewModel），设计人员可以专注于页面设计，使用Expression Blend可以很容易设计界面并生成xml代码。
-
+低耦合。视图（View）可以独立于Model变化和修改，一个ViewModel可以绑定到不同的"View"上，当View变化的时候Model可以不变，当Model变化的时候View也可以不变。  
+可重用性。你可以把一些视图逻辑放在一个ViewModel里面，让很多view重用这段视图逻辑。  
+独立开发。开发人员可以专注于业务逻辑和数据的开发（ViewModel），设计人员可以专注于页面设计，使用Expression Blend可以很容易设计界面并生成xml代码。  
 可测试。界面素来是比较难于测试的，而现在测试可以针对ViewModel来写。
 
 #### 请详细说下你对vue生命周期的理解？
 
 > 总共分为8个阶段创建前/后，载入前/后，更新前/后，销毁前/后。
 
-创建前/后： 在beforeCreate阶段，vue实例的挂载元素el和数据对象data都为undefined，还未初始化。在created阶段，vue实例的数据对象data有了，el还没有。
-
-载入前/后：在beforeMount阶段，vue实例的$el和data都初始化了，但还是挂载之前为虚拟的dom节点，data.message还未替换。在mounted阶段，vue实例挂载完成，data.message成功渲染。
-
-更新前/后：当data变化时，会触发beforeUpdate和updated方法。
-
+创建前/后： 在beforeCreate阶段，vue实例的挂载元素el和数据对象data都为undefined，还未初始化。在created阶段，vue实例的数据对象data有了，el还没有。  
+载入前/后：在beforeMount阶段，vue实例的$el和data都初始化了，但还是挂载之前为虚拟的dom节点，data.message还未替换。在mounted阶段，vue实例挂载完成，data.message成功渲染。  
+更新前/后：当data变化时，会触发beforeUpdate和updated方法。  
 销毁前/后：在执行destroy方法后，对data的改变不会再触发周期函数，说明此时vue实例已经解除了事件监听以及和dom的绑定，但是dom结构依然存在。
 
 #### 组件之间的传值？
@@ -113,14 +104,10 @@ ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而
 
 #### 路由模块
 
-路由模块的本质 就是建立起url和页面之间的映射关系
-
-1、SPA的基本概念和工作原理
-
-SPA：single page application 单一页面应用程序，只有一个完整的页面；
-
-	它在加载页面时，不会加载整个页面，而是只更新某个指定的容器中内容。比如Gmail、移动的webApp
-
+路由模块的本质 就是建立起url和页面之间的映射关系  
+1、SPA的基本概念和工作原理  
+SPA：single page application 单一页面应用程序，只有一个完整的页面；  
+它在加载页面时，不会加载整个页面，而是只更新某个指定的容器中内容。比如Gmail、移动的webApp  
 工作原理：
 
 	1.解析地址栏 
@@ -129,13 +116,10 @@ SPA：single page application 单一页面应用程序，只有一个完整的�
 	3.发起ajax请求 
     请求要加载的页面4.像指定的容器中 插入加载来的页面
 
-2、路由模块的基本使用
-
-1.引入vue.js vue-router.js
-
-2.指定一个容器router-view
-
-3.创建业务所需要用到的组件类  
+2、路由模块的基本使用  
+1).引入vue.js vue-router.js  
+2).指定一个容器router-view  
+3).创建业务所需要用到的组件类  
 
 	var MyLogin = Vue.component()
     
@@ -150,23 +134,18 @@ SPA：single page application 单一页面应用程序，只有一个完整的�
 	   router:myRouter
 	 })
 
- 5.测试
-
- 修改地址栏中的路由地址，测试看加载的组件是否正确
-
+5.测试  
+修改地址栏中的路由地址，测试看加载的组件是否正确  
 注意事项： 
 
 	1.先引入vue，再引入插件 
 	2.一定要指定router-view 
 	3.route路由 {path:'',component:}
 
-routes 路由数组 []
-
+routes 路由数组 []  
 router 路由器:按照指定的路由规则去访问对应的组件 new VueRouter
 
-
-3、使用路由模块来实现页面跳转的方式
-
+3、使用路由模块来实现页面跳转的方式  
 声明式（标签跳转）
 
 	<router-link :to="index">
@@ -175,10 +154,8 @@ router 路由器:按照指定的路由规则去访问对应的组件 new VueRout
 
 	router.push('index')
 
-4、完成参数的传递
-
-在页面之间跳转的时候，在有些场景下，需要同时指定参数
-
+4、完成参数的传递  
+在页面之间跳转的时候，在有些场景下，需要同时指定参数  
 1.明确发送方和接收方
 
 	list --20--> detail1.配置接收方的路由地址/detail --》 /detail/:indexthis.$route.params.index
@@ -187,10 +164,8 @@ router 路由器:按照指定的路由规则去访问对应的组件 new VueRout
 
 	routerLink to="/detail/20"this.$router.push('/detail/20')
 
-5、路由嵌套
-
-在一个路由中，path对应一个component，如果这个component需要根据不同的url再加载其他的component，称之为路由的嵌套
-
+5、路由嵌套  
+在一个路由中，path对应一个component，如果这个component需要根据不同的url再加载其他的component，称之为路由的嵌套  
 举例：比如A组件现在需要根据不同的url，加载B组件或者C组件1.给A组件指定一个容器  router-view
 
 2.配置路由词典
@@ -211,20 +186,16 @@ router 路由器:按照指定的路由规则去访问对应的组件 new VueRout
 
 #### 组件的使用和自己创建公用组件？
 
-第一步：在components目录新建你的组件文件（indexPage.vue），script一定要export default {}
-
-第二步：在需要用的页面（组件）中导入：import indexPage from '@/components/indexPage.vue'
-
-第三步：注入到vue的子组件的components属性上面,components:{indexPage}
-
-第四步：在template视图view中使用，
-
+第一步：在components目录新建你的组件文件（indexPage.vue），script一定要export default {}  
+第二步：在需要用的页面（组件）中导入：import indexPage from '@/components/indexPage.vue'  
+第三步：注入到vue的子组件的components属性上面,components:{indexPage}  
+第四步：在template视图view中使用，  
 问题有indexPage命名，使用的时候则index-page。
 
 #### vue如何实现按需加载配合webpack设置?
 
-webpack中提供了require.ensure()来实现按需加载。
-以前引入路由是通过import 这样的方式引入，改为const定义的方式进行引入。 
+webpack中提供了require.ensure()来实现按需加载。  
+以前引入路由是通过import 这样的方式引入，改为const定义的方式进行引入。   
 不进行页面按需加载引入方式：
 
 	import  home   from '../../common/home.vue' 
@@ -235,7 +206,7 @@ webpack中提供了require.ensure()来实现按需加载。
 
 #### vuex是什么？怎么使用？哪种功能场景使用它？
 
-vue框架中状态管理。在main.js引入store，注入。新建了一个目录store，….. export 。场景有：单页应用中，组件之间的状态。音乐播放、登录状态、加入购物车
+vue框架中状态管理。在main.js引入store，注入。新建了一个目录store，…export。场景有：单页应用中，组件之间的状态。音乐播放、登录状态、加入购物车
 
 #### axios
 
@@ -263,8 +234,7 @@ vue框架中状态管理。在main.js引入store，注入。新建了一个目�
 
 3.axios的拦截器
 
-主要分为请求和响应两种拦截器,请求拦截一般就是配置对应的请求头信息(适用与常见请求方法,虽然ajax的get方法没有请求头,但是axios里面进行啦封装),响应一般就是对reponse进行拦截处理,如果返回结果为[]可以转化为0
-
+主要分为请求和响应两种拦截器,请求拦截一般就是配置对应的请求头信息(适用与常见请求方法,虽然ajax的get方法没有请求头,但是axios里面进行啦封装),响应一般就是对reponse进行拦截处理,如果返回结果为[]可以转化为0  
 1.请求拦截:将当前城市信息放入请求头中
 
 	axios.interceptors.request.use(config => {
@@ -295,11 +265,8 @@ vue框架中状态管理。在main.js引入store，注入。新建了一个目�
 **方法一：使用replace正则匹配的方法**
 
 	去除所有空格: str = str.replace(/s*/g,"");      
-
-	去除两头空格: str = str.replace(/^s*|s*$/g,"");
-
-	去除左空格： str = str.replace( /^s*/, “”);
-
+	去除两头空格: str = str.replace(/^s*|s*$/g,"");  
+	去除左空格： str = str.replace( /^s*/, “”);  
 	去除右空格： str = str.replace(/(s*$)/g, "");
 
 str为要去除空格的字符串，实例如下：
@@ -309,8 +276,7 @@ str为要去除空格的字符串，实例如下：
 	console.log(str2); // 2323
 
 
-**方法二：使用str.trim()方法**
-
+**方法二：使用str.trim()方法**  
 str.trim()局限性：无法去除中间的空格，实例如下：
 
 	var str = "   xiao  ming   "; 
@@ -319,8 +285,7 @@ str.trim()局限性：无法去除中间的空格，实例如下：
 
 同理，str.trimLeft()，str.trimRight()分别用于去除字符串左右空格。
 
-**方法三：使用jquery,$.trim(str)方法**
-
+**方法三：使用jquery,$.trim(str)方法**  
 $.trim(str)局限性：无法去除中间的空格，实例如下：
 
 	var str = "   xiao  ming   "; 
@@ -329,8 +294,7 @@ $.trim(str)局限性：无法去除中间的空格，实例如下：
 
 #### 你如何获取浏览器URL中查询字符串中的参数？
 
-测试地址为：http://www.runoob.com/jquery/misc-trim.html?channelid=12333&name=xiaoming&age=23
-
+测试地址为：http://www.runoob.com/jquery/misc-trim.html?channelid=12333&name=xiaoming&age=23  
 实例如下：
 
 	function showWindowHref(){     
@@ -488,7 +452,7 @@ Instanceof定义和用法：instanceof 用于判断一个变量是否属于某�
 
 1、定义和用法：当一个函数的返回值是另外一个函数，而返回的那个函数如果调用了其父函数内部的其它变量，如果返回的这个函数在外部被执行，就产生了闭包。  
 2、表现形式：使函数外部能够调用函数内部定义的变量。  
-3、实例如下：
+3、实例如下：  
 (1)、根据作用域链的规则，底层作用域没有声明的变量，会向上一级找，找到就返回，没找到就一直找，直到window的变量，没有就返回undefined。这里明显count 是函数内部的flag2 的那个count 。
 
 	var count=10;   //全局作用域 标记为flag1 
@@ -503,17 +467,14 @@ Instanceof定义和用法：instanceof 用于判断一个变量是否属于某�
 	s();//输出1 
 	s();//输出2
 
-4、变量的作用域
-
+4、变量的作用域  
 要理解闭包，首先必须理解Javascript特殊的变量作用域。  
 变量的作用域分类：全局变量和局部变量。  
-特点：
-
+特点：  
 1、函数内部可以读取函数外部的全局变量；在函数外部无法读取函数内的局部变量。  
 2、函数内部声明变量的时候，一定要使用var命令。如果不用的话，你实际上声明了一个全局变量！
 
- 5、使用闭包的注意点
-
+ 5、使用闭包的注意点  
 1）滥用闭包，会造成内存泄漏：由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除。  
 2）会改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（Public Method），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。
 
@@ -571,7 +532,8 @@ Instanceof定义和用法：instanceof 用于判断一个变量是否属于某�
 回收机制方式  
 1、定义和用法：垃圾回收机制(GC:Garbage Collection),执行环境负责管理代码执行过程中使用的内存。  
 2、原理：垃圾收集器会定期（周期性）找出那些不在继续使用的变量，然后释放其内存。但是这个过程不是实时的，因为其开销比较大，所以垃圾回收器会按照固定的时间间隔周期性的执行。  
-3、实例如下：  
+3、实例如下： 
+
 	function fn1() {     
 		var obj = {name: 'hanzichi', age: 10}; 
 	} 
@@ -582,13 +544,11 @@ Instanceof定义和用法：instanceof 用于判断一个变量是否属于某�
 	var a = fn1(); 
 	var b = fn2();
 
-fn1中定义的obj为局部变量，而当调用结束后，出了fn1的环境，那么该块内存会被js引擎中的垃圾回收器自动释放；在fn2被调用的过程中，返回的对象被全局变量b所指向，所以该块内存并不会被释放。
-
+fn1中定义的obj为局部变量，而当调用结束后，出了fn1的环境，那么该块内存会被js引擎中的垃圾回收器自动释放；在fn2被调用的过程中，返回的对象被全局变量b所指向，所以该块内存并不会被释放。  
  4、垃圾回收策略：标记清除(较为常用)和引用计数。  
 **标记清除：**  
 定义和用法：当变量进入环境时，将变量标记"进入环境"，当变量离开环境时，标记为："离开环境"。某一个时刻，垃圾回收器会过滤掉环境中的变量，以及被环境变量引用的变量，剩下的就是被视为准备回收的变量。  
-到目前为止，IE、Firefox、Opera、Chrome、Safari的js实现使用的都是标记清除的垃圾回收策略或类似的策略，只不过垃圾收集的时间间隔互不相同。
-
+到目前为止，IE、Firefox、Opera、Chrome、Safari的js实现使用的都是标记清除的垃圾回收策略或类似的策略，只不过垃圾收集的时间间隔互不相同。  
 **引用计数：**  
 定义和用法：引用计数是跟踪记录每个值被引用的次数。  
 基本原理：就是变量的引用次数，被引用一次则加1，当这个引用计数为0时，被视为准备回收的对象。
