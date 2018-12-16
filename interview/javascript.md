@@ -224,6 +224,30 @@ Instanceof定义和用法：instanceof 用于判断一个变量是否属于某�
 1）滥用闭包，会造成内存泄漏：由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除。  
 2）会改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（Public Method），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。
 
+
+#### call和.apply的区别是什么？
+
+**call方法: **
+
+语法：call(thisObj，Object)  
+定义：调用一个对象的一个方法，以另一个对象替换当前对象。  
+说明：call 方法可以用来代替另一个对象调用一个方法。call 方法可将一个函数的对象上下文从初始的上下文改变为由 thisObj 指定的新对象。 如果没有提供 thisObj 参数，那么 Global 对象被用作 thisObj。 
+
+**apply方法：**
+
+语法：apply(thisObj，[argArray])  
+定义：应用某一对象的一个方法，用另一个对象替换当前对象。   
+说明：如果 argArray 不是一个有效的数组或者不是 arguments 对象，那么将导致一个 TypeError。如果没有提供 argArray 和 thisObj 任何一个参数，那么 Global 对象将被用作 thisObj， 并且无法被传递任何参数。
+
+对于apply和call两者在作用上是相同的，但两者在参数上有以下区别：  
+对于第一个参数意义都一样，但对第二个参数：apply传入的是一个参数数组，也就是将多个参数组合成为一个数组传入，而call则作为call的参数传入（从第二个参数开始）。如 func.call(func1,var1,var2,var3)对应的apply写法为：func.apply(func1,[var1,var2,var3])同时使用apply的好处是可以直接将当前函数的arguments对象作为apply的第二个参数传入。
+
+
+#### JavaScript里函数参数arguments是数组吗？ 
+
+在函数代码中，使用特殊对象 arguments，开发者无需明确指出参数名，通过使用下标就可以访问相应的参数。  
+arguments虽然有一些数组的性质，但其并非真正的数组，只是一个类数组对象。其并没有数组的很多方法，不能像真正的数组那样调用.jion(),.concat(),.pop()等方法。
+
 ####  什么是跨域？跨域请求资源的方法有哪些？
 
 1、什么是跨域？  
@@ -273,6 +297,85 @@ Instanceof定义和用法：instanceof 用于判断一个变量是否属于某�
 1、这种方式无法发送post请求（这里）
 2、另外要确定jsonp的请求是否失败并不容易，大多数框架的实现都是结合超时时间来判定。
 
+#### 解释下JavaScript中this是如何工作的
+
+this永远指向函数运行时所在的对象，而不是函数被创建时所在的对象。匿名函数或不处于任何对象中的函数指向window 。  
+
+1.如果是call，apply,with，指定的this是谁，就是谁。  
+2.普通的函数调用，函数被谁调用，this就是谁。
+
+#### 描述以下变量的区别：null，undefined或undeclared？
+
+undeclared是一种语法错误，不是数据类型，不要误会了。但是js引擎不会报错，会把它当成全局变量，即当成window的属性。  
+null和undefined基本是同义的，只有一些细微的差别。  
+
+null表示"没有对象"，即该处不应该有值。典型用法是：  
+用来初始化一个变量，这个变量可能被赋值为一个对象。  
+用来和一个已经初始化的变量比较，这个变量可以是也可以不是一个对象。  
+当函数的参数期望是对象时，被用作参数传入。  
+当函数的返回值期望是对象时，被用作返回值传出。  
+作为对象原型链的终点。
+
+undefined表示"缺少值"，就是此处应该有一个值，但是还没有定义。典型用法是：  
+
+变量被声明了，但没有赋值时，就等于undefined。  
+调用函数时，应该提供的参数没有提供，该参数等于undefined。  
+对象没有赋值的属性，该属性的值为undefined。  
+函数没有返回值时，默认返回undefined。
+
+**该如何检测它们？**
+
+null：表示无值；undefined：表示一个未声明的变量，或已声明但没有赋值的变量，或一个并不存在的对象属性。  
+==运算符将两者看作相等。如果要区分两者，要使用===或typeof运算符。  
+以下是不正确的用法：  
+
+	var exp = undefined;
+	if (exp == undefined) {
+	    alert("undefined");
+	}
+
+exp为null时，也会得到与undefined相同的结果，虽然null和undefined不一样。注意：要同时判断undefined和null时可使用本法。  
+typeof返回的是字符串，有六种可能："number"、"string"、"boolean"、"object"、"function"、"undefined"。  
+以下是正确的用法：
+
+	var exp = undefined;
+	if(typeof(exp) == undefined) {
+	     alert("undefined");
+	}
+
+**JS中如何判断null？**
+
+以下是不正确的用法：
+
+	var exp = null; 
+	if(exp == null) {
+	    alert("is null");
+	}
+
+
+exp为undefined时，也会得到与null相同的结果，虽然null和undefined不一样。注意：要同时判断null和undefined时可使用本法。
+
+	var exp=null; 
+	if(!exp) {
+	    alert("is null");
+	}
+
+如果exp为undefined或者数字零，也会得到与null相同的结果，虽然null和二者不一样。注意：要同时判断null、undefined和数字零时可使用本法。
+
+	var exp = null; 
+	if(typeof(exp) == "null") {
+	    alert("is null");
+	}
+
+为了向下兼容，exp为null时，typeof总返回object。这种方式也不太好。  
+以下是正确的用法：
+
+	var exp = null; 
+	if(!exp&&typeof(exp) != "undefined" && exp != 0) {
+	   alert("is null");
+	}
+
+
 #### 谈谈垃圾回收机制方式及内存管理
 
 回收机制方式  
@@ -311,3 +414,5 @@ IE7中，垃圾回收器会根据内存分配量与程序占用内存的比例�
 3、GC缺陷：(1)、停止响应其他操作；
 
 4、GC优化策略：(1)、分代回收（Generation GC）;(2)、增量GC
+
+
