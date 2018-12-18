@@ -1,8 +1,9 @@
 ---
-layout: page
-title: "javascript"
-description: "嘿，你总算找到我啦"
-header-img: "img/plane.jpg"
+layout: post
+title: javascript
+categories: [blog ]
+tags: [javascript ]
+description: javascript相关知识汇总
 ---
 
 #### JavaScript中如何检测一个变量是一个String类型？请写出函数实现
