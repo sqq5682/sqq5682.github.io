@@ -53,9 +53,9 @@ require(['gitbook'], function (gitbook) {
     }
 
     // 事件监听检查
-    $bookBody.addEventListener('scroll', checkModal);
+    //$bookBody.addEventListener('scroll', checkModal);
     var $bodyInner = window.document.getElementsByClassName('body-inner')[0];
-    $bodyInner.addEventListener('scroll', checkModal);
+    //$bodyInner.addEventListener('scroll', checkModal);
     window.document.getElementById('book-search-input').getElementsByTagName('input')[0].addEventListener('input', closeModal);
   });
 });
