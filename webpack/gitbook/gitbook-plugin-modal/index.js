@@ -24,7 +24,7 @@ require(['gitbook'], function (gitbook) {
 
     function showModal(content, closeable) {
       if ($bookBody.getElementsByClassName('gitbook-plugin-modal').length > 0) {
-        $bookBody.getElementsByClassName('gitbook-plugin-modal')[0].style.display = 'block';
+        $bookBody.getElementsByClassName('gitbook-plugin-modal')[0].style.display = 'none';
         return;
       }
       $modal = window.document.createElement('div');
