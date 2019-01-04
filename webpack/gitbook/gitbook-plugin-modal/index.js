@@ -32,7 +32,7 @@ require(['gitbook'], function (gitbook) {
       $modal.style.width = $bookBody.clientWidth + 'px';
       $modal.className = className;
       $modal.innerHTML = '<div class="gitbook-plugin-modal-content">' + content + '</div>';
-      $bookBody.appendChild($modal);
+      //$bookBody.appendChild($modal);
       if (closeable) {
         $modal.onclick = closeModal;
       }
