@@ -1,7 +1,7 @@
 # Site settings
-title: 快来打酱油
+title: 左右
 header-img: "img/autumn2.jpg"
-tagline: "快来打酱油"  
+tagline: "左右"  
 description: "勿忘初心"  
 baseurl: ""
 url: "http://sqq5682.github.io"  
@@ -9,8 +9,8 @@ url: "http://sqq5682.github.io"
 
 # About/contact
 owner: 
-  name: "快来打酱油"
-  email: songqiang8@126.cn
+  name: "左右"
+  email: sqq5682@126.cn
   bio: "勿忘初心"
 
 # Data
