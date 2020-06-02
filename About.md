@@ -9,7 +9,7 @@ header-img: "img/plane.jpg"
     <p><img src="../img/Zero.png" align="center"></p>
 </center>
 
-hi，我叫宋强强，来自河南周口，12年6月毕业于河南工业职业技术学院，所学专业计算机应用技术，目前在[优购网](https://m.yougou.com)工作，职业web前端开发。
+hi，我叫宋强强，来自河南周口，目前在[优购网](https://m.yougou.com)工作，职业web前端开发。
 
 最初整理的文章一直在论坛和社区里，中间也弄过单独的域名和空间，最后发现在[gitHub pages](https://pages.github.com/)可以搭建博客，简单又方便，gitHub提供无限流量，世界各地都有理想的访问速度，而且这一切还是免费的，于是接下来就把之前的文章内容搬过来了。
 
