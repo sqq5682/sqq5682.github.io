@@ -34,7 +34,6 @@ Puppeteer 是 Chrome开发团队2017年发布的一个 Node.js包，提供了一
 2、Puppeteer环境准备
 
 > Node.js 安装配置
-
 > Puppeteer安装(通过npm安装：npm install puppeteer --save)
 
 由于封网，直接下载 Chromium 会失败,包也比较大，我们可以使用puppeteer-core配合本地的Chrome或者Chrome Canary来使用：
