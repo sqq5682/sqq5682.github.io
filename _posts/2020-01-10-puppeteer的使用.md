@@ -95,7 +95,7 @@ Puppeteer 是 Chrome开发团队2017年发布的一个 Node.js包，提供了一
 
 ### 一些默认的设置和开发调试建议
 
-1. 使用Headless模式
+1.使用Headless模式
 
 Puppeteer默认以Headless模式加载Chromium，如果想加载完整的Chromium（这样方便观察网页加载的效果究竟是怎么样的），可以执行以下命令
 
@@ -126,8 +126,6 @@ Puppeteer默认以Headless模式加载Chromium，如果想加载完整的Chromiu
         width: 1366,
         height: 768 * 2
     });
-
-### 端对端测试中常用的 Puppeteer 操作
 
 #### 导航到某个页面
 
