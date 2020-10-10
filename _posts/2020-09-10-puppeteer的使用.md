@@ -104,7 +104,6 @@ Puppeteer默认以Headless模式加载Chromium，如果想加载完整的Chromiu
 
     const browser = await puppeteer.launch({executablePath: '/path/to/Chrome'});
 
-
 3.延迟执行Puppeteer
 
     const browser = await puppeteer.launch({
