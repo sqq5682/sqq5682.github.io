@@ -1,7 +1,7 @@
 # Site settings
-title: 一只迷路的松鼠
+title: 一只迷路的米老鼠
 header-img: "img/autumn2.jpg"
-tagline: "一只迷路的松鼠"  
+tagline: "一只迷路的米老鼠"  
 description: "勿忘初心"  
 baseurl: ""
 url: "http://sqq5682.github.io"  
@@ -9,7 +9,7 @@ url: "http://sqq5682.github.io"
 
 # About/contact
 owner: 
-  name: "一只迷路的松鼠"
+  name: "一只迷路的米老鼠"
   email: sqq5682@126.cn
   bio: "勿忘初心"
 
