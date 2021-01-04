@@ -1,9 +1,9 @@
 ---
 layout: post
-title: nginx一些使用
+title: nginx中nginx.conf使用
 categories: [blog]
 tags: [nginx]
-description: nginx一些使用
+description: nginx中nginx.conf使用
 ---
 
 #### nginx域名配置
