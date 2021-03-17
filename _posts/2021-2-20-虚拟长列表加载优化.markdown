@@ -1,0 +1,117 @@
+---
+layout: post
+title: 虚拟长列表加载优化
+categories: [blog]
+tags: [javascript,vue]
+description: 虚拟长列表加载优化
+---
+
+### 场景描述
+
+因为 DOM 性能瓶颈，大型列表存在难以克服的性能问题。 因此，就有了 “局部渲染” 的优化方案，这就是虚拟列表的核心思想。
+
+虚拟列表的实现，需要重点关注的问题一有以下几点：
+
+- 可视区域的计算方法
+- 可视区域的 DOM 更新方案
+- 事件的处理方案
+
+### vue中实现方式
+
+这里以长列表滚动加载为例子，根据要显示列表元素的个数以及元素高度，算出容器的高度，样式设置overflow-y: scroll
+如果有上千条数据放到list中，根根list长度计算定义长列表的高度，根据滚动的scroll值以及元素的高度，设置startIndex开始索引和endIndex结束索引值，computed中实时截取list，要显示的元素
+注意：在执行滚动事件，这里加入了节流函数，来限制滚动事件的执行次数
+
+具体代码如下
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <title>Title</title>
+    <style>
+    *{
+        margin:0;padding:0;
+    }
+    .listWrap{
+        border: 1px solid #333;
+        height:300px;
+        overflow-y:scroll;
+        margin: 20px 10px;
+        position:relative;
+    }
+    .scroll-ul{
+        position: absolute;
+        top:0;
+        left:0;
+    }
+    .scroll-ul li{
+        height:30px;
+        overflow:hidden;
+        line-height:30px;
+    }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="listWrap" ref="listWrap" @scroll="scrollListener()">
+        <div class="scroll-bar" ref="scrollBar"></div>
+        <ul class="scroll-ul" ref="scrollUl">
+            <li v-for="(item, index) in listShow" :key="index" >{{item}}</li>
+        </ul>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+function throttle(fn, delay){
+	let flag = null
+	return function(){
+		if(flag){
+			return
+		}
+		flag = setTimeout(() => {
+			fn.apply(this, arguments)
+			flag = null
+		}, delay)
+	}
+}
+new Vue({
+    el: '#app',
+    data(){
+        return {
+            list: [],
+            itemsHeight: 30,//定义元素的高度
+            startIndex: 0,//开始元素起始值
+            showNumb: 20,//默认展示多少元素
+            endIndex: 20,//元素结束值
+        }
+    },
+    computed: {
+        listShow() {//动态展示的列表的长度
+            return this.list.slice(this.startIndex,this.endIndex)
+        }
+    },
+    mounted() {
+        for(let i=0;i<=1000;i++){
+            this.list.push('列表元素：'+i)
+        }
+        //事先设置容器元素的高度以及滚动的高度
+        this.$refs.listWrap.style.height = this.showNumb * this.itemsHeight + 'px'
+        this.$refs.scrollBar.style.height = this.list.length * this.itemsHeight + 'px'
+    },
+    methods: {
+        scrollListener: throttle(function(){//节流滚动事件
+            let scrollTop = this.$refs.listWrap.scrollTop//获取滚动的高度
+            this.startIndex = Math.floor(scrollTop/this.itemsHeight)//根据滚动距离，设置截取开始的索引值
+            this.$refs.scrollUl.style.top = this.startIndex*this.itemsHeight + 'px'//展示的容器跟着滚动移动
+            this.endIndex = this.startIndex + this.showNumb//设置要截取结束的索引值
+        },100)
+    }
+})
+</script>
+</body>
+</html>
+
+```
