@@ -56,7 +56,6 @@ computed: {
         })
     }
 }
-
 ```
 
 不推荐：
@@ -70,7 +69,6 @@ computed: {
     {{ user.name }}
   </li>
 </ul>
-
 ```
 
 #### 长列表性能优化
@@ -87,7 +85,6 @@ export default {
         this.users = Object.freeze(users);
     }
 };
-
 ```
 #### 事件的销毁
 
@@ -100,7 +97,6 @@ created() {
 beforeDestroy() {
     removeEventListener('click', this.click, false)
 }
-
 ```
 #### 图片资源懒加载
 
@@ -110,20 +106,17 @@ beforeDestroy() {
 
 ```
 npm install vue-lazyload --save-dev
-
 ```
 
 2. 在入口文件 man.js 中引入并使用
 
 ```
 import VueLazyload from 'vue-lazyload'
-
 ```
 然后再 vue 中直接使用
 
 ```
 Vue.use(VueLazyload)
-
 ```
 
 或者添加自定义选项
@@ -135,13 +128,11 @@ Vue.use(VueLazyload, {
     loading: 'dist/loading.gif',
     attempt: 1
 })
-
 ```
 3. 在 vue 文件中将 img 标签的 src 属性直接改为 v-lazy ，从而将图片显示方式更改为懒加载显示：
 
 ```
 <img v-lazy="/static/img/1.png">
-
 ```
 以上为 vue-lazyload 插件的简单使用，如果要看插件的更多参数选项，可以查看 vue-lazyload 的 github 地址。
 
@@ -158,7 +149,6 @@ const router = new VueRouter({
         { path: '/foo', component: Foo }
     ]
 })
-
 ```
 
 #### 第三方插件的按需引入
@@ -169,7 +159,6 @@ const router = new VueRouter({
 
 ```
 npm install babel-plugin-component -D
-
 ```
 2. 然后，将 .babelrc 修改为：
 
@@ -186,7 +175,6 @@ npm install babel-plugin-component -D
         ]
     ]
 }
-
 ```
 3. 在 main.js 中引入部分组件：
 
@@ -195,7 +183,6 @@ import Vue from 'vue';
 import { Button, Select } from 'element-ui';
 Vue.use(Button)
 Vue.use(Select)
-
 ```
 
 #### 优化无限列表性能
@@ -225,7 +212,6 @@ Vue.use(Select)
 
 ```
 npm install image-webpack-loader --save-dev
-
 ```
 2. 然后，在 webpack.base.conf.js 中进行配置：
 
@@ -248,7 +234,6 @@ npm install image-webpack-loader --save-dev
         }
     ]
 }
-
 ```
 
 #### 少 ES6 转为 ES5 的冗余代码
@@ -257,14 +242,12 @@ Babel 插件会在将 ES6 代码转换成 ES5 代码时会注入一些辅助函�
 
 ```
 class HelloWebpack extends Component{...}
-
 ```
 这段代码再被转换成能正常运行的 ES5 代码时需要以下两个辅助函数：
 
 ```
 babel-runtime/helpers/createClass  // 用于实现 class 语法
 babel-runtime/helpers/inherits  // 用于实现 extends 语法
-
 ```
 
 在默认情况下， Babel 会在每个输出文件中内嵌这些依赖的辅助函数代码，如果多个源代码文件都依赖这些辅助函数，那么这些辅助函数的代码将会出现很多次，造成代码冗余。为了不让这些辅助函数的代码重复出现，可以在依赖它们时通过 `require('babel-runtime/helpers/createClass')` 的方式导入，这样就能做到只让它们出现一次。`babel-plugin-transform-runtime` 插件就是用来实现这个作用的，将相关辅助函数进行替换成导入语句，从而减小 `babel` 编译出来的代码的文件大小。
@@ -272,7 +255,6 @@ babel-runtime/helpers/inherits  // 用于实现 extends 语法
 
 ```
 npm install babel-plugin-transform-runtime --save-dev
-
 ```
 2. 然后，修改 .babelrc 配置文件为：
 
@@ -280,7 +262,6 @@ npm install babel-plugin-transform-runtime --save-dev
 "plugins": [
     "transform-runtime"
 ]
-
 ```
 
 如果要看插件的更多详细内容，可以查看`babel-plugin-transform-runtime` 的 详细介绍。
@@ -313,7 +294,6 @@ new webpack.optimize.CommonsChunkPlugin({
     name: 'manifest',
     chunks: ['vendor']
 })
-
 ```
 
 如果要看插件的更多详细内容，可以查看 CommonsChunkPlugin 的 详细介绍。
@@ -361,7 +341,6 @@ if (config.build.bundleAnalyzerReport) {
     var BundleAnalyzerPlugin =   require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
     webpackConfig.plugins.push(new BundleAnalyzerPlugin());
 }
-
 ```
 
 执行 $ npm run build \--report 后生成分析报告.
@@ -382,7 +361,6 @@ if (config.build.bundleAnalyzerReport) {
 
 ```
 npm install compression --save
-
 ```
 
 添加代码逻辑：
@@ -391,7 +369,6 @@ npm install compression --save
 var compression = require('compression');
 var app = express();
 app.use(compression())
-
 ```
 重启服务，观察网络面板里面的 `response header`，如果看到`Content-Encoding: gzip`则表明 `gzip` 开启成功 ：
 
@@ -411,5 +388,3 @@ Chrome 的 Performance 面板可以录制一段时间内的 js 执行细节及�
 - 点击 Record 开始录制
 - 刷新页面或展开某个节点
 - 点击 Stop 停止录制
-
-https://mmbiz.qpic.cn/mmbiz/1NOXMW586uuZnAApLr38mFVUApdS1l7pVB8h36MDeQMVnx3KGEjjCoP2aY0YmichWEED4z9rYpurYL3zwQjS2gA/640?wx_fmt=jpeg&wxfrom=5&wx_lazy=1&wx_co=1

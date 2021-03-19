@@ -72,7 +72,6 @@ HTTP1.1 中 `Etag` 的出现主要是为了解决几个 `Last-Modified` 比较�
 
 ```
  Cache-Control  > expires > Etag > Last-Modified
-
 ```
 
 #### 用户行为对缓存的影响
@@ -98,14 +97,12 @@ Ctrl+F5强制刷新|无效|无效
 res.setHeader('max-age': '3600 public')
 res.setHeader(etag: '5c20abbd-e2e8')
 res.setHeader('last-modified': Mon, 24 Dec 2018 09:49:49 GMT)
-
 ```
 
 2. Nginx 配置
 
 ```
 add_header Cache-Control "max-age=3600"
-
 ```
 
 #### 三级缓存原理
