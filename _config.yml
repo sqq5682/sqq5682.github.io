@@ -1,7 +1,7 @@
 # Site settings
-title: 一只迷路的米老鼠
+title: 星辰大海
 header-img: "img/autumn2.jpg"
-tagline: "一只迷路的米老鼠"  
+tagline: "星辰大海"  
 description: "勿忘初心"  
 baseurl: ""
 url: "http://sqq5682.github.io"  
@@ -9,9 +9,11 @@ url: "http://sqq5682.github.io"
 
 # About/contact
 owner: 
-  name: "一只迷路的米老鼠"
+  name: "星辰大海"
   email: sqq5682@126.cn
   bio: "勿忘初心"
+  bjRecord: "京公网安备 11010502043471号"
+  hnRecord: "豫ICP备2020035902号"
 
 # Data
 gavatar: http://dreamofbook.qiniudn.com/Az..png
