@@ -27,7 +27,12 @@ description: Mac环境下使用charles进行https抓包分析
 ```
 Configure your device to use cHarles as its Http proxy on x.x.x.x: 8888, then browse to chls pro/ssl to download and install the certificate
 ```
+![](../img/uploads/2021/01/4.png)
+
 在ios手机上的safari浏览器，访问https://chls.pro/ssl 并回车，安装信任证书，在关于本机>可信任证书 处于打开状态在手机和mac处于一个局域网，设置手机的手动代理，mac的ip地址以及端口8888
+![](../img/uploads/2021/01/5.png)
+![](../img/uploads/2021/01/6.png)
+![](../img/uploads/2021/01/7.png)
 
 
 
