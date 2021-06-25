@@ -1,0 +1,52 @@
+---
+layout: post
+title: 微前端qiankun实例运用
+categories: [blog]
+tags: [qiankun]
+description: 微前端qiankun实例运用
+---
+
+### 微前端
+
+> 微前端是一种多个团队通过独立发布功能的方式来共同构建现代化 web 应用的技术手段及方法策略。
+
+微前端架构具备以下几个核心价值：
+
+> 技术栈无关：主框架不限制接入应用的技术栈，微应用具备完全自主权
+> 独立开发、独立部署：微应用仓库独立，前后端可独立开发，部署完成后主框架自动完成同步更新
+> 增量升级：在面对各种复杂场景时，我们通常很难对一个已经存在的系统做全量的技术栈升级或重构，而微前端是一种非常好的实施渐进式重构的手段和策略
+> 独立运行时：每个微应用之间状态隔离，运行时状态不共享
+
+### qiankun
+
+qiankun 是一个基于 [single-spa](https://zh-hans.single-spa.js.org/docs/getting-started-overview) 的微前端实现库，旨在帮助大家能更简单、无痛的构建一个生产可用微前端架构系统。
+
+qiankun 的核心设计理念
+
+    🥄 简单
+    由于主应用微应用都能做到技术栈无关，qiankun 对于用户而言只是一个类似 jQuery 的库，你需要调用几个 qiankun 的 API 即可完成应用的微前端改造。同时由于 qiankun 的 HTML entry 及沙箱的设计，使得微应用的接入像使用 iframe 一样简单。
+
+    🍡 解耦/技术栈无关
+    微前端的核心目标是将巨石应用拆解成若干可以自治的松耦合微应用，而 qiankun 的诸多设计均是秉持这一原则，如 HTML entry、沙箱、应用间通信等。这样才能确保微应用真正具备 独立开发、独立运行 的能力。
+
+特性：
+
+    📦 基于 single-spa 封装，提供了更加开箱即用的 API。
+    📱 技术栈无关，任意技术栈的应用均可 使用/接入，不论是 React/Vue/Angular/JQuery 还是其他等框架。
+    💪 HTML Entry 接入方式，让你接入微应用像使用 iframe 一样简单。
+    🛡​ 样式隔离，确保微应用之间样式互相不干扰。
+    🧳 JS 沙箱，确保微应用之间 全局变量/事件 不冲突。
+    ⚡️ 资源预加载，在浏览器空闲时间预加载未打开的微应用资源，加速微应用打开速度。
+    🔌 umi 插件，提供了 @umijs/plugin-qiankun 供 umi 应用一键切换成微前端架构系统。
+
+
+demo实例 [主应用 http://main.sunsvi.com](http://main.sunsvi.com/) [子应用 http://sub.sunsvi.com/](http://sub.sunsvi.com/)
+
+
+
+
+
+
+
+
+
