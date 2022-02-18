@@ -6,12 +6,139 @@ tags: [flutter]
 description: flutter基本学习
 ---
 
-### flutter.
+## 安装 Flutter
+```
+git clone -b stable https://github.com/flutter/flutter.git
+```
+检测 Flutter 环境
+```
+flutter doctor
+```
+创建 Flutter 工程
+```
+flutter create myapp
+```
+列出模拟器
+```
+flutter emulators
+```
+启动一个Android 模拟器
+```
+flutter emulators --launch Nexus_5X_9.0
+```
+列出当前开启的模拟器设备
+```
+flutter devices
+# 显示对应的二个模拟器设备
+3 connected devices:
+Android SDK built for x86 • emulator-5554 • android-x86 • Android 9 (API 28) (emulator)
+iPhone X • 67ADA545-4FC6-458D-AE43-CC6CAF013A6B • ios • iOS 12.1 (simulator)
+```
+指定设备设备运行模拟器
+```
+flutter run -d emulator-5554
+```
+Flutter run key commands.
+
+>r Hot reload. 🔥🔥🔥
+>R Hot restart.
+>h List all available interactive commands.
+>d Detach (terminate "flutter run" but leave application running).
+>c Clear the screen
+>q Quit (terminate the application on the device).
+
+关于Flutter报Cannot run with sound null safety的解决方法
+flutter sdk 版本升级到2.0或者更高的版本后，运行之前的代码会报错，比如：
+```
+Error: Cannot run with sound null safety, because the following dependencies
+don't support null safety:
+
+ - package:flutter_swiper
+ - package:flutter_page_indicator
+ - package:transformer_page_view
+
+For solutions, see https://dart.dev/go/unsound-null-safety
+FAILURE: Build failed with an exception.
+```
+上面的问题是，这些包不支持 safety模式。我们可以在运行的时候添加--no-sound-null-safety
+```
+flutter run -d emulator-5554 --no-sound-null-safety
+```
+## flutter 安装问题 (macbook pro m1)
+
+1.获取 [Flutter SDK](https://flutter.cn/docs/development/tools/sdk/releases)
+2.将文件解压到目标路径, 比如:
+```
+cd ~/development
+unzip ~/Downloads/flutter_macos_2.8.1-stable.zip
+```
+3.配置 flutter 的 PATH 环境变量，mac下zshrc和bash_profile配置 vim ~/.zshrc source ~/.zshrc生效
+```
+export FLUTTER_HOME=/Usr/flutter // 解压的文件路径
+export PATH=$PATH:$FLUTTER_HOME/bin
+```
+4.执行 flutter doctor有可能会出现下面问题
+
+```
+[!] Xcode - develop for iOS and macOS (Xcode 13.2.1)
+    ✗ CocoaPods not installed.
+
+sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+sudo xcodebuild -license
+sudo gem install cocoapods
 
 
+[!] Flutter (Channel stable, 2.8.1, on macOS 11.4 20F71 darwin-arm, locale zh-Hans-CN)
+    ✗ Downloaded executables cannot execute on host.
+      See https://github.com/flutter/flutter/issues/6207 for more information
+```
+需要 rm -rf ~/flutter/bin/cache 缓存 再执行 flutter doctor
+```
+[!] Android toolchain - develop for Android devices (Android SDK version 31.0.0)
+    ✗ cmdline-tools component is missing
+```
+执行flutter doctor --android-licenses如果出现
+```
+> Android sdkmanager not found. Update to the latest Android SDK and ensure that the cmdline-tools are
+```
+解决方法：Appearance Behavior=>System Settings=>Android SDK=>SDK Tools 列表中选中Android SDK Command-line Tools ( latest ) 下载
+```
+Warning: Mapping new ns http://schemas.android.com/repository/android/common/02 to old ns http://sch
+```
+解决方式：在项目的两个位置更新了 Gradle：
+android/build.gradle
+```
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
 
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.0.2' // Update this line
+        ...
+    }
+}
+```
+注意：Gradle 7.0.2 是目前 Google Maven 存储库中最新的稳定版本。要检查更新的版本，请访问https://maven.google.com。在com.android.tools.build > gradle 下，您将找到适用于 Android 的版本。
+android/gradle/wrapper/gradle-wrapper.properties
+```
+distributionUrl=https\://services.gradle.org/distributions/gradle-7.2-all.zip # Update this line
+```
+这次在这两个地方更新 Gradle 解决了这个问题
+Flutter报错之Waiting for another flutter command to release the startup lock解决方案
+以及flutter doctor卡死问题
+关闭Android Studio
+打开flutter安装目录/bin/cache
+删除lockfile文件
+mac下
+>killall -9 dart
+Windows下
+>taskkill /F /IM dart.exe
 
+## 学习地址&工具
 
+https://javiercbk.github.io/json_to_dart/  自动生成模型类
 
-
+http://github.com/drawcall/c2f  css转flutter
 
