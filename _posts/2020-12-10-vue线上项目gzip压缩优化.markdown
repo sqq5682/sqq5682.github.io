@@ -14,31 +14,35 @@ description: vue线上项目gzip压缩优化
 
 这里以Vue-cli3.0项目，安装依赖：compression-webpack-plugin
 
-    npm install compression-webpack-plugin --save-dev
+```
+npm install compression-webpack-plugin --save-dev
+```
 
 vue.config.js修改：
 
-    const CompressionPlugin = require('compression-webpack-plugin');
-    const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
-    module.exports = {
-        publicPath: './',
-        productionSourceMap: false,
-        configureWebpack: {...},
-        chainWebpack: config => {
-            config.resolve.alias.set('@', resolve('src'));
-            if (process.env.NODE_ENV === 'production') {
-                config.plugin('compressionPlugin')
-                .use(new CompressionPlugin({
-                    filename: '[path].gz[query]',
-                    algorithm: 'gzip',
-                    test: productionGzipExtensions,
-                    threshold: 10240,
-                    minRatio: 0.8,
-                    deleteOriginalAssets: true //是否删除原资源
-                }));
-            }
-        },
-    };
+```javascript
+const CompressionPlugin = require('compression-webpack-plugin');
+const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
+module.exports = {
+    publicPath: './',
+    productionSourceMap: false,
+    configureWebpack: {...},
+    chainWebpack: config => {
+        config.resolve.alias.set('@', resolve('src'));
+        if (process.env.NODE_ENV === 'production') {
+            config.plugin('compressionPlugin')
+            .use(new CompressionPlugin({
+                filename: '[path].gz[query]',
+                algorithm: 'gzip',
+                test: productionGzipExtensions,
+                threshold: 10240,
+                minRatio: 0.8,
+                deleteOriginalAssets: true //是否删除原资源
+            }));
+        }
+    },
+};
+```
 
 CompressionWebpackPlugin插件参数配置：官网查看 [CompressionWebpackPlugin](https://www.webpackjs.com/plugins/compression-webpack-plugin/)
 
@@ -47,30 +51,34 @@ CompressionWebpackPlugin插件参数配置：官网查看 [CompressionWebpackPlu
 这里以阿里云ECS上，文件路径为/etc/nginx/nginx.conf
 vim /etc/nginx/nginx.conf配置：
 
-    # #开启和关闭gzip模式
-    gzip on;            
-    # #gizp压缩起点，文件大于10k才进行压缩
-    gzip_min_length 10k;
-    # # 配置禁用gzip条件，支持正则。此处表示ie6及以下不启用gzip（因为ie低版本不支持）
-    gzip_disable "MSIE [1-6]\.";
-    # # 设置压缩所需要的缓冲区大小，以4k为单位，如果文件为7k则申请2*4k的缓冲区 
-    gzip_buffers 2 4k;
-    # # 设置gzip压缩针对的HTTP协议版本
-    gzip_http_version 1.1;
-    # # gzip 压缩级别，1-9，数字越大压缩的越好，也越占用CPU时间
-    gzip_comp_level 6;   
-    # # 进行压缩的文件类型。
-    gzip_types application/javascript text/css;
-    # #nginx对于静态文件的处理模块，开启后会寻找以.gz结尾的文件，直接返回，不会占用cpu进行压缩，如果找不到则不进行压缩
-    gzip_static on; 
-    # # 是否在http header中添加Vary: Accept-Encoding，建议开启
-    gzip_vary on;
+```
+# #开启和关闭gzip模式
+gzip on;            
+# #gizp压缩起点，文件大于10k才进行压缩
+gzip_min_length 10k;
+# # 配置禁用gzip条件，支持正则。此处表示ie6及以下不启用gzip（因为ie低版本不支持）
+gzip_disable "MSIE [1-6]\.";
+# # 设置压缩所需要的缓冲区大小，以4k为单位，如果文件为7k则申请2*4k的缓冲区 
+gzip_buffers 2 4k;
+# # 设置gzip压缩针对的HTTP协议版本
+gzip_http_version 1.1;
+# # gzip 压缩级别，1-9，数字越大压缩的越好，也越占用CPU时间
+gzip_comp_level 6;   
+# # 进行压缩的文件类型。
+gzip_types application/javascript text/css;
+# #nginx对于静态文件的处理模块，开启后会寻找以.gz结尾的文件，直接返回，不会占用cpu进行压缩，如果找不到则不进行压缩
+gzip_static on; 
+# # 是否在http header中添加Vary: Accept-Encoding，建议开启
+gzip_vary on;
+```
 
 以上代码可以插入到 http {...}整个服务器的配置里，也可以插入到虚拟主机的 server {...}或者下面的location模块内。
 
 最后:wq保存退出，重新加载Nginx
 
-    nginx -s reload
+```
+nginx -s reload
+```
 
 访问一下项目，elementUI.js从667k压缩到164kb，真香！
 

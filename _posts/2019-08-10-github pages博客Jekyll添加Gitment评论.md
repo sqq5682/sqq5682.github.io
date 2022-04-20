@@ -31,6 +31,7 @@ description: github pages博客Jekyll添加Gitment评论
 
 然后在文章页面添加如下代码
 
+```html
 	<div id="container"></div>
 	<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
 	<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
@@ -46,7 +47,7 @@ description: github pages博客Jekyll添加Gitment评论
 	})  
 	gitment.render('container')  
 	</script>
-
+```
 
 这时打开文章页面会看到，Error: Comments Not Initialized，提示该篇博文的评论还没初始化
 

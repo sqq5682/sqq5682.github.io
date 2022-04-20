@@ -15,11 +15,13 @@ description: require.context实现前端工程自动化
 
 比如我们需要引用多个模块
 
-    import A from 'components/A'
-    import B from 'components/B'
-    import C from 'components/C'
-    import D from 'components/D'
-    // ...
+```javascript
+import A from 'components/A'
+import B from 'components/B'
+import C from 'components/C'
+import D from 'components/D'
+// ...
+```
 
 如果项目变大了之后,每次手动import会显得有些力不从心,这里可以使用require.context函数遍历modules文件夹的所有文件一次性导入
 
@@ -33,36 +35,40 @@ regExp: 要匹配文件的正则
 
 用法
 
-    require.context('./components/', true, /\.js$/)
+```javascript
+require.context('./components/', true, /\.js$/)
+```
 
 上面调用方法，到底返回的是什么？
 
-    var map = {
-        "./A.js": "./src/components/test/components/A.js",
-        "./B.js": "./src/components/test/components/B.js",
-        "./C.js": "./src/components/test/components/C.js",
-        "./D.js": "./src/components/test/components/D.js"
-    };
+```javascript
+var map = {
+    "./A.js": "./src/components/test/components/A.js",
+    "./B.js": "./src/components/test/components/B.js",
+    "./C.js": "./src/components/test/components/C.js",
+    "./D.js": "./src/components/test/components/D.js"
+};
 
-    function webpackContext(req) {
-        var id = webpackContextResolve(req);
-        return __webpack_require__(id);
+function webpackContext(req) {
+    var id = webpackContextResolve(req);
+    return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+    var id = map[req];
+    if(!(id + 1)) { // check for number or string
+        var e = new Error("Cannot find module '" + req + "'");
+        e.code = 'MODULE_NOT_FOUND';
+        throw e;
     }
-    function webpackContextResolve(req) {
-        var id = map[req];
-        if(!(id + 1)) { // check for number or string
-            var e = new Error("Cannot find module '" + req + "'");
-            e.code = 'MODULE_NOT_FOUND';
-            throw e;
-        }
-        return id;
-    }
-    webpackContext.keys = function webpackContextKeys() {
-        return Object.keys(map);
-    };
-    webpackContext.resolve = webpackContextResolve;
-    module.exports = webpackContext;
-    webpackContext.id = "./src/components/test/components sync recursive \\.js$";
+    return id;
+}
+webpackContext.keys = function webpackContextKeys() {
+    return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = "./src/components/test/components sync recursive \\.js$";
+```
 
 
 代码很简单，require.context执行后，返回一个方法webpackContext，这个方法又返回一个__webpack_require__，这个__webpack_require__就相当于require或者import。同时webpackContext还有二个静态方法keys与resolve，一个id属性。
@@ -73,49 +79,59 @@ id: 执行环境的id，返回的是一个字符串，主要用在module.hot.acc
 
 看下keys是作用
 
-    const ctx = require.context('./components/', true, /\.js$/)
-    console.log(ctx.keys())
-    // ["./A.js", "./B.js", "./C.js", "./D.js"]
+```javascript
+const ctx = require.context('./components/', true, /\.js$/)
+console.log(ctx.keys())
+// ["./A.js", "./B.js", "./C.js", "./D.js"]
+```
 
 其实就是
 
-    var map = {
-        "./A.js": "./src/components/test/components/A.js",
-        "./B.js": "./src/components/test/components/B.js",
-        "./C.js": "./src/components/test/components/C.js",
-        "./D.js": "./src/components/test/components/D.js"
-    };
+```javascript
+var map = {
+    "./A.js": "./src/components/test/components/A.js",
+    "./B.js": "./src/components/test/components/B.js",
+    "./C.js": "./src/components/test/components/C.js",
+    "./D.js": "./src/components/test/components/D.js"
+};
 
-    Object.keys(map)
+Object.keys(map)
+```
 
 只不过map是模块内部变量，无法直接访问，所以通过其实提供的keys方法访问
 
 那么如何引入ABCD组件呢？
 
-    const ctx = require.context('./components/', true, /\.js$/)
-    const map = {}
-    for (const key of ctx.keys()) {
-    map[key] = ctx(key)
-    }
-    console.log(map)
+```javascript
+const ctx = require.context('./components/', true, /\.js$/)
+const map = {}
+for (const key of ctx.keys()) {
+map[key] = ctx(key)
+}
+console.log(map)
+```
 
 但'./A.js'这样的key有点不太好，自己可以处理字符串生成自己想要的key,可以优化一下，生成一个公共的方法
 
-    const importAll = context => {
-    const map = {}
+```javascript
+const importAll = context => {
+const map = {}
 
-    for (const key of context.keys()) {
-        const keyArr = key.split('/')
-        keyArr.shift() // 移除.
-        map[keyArr.join('.').replace(/\.js$/g, '')] = context(key)
-    }
+for (const key of context.keys()) {
+    const keyArr = key.split('/')
+    keyArr.shift() // 移除.
+    map[keyArr.join('.').replace(/\.js$/g, '')] = context(key)
+}
 
-    return map
-    }
+return map
+}
 
-    export default importAll
+export default importAll
+```
 
 使用
 
-    import importAll from '$common/importAll'
-    export default importAll(require.context('./', true, /\.js$/))
+```javascript
+import importAll from '$common/importAll'
+export default importAll(require.context('./', true, /\.js$/))
+```

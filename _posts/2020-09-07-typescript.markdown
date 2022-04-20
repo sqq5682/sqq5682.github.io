@@ -35,26 +35,30 @@ TypeScript 使代码更容易阅读和理解
 
 2、在根目录建tsconfig.json文件
 
-    {
-        "compilerOptions": {
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
-        "lib": ["dom","es2016"],
-        "target": "es5"
-        },
-        "include": ["./src/**/*"]  
-    }
+```javascript
+{
+    "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "lib": ["dom","es2016"],
+    "target": "es5"
+    },
+    "include": ["./src/**/*"]  
+}
+```
 
 3、在配置中添加 ts-loader
 
-    {
-        test: /\.tsx?$/,
-        loader: 'ts-loader',
-        exclude: /node_modules/,
-        options: {
-        appendTsSuffixTo: [/\.vue$/],
-        }
+```javascript
+{
+    test: /\.tsx?$/,
+    loader: 'ts-loader',
+    exclude: /node_modules/,
+    options: {
+    appendTsSuffixTo: [/\.vue$/],
     }
+}
+```
 
 4、最后把 .ts 后缀添加上就OK了，在webpack.base.conf.js文件下
 

@@ -224,9 +224,11 @@ https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code
 
 错误时微信会返回JSON数据包如下（示例为Code无效错误）:
 
+```javascript
     {
         "errcode":40029,"errmsg":"invalid code"
     }
+```
 
 
 [全局返回码说明](https://mp.weixin.qq.com/wiki/10/6380dc743053a91c544ffd2b7c959166.html)

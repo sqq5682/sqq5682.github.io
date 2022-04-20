@@ -93,7 +93,7 @@ Ctrl+F5强制刷新|无效|无效
 
 1. 后端服务器，写入代码逻辑中：
 
-```
+```javascript
 res.setHeader('max-age': '3600 public')
 res.setHeader(etag: '5c20abbd-e2e8')
 res.setHeader('last-modified': Mon, 24 Dec 2018 09:49:49 GMT)

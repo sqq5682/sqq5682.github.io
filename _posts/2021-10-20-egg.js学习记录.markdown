@@ -86,7 +86,7 @@ egg-project
 
 路由定义了 请求路径（URL） 和 控制器（Controller） 之间的映射关系，即用户访问的网址应交由哪个控制器进行处理。我们打开 `app/router.js` 看一下：
 
-```
+```javascript
 module.exports = app => {
   const { router, controller } = app
   router.get('/', controller.home.index)
@@ -95,7 +95,7 @@ module.exports = app => {
 
 可以看到，路由文件导出了一个函数，接收 app 对象作为参数，通过下面的语法定义映射关系：
 
-```
+```javascript
 router.verb('path-match', controllerAction)
 ```
 
@@ -113,14 +113,14 @@ router.verb('path-match', controllerAction)
 
 而 `controllerAction` 则是通过点（·）语法指定 `controller` 目录下某个文件内的某个具体函数，例如：
 
-```
+```javascript
 controller.home.index // 映射到 controller/home.js 文件的 index 方法
 controller.v1.user.create // controller/v1/user.js 文件的 create 方法
 ```
 
 下面是一些示例及其解释：
 
-```
+```javascript
 module.exports = app => {
   const { router, controller } = app
   // 当用户访问 news 会交由 controller/news.js 的 index 方法进行处理
@@ -134,7 +134,7 @@ module.exports = app => {
 
 除了使用动词的方式创建路由之外，egg 还提供了下面的语法快速生成 CRUD 路由：
 
-```
+```javascript
 // 对 posts 按照 RESTful 风格映射到控制器 controller/posts.js 中
 router.resources('posts', '/posts', controller.posts)
 ```
@@ -157,7 +157,7 @@ DELETE|/posts/:id|post|app.controller.posts.destroy|
 
 1. 手动引入，即把路由文件写到 `app/router` 目录下，然后再 `app/router.js` 中引入这些文件。示例代码：
 
-    ```
+    ```javascript
     // app/router.js
     module.exports = app => {
       require('./router/news')(app)
@@ -179,7 +179,7 @@ DELETE|/posts/:id|post|app.controller.posts.destroy|
     ```
 2. 使用 `egg-router-plus` 插件自动引入 `app/router/**/*.js`，并且提供了 `namespace` 功能：
 
-    ```
+    ```javascript
     // app/router.js
     module.exports = app => {
       const subRouter = app.router.namespace('/sub')
@@ -188,7 +188,7 @@ DELETE|/posts/:id|post|app.controller.posts.destroy|
     ```
 除了 HTTP verb 之外，Router 还提供了一个 redirect 方法，用于内部重定向，例如：
 
-```
+```javascript
 module.exports = app => {
   app.router.get('index', '/home/index', app.controller.home.index)
   app.router.redirect('/', '/home/index', 302)
@@ -204,7 +204,7 @@ egg 约定一个中间件是一个放置在 `app/middleware` 目录下的单独�
 
 我们新建一个 `middleware/slow.js` 慢查询中间件，当请求时间超过我们指定的阈值，就打印日志，代码为：
 
-```
+```javascript
 module.exports = (options, app) => {
   return async function (ctx, next) {
     const startTime = Date.now()
@@ -220,7 +220,7 @@ module.exports = (options, app) => {
 
 然后在 `config.default.js` 中使用：
 
-```
+```javascript
 module.exports = {
   // 配置需要的中间件，数组顺序即为中间件的加载顺序
   middleware: [ 'slow' ],
@@ -235,7 +235,7 @@ module.exports = {
 
 1. 在 `config.default.js` 配置中设置 match 或 ignore 属性：
 
-    ```
+    ```javascript
     module.exports = {
       middleware: [ 'slow' ],
       slow: {
@@ -247,7 +247,7 @@ module.exports = {
 
 2. 在路由文件 `router.js` 中引入
 
-    ```
+    ```javascript
     module.exports = app => {
       const { router, controller } = app
       // 在 controller 处理之前添加任意中间件
@@ -257,7 +257,7 @@ module.exports = {
 
 egg 把中间件分成应用层定义的中间件（`app.config.appMiddleware`）和框架默认中间件（`app.config.coreMiddleware`），我们打印看一下：
 
-```
+```javascript
 module.exports = app => {
   const { router, controller } = app
   console.log(app.config.appMiddleware)
@@ -268,7 +268,7 @@ module.exports = app => {
 
 结果是：
 
-```
+```javascript
 // appMiddleware
 [ 'slow' ] 
 // coreMiddleware
@@ -288,7 +288,7 @@ module.exports = app => {
 
 其中那些 coreMiddleware 是 egg 帮我们内置的中间件，默认是开启的，如果不想用，可以通过配置的方式进行关闭：
 
-```
+```javascript
 module.exports = {
   i18n: {
     enable: false
@@ -300,7 +300,7 @@ module.exports = {
 
 Controller 负责解析用户的输入，处理后返回相应的结果，一个最简单的 helloworld 示例：
 
-```
+```javascript
 const { Controller } = require('egg');
 class HomeController extends Controller {
   async index() {
@@ -319,7 +319,7 @@ module.exports = HomeController;
 
 一个真实的案例如下：
 
-```
+```javascript
 const { Controller } = require('egg');
 class PostController extends Controller {
   async create() {
@@ -343,7 +343,7 @@ module.exports = PostController;
 
 由于 Controller 是类，因此可以通过自定义基类的方式封装常用方法，例如：
 
-```
+```javascript
 // app/core/base_controller.js
 const { Controller } = require('egg');
 class BaseController extends Controller {
@@ -362,7 +362,7 @@ module.exports = BaseController;
 
 然后让所有 Controller 继承这个自定义的 BaseController：
 
-```
+```javascript
 // app/controller/post.js
 const Controller = require('../core/base_controller');
 class PostController extends Controller {
@@ -393,7 +393,7 @@ class PostController extends Controller {
 
 `this.ctx` 上下文对象是 egg 框架和 koa 框架中最重要的一个对象，我们要弄清楚该对象的作用，不过需要注意的是，有些属性并非直接挂在 `app.ctx` 对象上，而是代理了 request 或 response 对象的属性，我们可以用 `Object.keys(ctx)` 看一下：
 
-```
+```javascript
 [
   'request', 'response', 'app', 'req', 'res', 'onerror', 'originalUrl', 'starttime', 'matched',
   '_matchedRoute', '_matchedRouteName', 'captures', 'params', 'routerName', 'routerPath'
@@ -413,7 +413,7 @@ Controller 可以调用任何一个 Service 上的任何方法，值得注意的
 
 一个简单的 Service 示例，将数据库中的查询结果返回出去：
 
-```
+```javascript
 // app/service/user.js
 const { Service } = require('egg').Service;
 
@@ -429,7 +429,7 @@ module.exports = UserService;
 
 在 Controller 中可以直接调用：
 
-```
+```javascript
 class UserController extends Controller {
   async info() {
     const { ctx } = this;
@@ -442,7 +442,7 @@ class UserController extends Controller {
 
 注意，Service 文件必须放在 `app/service` 目录，支持多级目录，访问的时候可以通过目录名级联访问：
 
-```
+```text
 app/service/biz/user.js => ctx.service.biz.user
 app/service/sync_user.js => ctx.service.syncUser
 app/service/HackerNews.js => ctx.service.hackerNews
@@ -454,7 +454,7 @@ Service 里面的函数，可以理解为某个具体业务逻辑的最小单元
 
 egg 框架内置了 `egg-view` 作为模板解决方案，并支持多种模板渲染，例如 ejs、handlebars、nunjunks 等模板引擎，每个模板引擎都以插件的方式引入，默认情况下，所有插件都会去找 `app/view` 目录下的文件，然后根据 `config\config.default.js` 中定义的后缀映射来选择不同的模板引擎：
 
-```
+```javascript
 config.view = {
   defaultExtension: '.nj',
   defaultViewEngine: 'nunjucks',
@@ -483,7 +483,7 @@ $ npm i egg-view-nunjucks egg-view-ejs egg-view-handlebars --save
 
 然后在 `config/plugin.js` 中启用该插件：
 
-```
+```javascript
 exports.nunjucks = {
   enable: true,
   package: 'egg-view-nunjucks',
@@ -500,7 +500,7 @@ exports.ejs = {
 
 然后添加 `app/view` 目录，里面增加几个文件：
 
-```
+```javascript
 app/view
 ├── ejs.ejs
 ├── handlebars.hbs
@@ -509,7 +509,7 @@ app/view
 
 代码分别是：
 
-```
+```html
 <!-- ejs.ejs 文件代码 -->
 <h1>ejs</h1>
 <ul>
@@ -535,7 +535,7 @@ app/view
 
 然后在 Router 中配置路由：
 
-```
+```javascript
 module.exports = app => {
   const { router, controller } = app
   router.get('/ejs', controller.home.ejs)
@@ -546,7 +546,7 @@ module.exports = app => {
 
 接下来实现 Controller 的逻辑：
 
-```
+```javascript
 const Controller = require('egg').Controller
 
 class HomeController extends Controller {
@@ -574,7 +574,7 @@ module.exports = HomeController
 
 我们把数据放到了 Service 里面：
 
-```
+```javascript
 const { Service } = require('egg')
 
 class ViewService extends Service {
@@ -599,7 +599,7 @@ GET http://localhost:7001/ejs
 
 你可能会问，ctx.render 方法是哪来的呢？没错，是由 egg-view 对 context 进行扩展而提供的，为 ctx 上下文对象增加了 `render`、`renderView` 和 `renderString` 三个方法，代码如下：
 
-```
+```javascript
 const ContextView = require('../../lib/context_view')
 const VIEW = Symbol('Context#view')
 
@@ -631,7 +631,7 @@ module.exports = {
 
 上面模板渲染的时候，我们已经知道如何使用插件了，即只需要在应用或框架的 `config/plugin.js` 中声明：
 
-```
+```javascript
 exports.myPlugin = {
   enable: true, // 是否开启
   package: 'egg-myPlugin', // 从 node_modules 中引入
@@ -642,7 +642,7 @@ exports.myPlugin = {
 
 开启插件后，就可以使用插件提供的功能了：
 
-```
+```javascript
 app.myPlugin.xxx()
 ```
 

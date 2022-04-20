@@ -8,7 +8,9 @@ description: javascript相关知识汇总
 
 #### JavaScript中如何检测一个变量是一个String类型？请写出函数实现
 
+```javascript
 	typeof(obj) === "string" typeof obj === "string" obj.constructor === String
+```
 
 #### 请用js去除字符串空格？
 
@@ -21,32 +23,38 @@ description: javascript相关知识汇总
 
 str为要去除空格的字符串，实例如下：
 
+```javascript
 	var str = " 23 23 "; 
 	var str2 = str.replace(/s*/g,""); 
 	console.log(str2); // 2323
-
+```
 
 **方法二：使用str.trim()方法**  
 str.trim()局限性：无法去除中间的空格，实例如下：
 
+```javascript
 	var str = "   xiao  ming   "; 
 	var str2 = str.trim(); 
 	console.log(str2);   //xiao  ming
+```
 
 同理，str.trimLeft()，str.trimRight()分别用于去除字符串左右空格。
 
 **方法三：使用jquery,$.trim(str)方法**  
 $.trim(str)局限性：无法去除中间的空格，实例如下：
 
+```javascript
 	var str = "   xiao  ming   "; 
 	var str2 = $.trim(str) 
 	console.log(str2);   //  xiao  ming
+```
 
 #### 你如何获取浏览器URL中查询字符串中的参数？
 
 测试地址为：http://www.runoob.com/jquery/misc-trim.html?channelid=12333&name=xiaoming&age=23  
 实例如下：
 
+```javascript
 	function showWindowHref(){     
 		var sHref = window.location.href;     
 		var args = sHref.split('?');     
@@ -63,7 +71,7 @@ $.trim(str)局限性：无法去除中间的空格，实例如下：
 	} 
 	var href = showWindowHref(); // obj 
 	console.log(href['name']); // xiaoming
-
+```
 
 #### js 字符串操作函数
 
@@ -113,39 +121,49 @@ valueOf() 返回数组对象的原始值
 
  1）创建新节点
 
+```javascript
 	createDocumentFragment() //创建一个DOM片段
 	createElement() //创建一个具体的元素
 	createTextNode() //创建一个文本节点
+```
 
 2）添加、移除、替换、插入
 
+```javascript
 	appendChild() //添加
 	removeChild() //移除
 	replaceChild() //替换
 	insertBefore() //插入
+```
 
 3）查找
 
+```javascript
 	getElementsByTagName() //通过标签名称
 	getElementsByName() //通过元素的Name属性的值
 	getElementById() //通过元素Id，唯一性
-
+```
 
 #### 写出3个使用this的典型应用
 
 （1）、在html元素事件属性中使用，如：
 
+```html
 	<input type=”button” onclick=”showInfo(this);” value=”点击一下”/>
+```
 
 （2）、构造函数
 
+```javascript
 	function Animal(name, color) { 　　
 		this.name = name; 　　
 		this.color = color; 
 	}
+```
 
 （3）、input点击，获取值
 
+```html
 	<input type="button" id="text" value="点击一下" /> 
 	<script type="text/javascript">     
 		var btn = document.getElementById("text");     
@@ -153,14 +171,17 @@ valueOf() 返回数组对象的原始值
 			alert(this.value);    //此处的this是按钮元素     
 		}
 	</script>
+```
 
 (4)、apply()/call()求数组最值
 
+```javascript
 	var  numbers = [5, 458 , 120 , -215 ];  
 	var  maxInNumbers = Math.max.apply(this, numbers);   
 	console.log(maxInNumbers);  // 458 
 	var maxInNumbers = Math.max.call(this,5, 458 , 120 , -215);  
 	console.log(maxInNumbers);  // 458
+```
 
 #### 比较typeof与instanceof？
 
@@ -178,22 +199,28 @@ Instanceof定义和用法：instanceof 用于判断一个变量是否属于某�
 
 实例演示：
 
+```javascript
 	a instanceof b?alert("true"):alert("false"); //a是b的实例？真:假
 	var a = new Array();  
 	alert(a instanceof Array);  // true 
 	alert(a instanceof Object)  // true
+```
 
 如上，会返回 true，同时 alert(a instanceof Object) 也会返回 true;这是因为 Array 是 object 的子类。
 
+```javascript
 	function test(){}; 
 	var a = new test(); 
 	alert(a instanceof test)   // true
+```
 
 细节：
 
 (1)、如下，得到的结果为‘N’,这里的 instanceof 测试的 object 是指 js 语法中的 object，不是指 dom 模型对象。
 
+```javascript
 	if (window instanceof Object){ alert('Y')} else {  alert('N');}  // 'N'
+```
 
 #### 如何理解闭包？
 
@@ -202,6 +229,7 @@ Instanceof定义和用法：instanceof 用于判断一个变量是否属于某�
 3、实例如下：  
 (1)、根据作用域链的规则，底层作用域没有声明的变量，会向上一级找，找到就返回，没找到就一直找，直到window的变量，没有就返回undefined。这里明显count 是函数内部的flag2 的那个count 。
 
+```javascript
 	var count=10;   //全局作用域 标记为flag1 
 	function add(){     
 		var count=0;    //函数全局作用域 标记为flag2     
@@ -213,6 +241,7 @@ Instanceof定义和用法：instanceof 用于判断一个变量是否属于某�
 	var s = add() 
 	s();//输出1 
 	s();//输出2
+```
 
 4、变量的作用域  
 要理解闭包，首先必须理解Javascript特殊的变量作用域。  
@@ -270,18 +299,21 @@ arguments虽然有一些数组的性质，但其并非真正的数组，只是�
 定义和用法：是现代浏览器支持跨域资源请求的一种最常用的方式。  
 使用方法：一般需要后端人员在处理请求数据的时候，添加允许跨域的相关操作。如下：
 
+```javascript
 	res.writeHead(200, {     
 		"Content-Type": "text/html; charset=UTF-8",     
 		"Access-Control-Allow-Origin":'http://localhost',     
 		'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',     
 		'Access-Control-Allow-Headers': 'X-Requested-With, Content-Type' 
 	});
+```
 
 (3)、jsonp  
 定义和用法：通过动态插入一个script标签。浏览器对script的资源引用没有同源限制，同时资源加载到页面后会立即执行（没有阻塞的情况下）。  
 特点：通过情况下，通过动态创建script来读取他域的动态资源，获取的数据一般为json格式。  
 实例如下：
 
+```html
 	<script>     
 		function testjsonp(data) {        
 			console.log(data.name); // 获取返回的结果     
@@ -293,6 +325,7 @@ arguments虽然有一些数组的性质，但其并非真正的数组，只是�
 		_script.src = "http://localhost:8888/jsonp?callback=testjsonp";     
 		document.head.appendChild(_script); 
 	</script>
+```
 
 缺点：  
 1、这种方式无法发送post请求（这里）
@@ -330,51 +363,63 @@ null：表示无值；undefined：表示一个未声明的变量，或已声明�
 ==运算符将两者看作相等。如果要区分两者，要使用===或typeof运算符。  
 以下是不正确的用法：  
 
+```javascript
 	var exp = undefined;
 	if (exp == undefined) {
 	    alert("undefined");
 	}
+```
 
 exp为null时，也会得到与undefined相同的结果，虽然null和undefined不一样。注意：要同时判断undefined和null时可使用本法。  
 typeof返回的是字符串，有六种可能："number"、"string"、"boolean"、"object"、"function"、"undefined"。  
 以下是正确的用法：
 
+```javascript
 	var exp = undefined;
 	if(typeof(exp) == undefined) {
 	     alert("undefined");
 	}
+```
 
 **JS中如何判断null？**
 
 以下是不正确的用法：
 
+```javascript
 	var exp = null; 
 	if(exp == null) {
 	    alert("is null");
 	}
+```
 
 
 exp为undefined时，也会得到与null相同的结果，虽然null和undefined不一样。注意：要同时判断null和undefined时可使用本法。
 
+```javascript
 	var exp=null; 
 	if(!exp) {
 	    alert("is null");
 	}
+```
 
 如果exp为undefined或者数字零，也会得到与null相同的结果，虽然null和二者不一样。注意：要同时判断null、undefined和数字零时可使用本法。
 
+```javascript
 	var exp = null; 
 	if(typeof(exp) == "null") {
 	    alert("is null");
 	}
+```
 
 为了向下兼容，exp为null时，typeof总返回object。这种方式也不太好。  
 以下是正确的用法：
 
+```javascript
 	var exp = null; 
 	if(!exp&&typeof(exp) != "undefined" && exp != 0) {
 	   alert("is null");
 	}
+```
 
 
 #### 谈谈垃圾回收机制方式及内存管理
@@ -384,6 +429,7 @@ exp为undefined时，也会得到与null相同的结果，虽然null和undefined
 2、原理：垃圾收集器会定期（周期性）找出那些不在继续使用的变量，然后释放其内存。但是这个过程不是实时的，因为其开销比较大，所以垃圾回收器会按照固定的时间间隔周期性的执行。  
 3、实例如下： 
 
+```javascript
 	function fn1() {     
 		var obj = {name: 'hanzichi', age: 10}; 
 	} 
@@ -393,6 +439,7 @@ exp为undefined时，也会得到与null相同的结果，虽然null和undefined
 	} 
 	var a = fn1(); 
 	var b = fn2();
+```
 
 fn1中定义的obj为局部变量，而当调用结束后，出了fn1的环境，那么该块内存会被js引擎中的垃圾回收器自动释放；在fn2被调用的过程中，返回的对象被全局变量b所指向，所以该块内存并不会被释放。  
  4、垃圾回收策略：标记清除(较为常用)和引用计数。  

@@ -9,7 +9,7 @@ description: vue3-vite2打包构建
 vite.config.js配置
 
 
-```
+```javascript
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
 import glob from 'glob'
@@ -202,7 +202,7 @@ export default ({ mode }) => { // { mode, command } mode: development,production
 
 pageage.json
 
-```
+```JSON
 {
   "name": "demo",
   "version": "1.0.0",
