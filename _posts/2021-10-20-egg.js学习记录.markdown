@@ -1,0 +1,651 @@
+---
+layout: post
+title: egg.js学习记录
+categories: [blog]
+tags: [egg]
+description: egg.js学习记录
+---
+
+## egg 介绍
+
+egg 是阿里出品的一款 node.js 后端 web 框架，基于 koa 封装，并做了一些约定。egg 有孕育的含义，因为 egg 的定位是企业级 web 基础框架，旨在帮助开发者孕育适合自己团队的框架。
+
+## 创建项目
+
+我们采用基础模板、选择国内镜像创建一个 egg 项目
+
+```
+$ npm init egg --type=simple --registry=china
+# 或者 yarn create egg --type=simple --registry=china
+```
+
+解释一下 `npm init egg` 这种语法：
+
+>npm@6 版本引入了 `npm-init <initializer>` 语法，等价于 `npx create-<initializer>` 命令，而 npx 命令会去 $PATH 路径和` node_modules/.bin` 路径下寻找名叫 `create-<initializer>` 的可执行文件，如果找到了就执行，找不到就去安装。    
+>也就是说，`npm init egg` 会去寻找或下载 `create-egg` 可执行文件，而 `create-egg` 包就是 `egg-init` 包的别名，相当于调用了 `egg-init`。    
+
+创建完毕之后，目录结构如下（忽略 README文件 和 test 目录）：
+
+```
+├── app
+│   ├── controller
+│   │   └── home.js
+│   └── router.js
+├── config
+│   ├── config.default.js
+│   └── plugin.js
+├── package.json
+```
+
+这就是最小化的 egg 项目，用 `npm i` 或 `yarn` 安装依赖之后，执行启动命令：
+
+```
+$ npm run dev
+
+[master] node version v14.15.1
+[master] egg version 2.29.1
+[master] agent_worker#1:23135 started (842ms)
+[master] egg started on http://127.0.0.1:7001 (1690ms)
+```
+
+打开 `http://127.0.0.1:7001/` 会看到网页上显示 `hi, egg` 。
+
+## 目录约定
+
+上面创建的项目只是最小化结构，一个典型的 egg 项目有如下目录结构：
+
+```
+egg-project
+├── package.json
+├── app.js (可选)
+├── agent.js (可选)
+├── app/
+|   ├── router.js # 用于配置 URL 路由规则
+│   ├── controller/ # 用于存放控制器（解析用户的输入、加工处理、返回结果）
+│   ├── model/ (可选) # 用于存放数据库模型
+│   ├── service/ (可选) # 用于编写业务逻辑层
+│   ├── middleware/ (可选) # 用于编写中间件
+│   ├── schedule/ (可选) # 用于设置定时任务
+│   ├── public/ (可选) # 用于放置静态资源
+│   ├── view/ (可选) # 用于放置模板文件
+│   └── extend/ (可选) # 用于框架的扩展
+│       ├── helper.js (可选)
+│       ├── request.js (可选)
+│       ├── response.js (可选)
+│       ├── context.js (可选)
+│       ├── application.js (可选)
+│       └── agent.js (可选)
+├── config/
+|   ├── plugin.js # 用于配置需要加载的插件
+|   ├── config.{env}.js # 用于编写配置文件（env 可以是 default,prod,test,local,unittest）
+```
+
+这是由 egg 框架或内置插件约定好的，是阿里总结出来的最佳实践，虽然框架也提供了让用户自定义目录结构的能力，但是依然建议大家采用阿里的这套方案。在接下来的篇章当中，会逐一讲解上述约定目录和文件的作用。
+
+## 路由（Router）
+
+路由定义了 请求路径（URL） 和 控制器（Controller） 之间的映射关系，即用户访问的网址应交由哪个控制器进行处理。我们打开 `app/router.js` 看一下：
+
+```
+module.exports = app => {
+  const { router, controller } = app
+  router.get('/', controller.home.index)
+};
+```
+
+可以看到，路由文件导出了一个函数，接收 app 对象作为参数，通过下面的语法定义映射关系：
+
+```
+router.verb('path-match', controllerAction)
+```
+
+其中 `verb` 一般是 HTTP 动词的小写，例如：
+
++ HEAD - `router.head`
++ OPTIONS - `router.options`
++ GET - `router.get`
++ PUT - `router.put`
++ POST - `router.post`
++ PATCH - `router.patch`
++ DELETE - `router.delete` 或 `router.del`
+
+除此之外，还有一个特殊的动词 `router.redirect` 表示重定向。
+
+而 `controllerAction` 则是通过点（·）语法指定 `controller` 目录下某个文件内的某个具体函数，例如：
+
+```
+controller.home.index // 映射到 controller/home.js 文件的 index 方法
+controller.v1.user.create // controller/v1/user.js 文件的 create 方法
+```
+
+下面是一些示例及其解释：
+
+```
+module.exports = app => {
+  const { router, controller } = app
+  // 当用户访问 news 会交由 controller/news.js 的 index 方法进行处理
+  router.get('/news', controller.news.index)
+  // 通过冒号 `:x` 来捕获 URL 中的命名参数 x，放入 ctx.params.x
+  router.get('/user/:id/:name', controller.user.info)
+  // 通过自定义正则来捕获 URL 中的分组参数，放入 ctx.params 中
+  router.get(/^\/package\/([\w-.]+\/[\w-.]+)$/, controller.package.detail)
+}
+```
+
+除了使用动词的方式创建路由之外，egg 还提供了下面的语法快速生成 CRUD 路由：
+
+```
+// 对 posts 按照 RESTful 风格映射到控制器 controller/posts.js 中
+router.resources('posts', '/posts', controller.posts)
+```
+
+会自动生成下面的路由：
+
+|HTTP方法|请求路径|	路由名称|控制器函数|
+|---|---|---|---|
+|GET|/posts|posts|app.controller.posts.index|
+|GET|/posts/new|new_post|app.controller.posts.new|
+|GET|/posts/:id|post|app.controller.posts.show|
+|GET|/posts/:id/edit|edit_post|app.controller.posts.edit|
+POST|/posts|posts|app.controller.posts.create|
+PATCH|/posts/:id|post|app.controller.posts.update|
+DELETE|/posts/:id|post|app.controller.posts.destroy|
+
+只需要到 controller 中实现对应的方法即可。
+
+当项目越来越大之后，路由映射会越来越多，我们可能希望能够将路由映射按照文件进行拆分，这个时候有两种办法：
+
+1. 手动引入，即把路由文件写到 `app/router` 目录下，然后再 `app/router.js` 中引入这些文件。示例代码：
+
+    ```
+    // app/router.js
+    module.exports = app => {
+      require('./router/news')(app)
+      require('./router/admin')(app)
+    };
+
+    // app/router/news.js
+    module.exports = app => {
+      app.router.get('/news/list', app.controller.news.list)
+      app.router.get('/news/detail', app.controller.news.detail)
+    };
+
+    // app/router/admin.js
+    module.exports = app => {
+      app.router.get('/admin/user', app.controller.admin.user)
+      app.router.get('/admin/log', app.controller.admin.log)
+    };
+
+    ```
+2. 使用 `egg-router-plus` 插件自动引入 `app/router/**/*.js`，并且提供了 `namespace` 功能：
+
+    ```
+    // app/router.js
+    module.exports = app => {
+      const subRouter = app.router.namespace('/sub')
+      subRouter.get('/test', app.controller.sub.test) // 最终路径为 /sub/test
+    }
+    ```
+除了 HTTP verb 之外，Router 还提供了一个 redirect 方法，用于内部重定向，例如：
+
+```
+module.exports = app => {
+  app.router.get('index', '/home/index', app.controller.home.index)
+  app.router.redirect('/', '/home/index', 302)
+}
+```
+
+## 中间件（Middleware）
+
+egg 约定一个中间件是一个放置在 `app/middleware` 目录下的单独文件，它需要导出一个普通的函数，该函数接受两个参数：
+
++ options: 中间件的配置项，框架会将 `app.config[${middlewareName}]` 传递进来。
++ app: 当前应用 Application 的实例。
+
+我们新建一个 `middleware/slow.js` 慢查询中间件，当请求时间超过我们指定的阈值，就打印日志，代码为：
+
+```
+module.exports = (options, app) => {
+  return async function (ctx, next) {
+    const startTime = Date.now()
+    await next()
+    const consume = Date.now() - startTime
+    const { threshold = 0 } = options || {}
+    if (consume > threshold) {
+      console.log(`${ctx.url}请求耗时${consume}毫秒`)
+    }
+  }
+}
+```
+
+然后在 `config.default.js` 中使用：
+
+```
+module.exports = {
+  // 配置需要的中间件，数组顺序即为中间件的加载顺序
+  middleware: [ 'slow' ],
+  // slow 中间件的 options 参数
+  slow: {
+    enable: true
+  },
+}
+```
+
+这里配置的中间件是全局启用的，如果只是想在指定路由中使用中间件的话，例如只针对 `/api` 前缀开头的 url 请求使用某个中间件的话，有两种方式：
+
+1. 在 `config.default.js` 配置中设置 match 或 ignore 属性：
+
+    ```
+    module.exports = {
+      middleware: [ 'slow' ],
+      slow: {
+        threshold: 1,
+        match: '/api'
+      },
+    };
+    ```
+
+2. 在路由文件 `router.js` 中引入
+
+    ```
+    module.exports = app => {
+      const { router, controller } = app
+      // 在 controller 处理之前添加任意中间件
+      router.get('/api/home', app.middleware.slow({ threshold: 1 }), controller.home.index)
+    }
+    ```
+
+egg 把中间件分成应用层定义的中间件（`app.config.appMiddleware`）和框架默认中间件（`app.config.coreMiddleware`），我们打印看一下：
+
+```
+module.exports = app => {
+  const { router, controller } = app
+  console.log(app.config.appMiddleware)
+  console.log(app.config.coreMiddleware)
+  router.get('/api/home', app.middleware.slow({ threshold: 1 }), controller.home.index)
+}
+```
+
+结果是：
+
+```
+// appMiddleware
+[ 'slow' ] 
+// coreMiddleware
+[
+  'meta',
+  'siteFile',
+  'notfound',
+  'static',
+  'bodyParser',
+  'overrideMethod',
+  'session',
+  'securities',
+  'i18n',
+  'eggLoaderTrace'
+]
+```
+
+其中那些 coreMiddleware 是 egg 帮我们内置的中间件，默认是开启的，如果不想用，可以通过配置的方式进行关闭：
+
+```
+module.exports = {
+  i18n: {
+    enable: false
+  }
+}
+```
+
+## 控制器（Controller）
+
+Controller 负责解析用户的输入，处理后返回相应的结果，一个最简单的 helloworld 示例：
+
+```
+const { Controller } = require('egg');
+class HomeController extends Controller {
+  async index() {
+    const { ctx } = this;
+    ctx.body = 'hi, egg';
+  }
+}
+module.exports = HomeController;
+```
+
+当然，我们实际项目中的代码不会这么简单，通常情况下，在 Controller 中会做如下几件事情：
+
++ 接收、校验、处理 HTTP 请求参数
++ 向下调用服务（Service）处理业务
++ 通过 HTTP 将结果响应给用户
+
+一个真实的案例如下：
+
+```
+const { Controller } = require('egg');
+class PostController extends Controller {
+  async create() {
+    const { ctx, service } = this;
+    const createRule = {
+      title: { type: 'string' },
+      content: { type: 'string' },
+    };
+    // 校验和组装参数
+    ctx.validate(createRule);
+    const data = Object.assign(ctx.request.body, { author: ctx.session.userId });
+    // 调用 Service 进行业务处理
+    const res = await service.post.create(data);
+    // 响应客户端数据
+    ctx.body = { id: res.id };
+    ctx.status = 201;
+  }
+}
+module.exports = PostController;
+```
+
+由于 Controller 是类，因此可以通过自定义基类的方式封装常用方法，例如：
+
+```
+// app/core/base_controller.js
+const { Controller } = require('egg');
+class BaseController extends Controller {
+  get user() {
+    return this.ctx.session.user;
+  }
+  success(data) {
+    this.ctx.body = { success: true, data };
+  }
+  notFound(msg) {
+    this.ctx.throw(404, msg || 'not found');
+  }
+}
+module.exports = BaseController;
+```
+
+然后让所有 Controller 继承这个自定义的 BaseController：
+
+```
+// app/controller/post.js
+const Controller = require('../core/base_controller');
+class PostController extends Controller {
+  async list() {
+    const posts = await this.service.listByUser(this.user);
+    this.success(posts);
+  }
+}
+```
+
+在 Controller 中通过 `this.ctx` 可以获取上下文对象，方便获取和设置相关参数，例如：
+
++ ctx.query：URL 中的请求参数（忽略重复 key）
++ ctx.quries：URL 中的请求参数（重复的 key 被放入数组中）
++ ctx.params：Router 上的命名参数
++ ctx.request.body：HTTP 请求体中的内容
++ ctx.request.files：前端上传的文件对象
++ ctx.getFileStream()：获取上传的文件流
++ ctx.multipart()：获取 multipart/form-data 数据
++ ctx.cookies：读取和设置 cookie
++ ctx.session：读取和设置 session
++ ctx.service.xxx：获取指定 service 对象的实例（懒加载）
++ ctx.status：设置状态码
++ ctx.body：设置响应体
++ ctx.set：设置响应头
++ ctx.redirect(url)：重定向
++ ctx.render(template)：渲染模板
+
+`this.ctx` 上下文对象是 egg 框架和 koa 框架中最重要的一个对象，我们要弄清楚该对象的作用，不过需要注意的是，有些属性并非直接挂在 `app.ctx` 对象上，而是代理了 request 或 response 对象的属性，我们可以用 `Object.keys(ctx)` 看一下：
+
+```
+[
+  'request', 'response', 'app', 'req', 'res', 'onerror', 'originalUrl', 'starttime', 'matched',
+  '_matchedRoute', '_matchedRouteName', 'captures', 'params', 'routerName', 'routerPath'
+]
+```
+
+## 服务（Service）
+
+Service 是具体业务逻辑的实现，一个封装好的 Service 可供多个 Controller 调用，而一个 Controller 里面也可以调用多个 Service，虽然在 Controller 中也可以写业务逻辑，但是并不建议这么做，代码中应该保持 Controller 逻辑简洁，仅仅发挥「桥梁」作用。
+
+Controller 可以调用任何一个 Service 上的任何方法，值得注意的是：Service 是懒加载的，即只有当访问到它的时候框架才会去实例化它。
+
+通常情况下，在 Service 中会做如下几件事情：
+
++ 处理复杂业务逻辑
++ 调用数据库或第三方服务（例如 GitHub 信息获取等）
+
+一个简单的 Service 示例，将数据库中的查询结果返回出去：
+
+```
+// app/service/user.js
+const { Service } = require('egg').Service;
+
+class UserService extends Service {
+  async find(uid) {
+    const user = await this.ctx.db.query('select * from user where uid = ?', uid);
+    return user;
+  }
+}
+
+module.exports = UserService;
+```
+
+在 Controller 中可以直接调用：
+
+```
+class UserController extends Controller {
+  async info() {
+    const { ctx } = this;
+    const userId = ctx.params.id;
+    const userInfo = await ctx.service.user.find(userId);
+    ctx.body = userInfo;
+  }
+}
+```
+
+注意，Service 文件必须放在 `app/service` 目录，支持多级目录，访问的时候可以通过目录名级联访问：
+
+```
+app/service/biz/user.js => ctx.service.biz.user
+app/service/sync_user.js => ctx.service.syncUser
+app/service/HackerNews.js => ctx.service.hackerNews
+```
+
+Service 里面的函数，可以理解为某个具体业务逻辑的最小单元，Service 里面也可以调用其他 Service，值得注意的是：Service 不是单例，是 请求级别 的对象，框架在每次请求中首次访问 `ctx.service.xx` 时延迟实例化，所以 Service 中可以通过 this.ctx 获取到当前请求的上下文。
+
+## 模板渲染
+
+egg 框架内置了 `egg-view` 作为模板解决方案，并支持多种模板渲染，例如 ejs、handlebars、nunjunks 等模板引擎，每个模板引擎都以插件的方式引入，默认情况下，所有插件都会去找 `app/view` 目录下的文件，然后根据 `config\config.default.js` 中定义的后缀映射来选择不同的模板引擎：
+
+```
+config.view = {
+  defaultExtension: '.nj',
+  defaultViewEngine: 'nunjucks',
+  mapping: {
+    '.nj': 'nunjucks',
+    '.hbs': 'handlebars',
+    '.ejs': 'ejs',
+  },
+}
+```
+
+上面的配置表示，当文件：
+
++ 后缀是 `.nj` 时使用 nunjunks 模板引擎
++ 后缀是 `.hbs` 时使用 handlebars 模板引擎
++ 后缀是 `.ejs` 时使用 ejs 模板引擎
++ 当未指定后缀时默认为 `.html`
++ 当未指定模板引擎时默认为 nunjunks
+
+接下来我们安装模板引擎插件：
+
+```
+$ npm i egg-view-nunjucks egg-view-ejs egg-view-handlebars --save
+# 或者 yarn add egg-view-nunjucks egg-view-ejs egg-view-handlebars
+```
+
+然后在 `config/plugin.js` 中启用该插件：
+
+```
+exports.nunjucks = {
+  enable: true,
+  package: 'egg-view-nunjucks',
+}
+exports.handlebars = {
+  enable: true,
+  package: 'egg-view-handlebars',
+}
+exports.ejs = {
+  enable: true,
+  package: 'egg-view-ejs',
+}
+```
+
+然后添加 `app/view` 目录，里面增加几个文件：
+
+```
+app/view
+├── ejs.ejs
+├── handlebars.hbs
+└── nunjunks.nj
+```
+
+代码分别是：
+
+```
+<!-- ejs.ejs 文件代码 -->
+<h1>ejs</h1>
+<ul>
+  <% items.forEach(function(item){ %>
+    <li><%= item.title %></li>
+  <% }); %>
+</ul>
+      
+<!-- handlebars.hbs 文件代码 -->
+<h1>handlebars</h1>
+{{#each items}}
+  <li>{{title}}</li>
+{{~/each}}
+    
+<!-- nunjunks.nj 文件代码 -->
+<h1>nunjunks</h1>
+<ul>
+{% for item in items %}
+  <li>{{ item.title }}</li>
+{% endfor %}
+</ul>
+```
+
+然后在 Router 中配置路由：
+
+```
+module.exports = app => {
+  const { router, controller } = app
+  router.get('/ejs', controller.home.ejs)
+  router.get('/handlebars', controller.home.handlebars)
+  router.get('/nunjunks', controller.home.nunjunks)
+}
+```
+
+接下来实现 Controller 的逻辑：
+
+```
+const Controller = require('egg').Controller
+
+class HomeController extends Controller {
+  async ejs() {
+    const { ctx } = this
+    const items = await ctx.service.view.getItems()
+    await ctx.render('ejs.ejs', {items})
+  }
+
+  async handlebars() {
+    const { ctx } = this
+    const items = await ctx.service.view.getItems()
+    await ctx.render('handlebars.hbs', {items})
+  }
+
+  async nunjunks() {
+    const { ctx } = this
+    const items = await ctx.service.view.getItems()
+    await ctx.render('nunjunks.nj', {items})
+  }
+}
+
+module.exports = HomeController
+```
+
+我们把数据放到了 Service 里面：
+
+```
+const { Service } = require('egg')
+
+class ViewService extends Service {
+  getItems() {
+    return [
+      { title: 'foo', id: 1 },
+      { title: 'bar', id: 2 },
+    ]
+  }
+}
+
+module.exports = ViewService
+```
+
+访问下面的地址可以查看不同模板引擎渲染出的结果：
+
+```
+GET http://localhost:7001/nunjunks
+GET http://localhost:7001/handlebars
+GET http://localhost:7001/ejs
+```
+
+你可能会问，ctx.render 方法是哪来的呢？没错，是由 egg-view 对 context 进行扩展而提供的，为 ctx 上下文对象增加了 `render`、`renderView` 和 `renderString` 三个方法，代码如下：
+
+```
+const ContextView = require('../../lib/context_view')
+const VIEW = Symbol('Context#view')
+
+module.exports = {
+  render(...args) {
+    return this.renderView(...args).then(body => {
+      this.body = body;
+    })
+  },
+
+  renderView(...args) {
+    return this.view.render(...args);
+  },
+
+  renderString(...args) {
+    return this.view.renderString(...args);
+  },
+
+  get view() {
+    if (this[VIEW]) return this[VIEW]
+    return this[VIEW] = new ContextView(this)
+  }
+}
+```
+
+它内部最终会把调用转发给 ContextView 实例上的 render 方法，ContextView 是一个能够根据配置里面定义的 mapping，帮助我们找到对应渲染引擎的类。
+
+## 插件
+
+上面模板渲染的时候，我们已经知道如何使用插件了，即只需要在应用或框架的 `config/plugin.js` 中声明：
+
+```
+exports.myPlugin = {
+  enable: true, // 是否开启
+  package: 'egg-myPlugin', // 从 node_modules 中引入
+  path: path.join(__dirname, '../lib/plugin/egg-mysql'), // 从本地目录中引入
+  env: ['local', 'unittest', 'prod'], // 只有在指定运行环境才能开启
+}
+```
+
+开启插件后，就可以使用插件提供的功能了：
+
+```
+app.myPlugin.xxx()
+```
+
+参数地址[https://juejin.cn/post/6995063516470198279](https://juejin.cn/post/6995063516470198279)
+
+
