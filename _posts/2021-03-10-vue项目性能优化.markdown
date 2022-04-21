@@ -41,7 +41,7 @@ v-show 就简单得多， 不管初始条件是什么，元素总是会被渲染
 
 推荐：
 
-```
+```html
 <ul>
     <li
         v-for="user in activeUsers"
@@ -162,7 +162,7 @@ npm install babel-plugin-component -D
 ```
 2. 然后，将 .babelrc 修改为：
 
-```JSON
+```javascript
 {
     "presets": [["es2015", { "modules": false }]],
     "plugins": [

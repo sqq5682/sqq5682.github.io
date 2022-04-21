@@ -8,6 +8,7 @@ description: js动态处理transitionend和animationend动画事件
 
 针对transform、transitionend、animationend在移动和pc端浏览器的前缀的兼容问题,写成一个简单js处理css3 transitionend和animationend动画事件的原声 js函数，如下
 
+```javascript
 	(function (root, factory) {
 	    if (typeof define === 'function') {
 	        define(factory);
@@ -100,7 +101,7 @@ description: js动态处理transitionend和animationend动画事件
 	    WN.animationEnd=animationEnd;
 	    return WN;
 	});
-
+```
 
 这个函数方法有：
 
@@ -108,7 +109,7 @@ description: js动态处理transitionend和animationend动画事件
 
 具体调用的如下：
 
-
+```css
 	.wrap{
 		width:50px;
 		height:50px;
@@ -130,9 +131,9 @@ description: js动态处理transitionend和animationend动画事件
 		-o-transform: translate(150px, 150px) rotate(45deg);
 		transform: translate(150px, 150px) rotate(45deg);	
 	}
+```
 
-
-
+```javascript
 	var wrap=$('.wrap');
 	function callback(){
 		wrap.html("动画结束啦！只执行了一次transitioned")
@@ -147,12 +148,13 @@ description: js动态处理transitionend和animationend动画事件
 		wrap.removeClass("moving");
 		WN.addTranEvent(wrap.get(0),callback,1);
 	});
-
+```
 
 **2、addAnimEvent(elem,fn),removeAnimEvent(elem,fn)：分别用于绑定和解绑animationend事件**
 
 具体调用的如下：
 
+```css
 	.wrap{
 		width:100px;
 		height:100px;
@@ -200,9 +202,9 @@ description: js动态处理transitionend和animationend动画事件
 			transform: translate(100px,0px);
 		}
 	}
+```
 
-
-
+```javascript
 	var $movebox=$("#J_movebox"),
 		$text=$("#J_text"),
 		$resetbtn=$("#J_returnbeginbtn"),
@@ -230,11 +232,11 @@ description: js动态处理transitionend和animationend动画事件
 		WN.addAnimEvent($movebox.get(0),callback);
 		alert("恢复动画事件成功,动画结束后就会触发函数！")
 	})
-
+```
 
 **3、setStyleAttribute(elem,val)：用于设置css3的属性**
 
-
+```css
 	.movebox{
 		width:100px;
 		height:100px;
@@ -243,8 +245,9 @@ description: js动态处理transitionend和animationend动画事件
 		overflow:hidden;
 		margin:10px;
 	}
+```
 
-
+```javascript
 	var $movebox=$("#J_movebox"),
 		$resetbtn=$("#J_returnbeginbtn"),
 		$text=$("#J_text");
@@ -267,5 +270,6 @@ description: js动态处理transitionend和animationend动画事件
 				transform:""
 			})
 	})
+```
 
 内容来源[http://wnworld.com/archives/204.html](http://wnworld.com/archives/204.html)

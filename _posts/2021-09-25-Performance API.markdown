@@ -16,7 +16,7 @@ ECMAScript 5引入“高精度时间戳”这个API，部署在performance对象
 
 performance对象的timing属性指向一个对象，它包含了各种与浏览器性能有关的时间数据，提供浏览器处理网页各个阶段的耗时。比如，performance.timing.navigationStart就是浏览器处理当前网页的启动时间。
 
-```
+```javascript
 Date.now() - performance.timing.navigationStart
 // 13260687
 ```
@@ -24,7 +24,7 @@ Date.now() - performance.timing.navigationStart
 上面代码表示距离浏览器开始处理当前网页，已经过了13260687毫秒。
 下面是另一个例子。
 
-```
+```javascript
 var t = performance.timing;
 var pageloadtime = t.loadEventStart - t.navigationStart;
 var dns = t.domainLookupEnd - t.domainLookupStart;
@@ -59,7 +59,7 @@ performance.timing对象包含以下属性（全部为只读）：
 
 根据上面这些属性，可以计算出网页加载各个阶段的耗时。比如，网页加载整个过程的耗时的计算方法如下：
 
-```
+```javascript
 var t = performance.timing; 
 var pageLoadTime = t.loadEventEnd - t.navigationStart;
 ```
@@ -68,7 +68,7 @@ var pageLoadTime = t.loadEventEnd - t.navigationStart;
 
 performance.now()方法返回当前网页自从performance.timing.navigationStart到当前时间之间的毫秒数。
 
-```
+```javascript
 performance.now()
 // 23493457.476999998
 
@@ -78,7 +78,7 @@ Date.now() - (performance.timing.navigationStart + performance.now())
 上面代码表示，performance.timing.navigationStart加上performance.now()，近似等于Date.now()，也就是说，Date.now()可以替代performance.now()。但是，由于performance.now()带有小数，因此精度更高。
 通过两次调用performance.now()方法，可以得到间隔的准确时间，用来衡量某种操作的耗时。
 
-```
+```javascript
 var start = performance.now();
 doTasks();
 var end = performance.now();
@@ -90,13 +90,13 @@ console.log('耗时：' + (end - start) + '毫秒。');
 
 mark方法用于为相应的视点做标记。
 
-```
+```javascript
 window.performance.mark('mark_fully_loaded');
 ```
 
 clearMarks方法用于清除标记，如果不加参数，就表示清除所有标记。
 
-```
+```javascript
 window.peformance.clearMarks('mark_fully_loaded');
 window.performance.clearMarks();
 ```
@@ -106,7 +106,7 @@ window.performance.clearMarks();
 浏览器获取网页时，会对网页中每一个对象（脚本文件、样式表、图片文件等等）发出一个HTTP请求。performance.getEntries方法以数组形式，返回这些请求的时间统计信息，有多少个请求，返回数组就会有多少个成员。
 由于该方法与浏览器处理网页的过程相关，所以只能在浏览器中使用。
 
-```
+```javascript
 window.performance.getEntries()[0]
 
 // PerformanceResourceTiming { 

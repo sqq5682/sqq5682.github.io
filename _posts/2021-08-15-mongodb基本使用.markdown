@@ -306,7 +306,7 @@ npm install mongoose
 
 ### mongoose连接
 
-```
+```javascript
 const mongoose = require('mongoose')
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -328,7 +328,7 @@ mongoose.connection.on('disconnected', () => {
 ```
 一个user.js的Schema
 
-```
+```javascript
 /*
  定义一个user的Schema
 */
@@ -348,7 +348,7 @@ module.exports = mongoose.model('User', UserSchema);
 
 插入数据(Model.save([fn]))，代码如下：
 
-```
+```javascript
 var User = require('./user.js');
 // 插入数据
 
@@ -369,7 +369,7 @@ user.save(function(err, res) {
 
 更新数据(Model.update(conditions, doc, [options], [callback]))
 
-```
+```javascript
 var User = require('./user.js');
 // 更新数据 
 function update() {
@@ -393,7 +393,7 @@ update();
 
 findByIdAndUpdate(id, [update], [options], [callback]);根据id进行更新；此id就是数据库中自动生成的id；如下代码，
 
-```
+```javascript
 var User = require('./user.js');
 // 更新数据 
 function update() {
@@ -415,7 +415,7 @@ update();
 
 删除 Model.remove(conditions, [callback])
 
-```
+```javascript
 var User = require('./user.js');
 
 function del() {
@@ -436,7 +436,7 @@ del();
 条件查询 Model.find(conditions, [fields], [options], [callback]);
 如下代码所示：
 
-```
+```javascript
 var User = require('./user.js');
 function find() {
   // 删除数据的条件
@@ -455,7 +455,7 @@ find();
 
 数量查询 Model.count(conditions, [callback])
 
-```
+```javascript
 var User = require('./user.js');
 function getCountByConditions() {
   User.count({}, function(err, res) {
