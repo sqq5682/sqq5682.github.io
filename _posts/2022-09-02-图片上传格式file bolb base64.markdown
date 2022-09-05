@@ -12,8 +12,7 @@ description: 图片上传格式file bolb base64
 ## bolb: new Blob(array, options)
 [Blob](https://developer.mozilla.org/zh-CN/docs/Web/API/Blob) 对象表示一个不可变、原始数据的类文件对象。它的数据可以按文本或二进制的格式进行读取，也可以转换成 ReadableStream 来用于数据操作。
 Blob 表示的不一定是JavaScript原生格式的数据。File 接口基于Blob，继承了 blob 的功能并将其扩展使其支持用户系统上的文件。
-要从其他非blob对象和数据构造一个 Blob，请使用 Blob() 构造函数。
-格式
+要从其他非blob对象和数据构造一个 Blob，请使用 `Blob()` 构造函数。
 ```js
 const Blob = {
     size: 25748
@@ -22,8 +21,7 @@ const Blob = {
 }
 let hiBlob = new Blob([`<h1>Hi hello!<h1>`], { type: 'text/html' }) // 如上代码，就创建了一个 blob 对象，并声明了 text/html 类型 ，就像是创建一个 .html 文件。只不过它存在于浏览器的内存里。
 ```
-canvas 具有图像操作能力，支持将一个已有的图片作为图片源，来操作图像。
-`canvasElement.toBlob(callback)`
+canvas 具有图像操作能力，支持将一个已有的图片作为图片源，来操作图像。`canvasElement.toBlob(callback)`
 如下，通过 canvas 将图片资源转成 blob 对象
 ```js
 const canvasToBlob = async () => {
@@ -48,9 +46,9 @@ const canvasToBlob = async () => {
 
 ```
 ## file: new File(bits, name[, options])
-[File](https://developer.mozilla.org/en-US/docs/Web/API/File)对象是来自用户在一个 input 元素上选择文件后返回的 FileList 对象,也可以是来自由拖放操作生成的 DataTransfer 对象，或者来自 HTMLCanvasElement 上的 mozGetAsFile() API。
+[File](https://developer.mozilla.org/en-US/docs/Web/API/File)对象是来自用户在一个 input 元素上选择文件后返回的 FileList 对象,也可以是来自由拖放操作生成的 DataTransfer 对象，或者来自 HTMLCanvasElement 上的 `mozGetAsFile() API`。
 格式
-File 对象是特殊类型的 Blob，且可以用在任意的 Blob 类型的 context 中。比如说， FileReader, URL.createObjectURL(), createImageBitmap(), 及 XMLHttpRequest.send() 都能处理 Blob 和 File。
+File 对象是特殊类型的 Blob，且可以用在任意的 Blob 类型的 context 中。比如说， `FileReader`, `URL.createObjectURL()`, `createImageBitmap()`, 及 `XMLHttpRequest.send()` 都能处理 Blob 和 File。
 ```js
 const File = {
     lastModified: 1649490762164
@@ -71,7 +69,7 @@ let hiFile = new File([ hiBlob ], 'fileName', { type: 'text/html' })
 如上代码，通过 File 构造函数，创建一个 file 对象，与上面的提到的 blob 类似。可以将 blob 转成 file 类型，这意味着上面获取的 blob，可以转成 file 类型。
 
 ## DataURL（base64） 
-Base64 是一组相似的二进制到文本（binary-to-text）的编码规则，使得二进制数据在解释成 radix-64 的表现形式后能够用 ASCII 字符串的格式表示出来。Base64 这个词出自一种 MIME 数据传输编码。如果是图片的base64，可以是可以用来压缩
+Base64 是一组相似的二进制到文本`binary-to-text`的编码规则，使得二进制数据在解释成 radix-64 的表现形式后能够用 ASCII 字符串的格式表示出来。Base64 这个词出自一种 MIME 数据传输编码。如果是图片的base64，可以是可以用来压缩
 语法：data:[<mediatype>][;base64],<data>
 
 如下，黑色 1 像素示例：
@@ -99,7 +97,7 @@ function fileReader (blob) {
   })
 }
 ```
-1.canvasElement.toDataURL()
+1.`canvasElement.toDataURL()`
 可以通过 canvas 图像处理能力，将图片转成 dataURL 形式.
 ```js
 const canvasToBase64 = async () => {
@@ -194,7 +192,7 @@ const base64toBlob = (dataurl) => { //base64转blob
     return new Blob([u8arr], { type: mime });
 }
 ```
-转化详细介绍见：https://blog.csdn.net/NEW_cai/article/details/109230783
+[转化详细点这里](https://blog.csdn.net/NEW_cai/article/details/109230783)
 ### base64转换为file类型，主要用于文件上传
 ```js
 const base64ToFile = (base64URL, filename) => {
@@ -209,7 +207,7 @@ const base64ToFile = (base64URL, filename) => {
     return new File([u8arr], filename, { type: mime });
 }
 ```
-转化详细介绍见：https://blog.csdn.net/NEW_cai/article/details/109230783
+[转化详细点这里](https://blog.csdn.net/NEW_cai/article/details/109230783)
 ### blob转file，主要用于文件上传
 ```js
 const blobToFile = (blob, fileName, type) => {  //blob转file方式1
