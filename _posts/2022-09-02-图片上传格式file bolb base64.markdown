@@ -10,9 +10,10 @@ description: 图片上传格式file bolb base64
 图片的展示方式有三种：分别为file(文件流)、bolb(本地流)、base64(二进制流)，他们之间是可以相互转化的，上传图片一般会拿到blob和file
 
 ## bolb: new Blob(array, options)
-[Blob](https://developer.mozilla.org/zh-CN/docs/Web/API/Blob) 对象表示一个不可变、原始数据的类文件对象。它的数据可以按文本或二进制的格式进行读取，也可以转换成 ReadableStream 来用于数据操作。
+[Blob](https://developer.mozilla.org/zh-CN/docs/Web/API/Blob) 对象表示一个不可变、原始数据的类文件对象。它的数据可以按文本或二进制的格式进行读取，也可以转换成 `ReadableStream` 来用于数据操作。
 Blob 表示的不一定是JavaScript原生格式的数据。File 接口基于Blob，继承了 blob 的功能并将其扩展使其支持用户系统上的文件。
-要从其他非blob对象和数据构造一个 Blob，请使用 `Blob()` 构造函数。
+要从其他非blob对象和数据构造一个 Blob，请使用 Blob() 构造函数。
+格式
 ```js
 const Blob = {
     size: 25748
@@ -46,7 +47,7 @@ const canvasToBlob = async () => {
 
 ```
 ## file: new File(bits, name[, options])
-[File](https://developer.mozilla.org/en-US/docs/Web/API/File)对象是来自用户在一个 input 元素上选择文件后返回的 FileList 对象,也可以是来自由拖放操作生成的 DataTransfer 对象，或者来自 HTMLCanvasElement 上的 `mozGetAsFile() API`。
+[File](https://developer.mozilla.org/en-US/docs/Web/API/File)对象是来自用户在一个html `<input>` 元素上选择文件后返回的 FileList 对象,也可以是来自由拖放操作生成的 DataTransfer 对象，或者来自 `HTMLCanvasElement` 上的 mozGetAsFile() API。
 格式
 File 对象是特殊类型的 Blob，且可以用在任意的 Blob 类型的 context 中。比如说， `FileReader`, `URL.createObjectURL()`, `createImageBitmap()`, 及 `XMLHttpRequest.send()` 都能处理 Blob 和 File。
 ```js
@@ -69,7 +70,8 @@ let hiFile = new File([ hiBlob ], 'fileName', { type: 'text/html' })
 如上代码，通过 File 构造函数，创建一个 file 对象，与上面的提到的 blob 类似。可以将 blob 转成 file 类型，这意味着上面获取的 blob，可以转成 file 类型。
 
 ## DataURL（base64） 
-Base64 是一组相似的二进制到文本`binary-to-text`的编码规则，使得二进制数据在解释成 radix-64 的表现形式后能够用 ASCII 字符串的格式表示出来。Base64 这个词出自一种 MIME 数据传输编码。如果是图片的base64，可以是可以用来压缩
+`Base64` 是一组相似的二进制到文本`binary-to-text`的编码规则，使得二进制数据在解释成 `radix-64` 的表现形式后能够用 `ASCII` 字符串的格式表示出来。`Base64` 这个词出自一种 `MIME` 数据传输编码。如果是图片的`base64`，可以是可以用来压缩
+[详细的DataURL scheme](https://blog.csdn.net/qq_52828510/article/details/122554389)
 语法：data:[<mediatype>][;base64],<data>
 
 如下，黑色 1 像素示例：
@@ -79,7 +81,7 @@ data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=
 ```
 把blob、file转变base64的方式
 1.FileReader
-允许 Web 应用程序异步读取存储在用户计算机上的文件（blob 或 file），方法readAsDataURL
+允许 Web 应用程序异步读取存储在用户计算机上的文件（blob 或 file），方法`readAsDataURL`
 
 ```js
 // 将 blob 或 file 转成 DataURL（base64） 形式
@@ -97,8 +99,8 @@ function fileReader (blob) {
   })
 }
 ```
-1.`canvasElement.toDataURL()`
-可以通过 canvas 图像处理能力，将图片转成 dataURL 形式.
+1.canvasElement.toDataURL()
+可以通过 canvas 图像处理能力，将图片转成 `dataUR`L 形式.
 ```js
 const canvasToBase64 = async () => {
   return new Promise((resolve, reject) => {
