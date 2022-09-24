@@ -20,7 +20,7 @@ Access to script at 'https://xxx.xxx.com/static/js/vendors~main-a5ffb745ef10a734
 
 1.当声明一个 `script` 标签类型为 `module` 时,如
 
-```js
+```html
 <script type="module" src="/src/main.js"></script>
 ```
 
