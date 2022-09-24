@@ -39,15 +39,17 @@ Vite其核心原理是利用浏览器现在已经支持 `ES6` 的 `import` ,碰�
 
 ### type="module" 和 crossorigin 的使用
 
-从上面可以看到Vite利用浏览器现在已经支持 `ES6` 的 `import`，所以这里打包生产环境的包会有 `type="module"` ，如下：
+看一下vite打包后的 `script` 如下：
 
 ```html
 <script type="module" crossorigin src="https://xxx.xxx.com/static/index.0fd2785d.js"></script>
 ```
 
-这里有两处设置 `type="module"` 和 `crossorigin`
+这里有两处设置 `type="module"` 和 `crossorigin`，下面分别说一下：
 
 1、`type="module"`
+
+从前面可以看到Vite利用浏览器现在已经支持 `ES6` 的 `import``import` 语句只能在声明了 `type="module"` 的 `script` 的标签中使用，所以这里打包生产环境的包会有 `type="module"` ，下面列了一下它的特点：
 
 + `script` 标签内部默认是严格模式
 + `script` 标签内的变量，是这个script标签的私有变量
