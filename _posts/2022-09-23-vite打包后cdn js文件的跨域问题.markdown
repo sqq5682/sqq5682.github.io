@@ -2,7 +2,7 @@
 layout: post
 title: vite打包后cdn js文件的跨域问题
 categories: [blog]
-tags: [vite, bolb, base64]
+tags: [script, module, crossorigin, cors]
 description: vite打包后cdn js文件的跨域问题
 ---
 
@@ -11,7 +11,7 @@ description: vite打包后cdn js文件的跨域问题
 vite 打包后访问出现跨域问题
 
 ```
-Access to script at 'https://fe-sta.aixuexi.com/partner/app-h5/static/js/vendors~main-a5ffb745ef10a734101a.js?a5ffb745ef10a734101a' from origin 'https://coin.aixuexi.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+Access to script at 'https://xxx.xxx.com/static/js/vendors~main-a5ffb745ef10a734101a.js?a5ffb745ef10a734101a' from origin 'https://xxx.xxx.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 ```
 
 首先从vite打包流程下手
@@ -42,7 +42,7 @@ Vite其核心原理是利用浏览器现在已经支持 `ES6` 的 `import` ,碰�
 从上面可以看到Vite利用浏览器现在已经支持 `ES6` 的 `import`，所以这里打包生产环境的包会有 `type="module"` ，如下：
 
 ```html
-<script type="module" crossorigin src="https://fe-sta.aixuexi.com/partner/app-h5/static/index.0fd2785d.js"></script>
+<script type="module" crossorigin src="https://xxx.xxx.com/static/index.0fd2785d.js"></script>
 ```
 
 这里有两处设置 `type="module"` 和 `crossorigin`

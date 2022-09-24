@@ -97,7 +97,9 @@ Promise.allSettled([p3, p1, p2]).then(res => {
 + [es2015-promise.allsettled](https://www.npmjs.com/package/es2015-promise.allsettled)
 
 也可以自行实现`allSettled`功能，如下
+
 方法1
+
 ```js
 const allSettled = function (promises) {
   return new Promise((resolve, reject) => {
