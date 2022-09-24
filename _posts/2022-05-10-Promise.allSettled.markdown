@@ -1,0 +1,166 @@
+---
+layout: post
+title: Promise.allSettled
+categories: [blog]
+tags: [Promise, allSettled]
+description: Promise.allSettled
+---
+
+# Promise.allSettled
+
+Promise的基本使用[ES6 Promise 用法讲解](https://sunsvi.com/blog/ES6-Promise-%E7%94%A8%E6%B3%95.html)
+
+## 起因
+
+`Promise.all`的广泛使用中，出现另一种情况，一旦出现reject的情况下，`promise.all`就停止了其他请求，这在某些情况下有不适合业务场景了，于是Promise的工具包里又多了一个方法`Promise.allSettled`。
+
+## Promise.all的弊端
+
+下面例子其中任意一个 promise 被 `reject` ，Promise.all 就会立即被 `reject` ，数组中其它未执行完的 promise 依然是在执行的， `Promise.all` 没有采取任何措施来取消它们的执行。
+
+```js
+const p1 = new Promise((resolve, reject) => {
+  // console.log('first')
+  setTimeout(resolve, 1000, 'first')
+})
+const p2 = new Promise((resolve, reject) => {
+  // console.log('two')
+  setTimeout(resolve, 1000, 'two')
+})
+const p3 = new Promise((resolve, reject) => {
+  // console.log('three')
+  setTimeout(reject, 1000, 'three')
+})
+
+Promise.all([p3, p1, p2])
+.then(values => {
+    console.log('resolve: ', values)
+}).catch(err => {
+    console.log('reject: ', err)
+})
+// 输出
+// reject:  three
+```
+这里扩展一下，实现promise.all代码
+```js
+const promiseAll = (promises) => {
+  let len = promises.length, result = []
+  let count = len;
+  if(!!len) return new Promise((resolve, reject) => {
+    for(let i = 0; i < len; i++) {
+      promises[i].then(res => {
+        result[i] = res
+        !--count && resolve(result)
+      }, err => {
+        reject(err)
+      })
+    }
+  })
+}
+promiseAll([p3, p1, p2])
+  .then(values => {
+      console.log('resolve: ', values)
+  }).catch(err => {
+      console.log('reject: ', err)
+  })
+// 输出
+// reject:  three
+```
+
+## Promise.allSettled使用
+
+`Promise.allSettled`方法返回一个在所有给定的 promise 都已经 `fulfilled` 或 `rejected` 后的 `promise`，并带有一个对象数组，每个对象表示对应的 promise 结果，如下
+
+```js
+Promise.allSettled([p3, p1, p2]).then(res => {
+  console.log('allSettled:', res)
+})
+// 输出
+// [
+//   { status: 'rejected', reason: 'three' },
+//   { status: 'fulfilled', value: 'first' },
+//   { status: 'fulfilled', value: 'two' }
+// ]
+```
+可以看到所有promise的数据都被包含在then语句中，且每个promise的返回值多了一个`status`字段，表示当前promise的状态，没有任何一个promise的信息被丢失。
+
+## Promise.allSettled兼容问题
+
+![](https://sunsvi.com/img/uploads/2022/promise-allsettled.png)
+![](https://sunsvi.com/img/uploads/2022/promise-allsettled-chrome.png)
+
+对于那些不支持此方法的环境，可以直接引用开源社区中实现了此方法的npm包：
+
++ [promise.allsettled](https://www.npmjs.com/package/promise.allsettled)
++ [promise-settle](https://www.npmjs.com/package/promise-settle)
++ [promise-all-settled](https://www.npmjs.com/package/promise-all-settled)
++ [es2015-promise.allsettled](https://www.npmjs.com/package/es2015-promise.allsettled)
+
+也可以自行实现`allSettled`功能，如下
+方法1
+```js
+const allSettled = function (promises) {
+  return new Promise((resolve, reject) => {
+    const data = [], length = (Array.isArray(promises) && promises.length > 0) ? promises.length : 0;
+    let count = length;
+    if(length > 0 ) {
+      for (let i = 0; i < length; i++) {
+        const promise = promises[i]
+        promise.then(res => {
+          data[i] = { status: 'fulfilled', value: res }
+        }, error => {
+          data[i] = { status: 'rejected', reason: error }
+        }).finally(() => {
+            !--count && resolve(data)
+        })
+      }
+    } else {
+      reject('参数格式不对或不能为空')
+    }
+  })
+}
+allSettled([p3, p1, p2]).then(res => {
+  console.log('allSettled:', res)
+})
+// 输出
+// allSettled: [
+//   { status: 'rejected', reason: 'three' },
+//   { status: 'fulfilled', value: 'first' },
+//   { status: 'fulfilled', value: 'two' }
+// ]
+```
+
+方法2
+```js
+const allSettled = function (promises) {
+  return Promise.all(
+    promises.map(function (promise) {
+      // 这里可以判断是不是promise结构
+      if (!promise || (promise && typeof promise.then !== 'function')) return { error: 1, msg: "类型错误", data: promise }
+      return promise
+        .then(function (value) {
+          return { state: 'fulfilled', value }
+        })
+        .catch(function (reason) {
+          return { state: 'rejected', reason }
+        })
+    })
+  )
+}
+allSettled([p3, p1, p2]).then(res => {
+  console.log('allSettled:', res)
+})
+// 输出
+// allSettled: [
+//   { status: 'rejected', reason: 'three' },
+//   { status: 'fulfilled', value: 'first' },
+//   { status: 'fulfilled', value: 'two' }
+// ]
+```
+
+## 结语
+
+`Promise.allSettled`是对`Promise.all`的一种补充，当面对多个promise并行时，它额外提供了一种处理方式，解决了当多个promise并行时`reject`的出现会伴随着其他promise数据丢失的问题。
+
+
+
