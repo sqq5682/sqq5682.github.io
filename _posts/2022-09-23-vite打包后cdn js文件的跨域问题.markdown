@@ -57,10 +57,10 @@ Vite其核心原理是利用浏览器现在已经支持 `ES6` 的 `import` ,碰�
 
 2、`crossorigin`
 
-script标签没有设置 `crossorigin` 情况下 
+`script` 标签没有设置 `crossorigin` 情况下 
 
-+ script标签去请求资源的时候，request是没有origin头的。
-+ script标签请求跨域资源的时候，内部运行如果报错的话，window.onerror 捕获的时候，内部的error.message只能看到Script error.看不到完整的错误内容。这个应该是浏览器的安全策略。
++ script标签去请求资源的时候，`request` 是没有 `origin` 头的。
++ script标签请求跨域资源的时候，内部运行如果报错的话，`window.onerror` 捕获的时候，内部的 `error.message` 只能看到 `Script error` .看不到完整的错误内容。这个应该是浏览器的安全策略。
 
 ```js
 window.addEventListener('error', function(msg, url, lineno, colno, error) {
@@ -69,7 +69,7 @@ window.addEventListener('error', function(msg, url, lineno, colno, error) {
 })
 ```
 
-`script` 标签设置 `crossorigin` 属性下
+`script` 标签设置 `crossorigin` 情况下 
 
 + 设置 `crossorigin` 属性后，`script` 标签去请求资源的时候，`request` 会带上 `origin` 头，然后会要求服务器进行 `cors` 校验，跨域的时候如果 `response header` 没有 `Access-Control-Allow-Origin` 是不会拿到资源的。`cors` 验证通过后，拿到的 `script` 运行内部报错的话，，`window.onerror` 捕获的时候，内部的 `error.message` 可以看到完整的错误信息。
 + `crossorigin` 的属性值分为 `anonymous` 和 `use-credentials` 。如果设置了 `crossorigin` 属性，但是属性值不正确的话，默认是 `anonymous` 。
@@ -78,7 +78,7 @@ window.addEventListener('error', function(msg, url, lineno, colno, error) {
 
 这里的 `cors` ( `Cross-Origin Resource Sharing` ) 跨域资源共享标准，即是允许浏览器向跨源服务器，发出跨域请求，从而克服了AJAX只能同源使用的限制。
 
-一般浏览器直接发出一个CORS请求，并在请求头中加入一个 Origin 段来描述本次请求来自哪个源（协议 + 域名 + 端口）。如下就是一个简单请求的请求头：
+一般浏览器直接发出一个 `cors` 请求，并在请求头中加入一个 `Origin` 段来描述本次请求来自哪个源（协议 + 域名 + 端口）。如下就是一个简单请求的请求头：
 
 ```
 GET /resources/public-data/ HTTP/1.1
