@@ -73,7 +73,7 @@ window.addEventListener('error', function(msg, url, lineno, colno, error) {
 
 `script` 标签设置 `crossorigin` 情况下 
 
-+ 设置 `crossorigin` 属性后，`script` 标签去请求资源的时候，`request` 会带上 `origin` 头，然后会要求服务器进行 `cors` 校验，跨域的时候如果 `response header` 没有 `Access-Control-Allow-Origin` 是不会拿到资源的。`cors` 验证通过后，拿到的 `script` 运行内部报错的话，，`window.onerror` 捕获的时候，内部的 `error.message` 可以看到完整的错误信息。
++ 设置 `crossorigin` 属性后，`script` 标签去请求资源的时候，`request` 会带上 `origin` 头，然后会要求服务器进行 `cors` 校验，跨域的时候如果 `response header` 没有 `Access-Control-Allow-Origin` 是不会拿到资源的。`cors` 验证通过后，拿到的 `script` 运行内部报错的话，`window.onerror` 捕获的时候，内部的 `error.message` 可以看到完整的错误信息。
 + `crossorigin` 的属性值分为 `anonymous` 和 `use-credentials` 。如果设置了 `crossorigin` 属性，但是属性值不正确的话，默认是 `anonymous` 。
 + `anonymous` 代表同域会带上 `cookie` ，跨域则不带上 `cookie` ，相当于  `fecth` 请求的 `credentials: 'same-origin'` 。
 + `use-credentials` 跨域也会带上 `cookie` ，相当于 `fetch` 请求的 `credentials: 'include'`，这种情况下跨域的`response header` 需要设置`'Access-Control-Allow-Credentials' = true` ，否则 `cors` 失败。

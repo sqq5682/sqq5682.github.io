@@ -1,0 +1,145 @@
+---
+layout: post
+title: js对象判断属性方法
+categories: [blog]
+tags: [prototype, hasOwnProperty]
+description: js对象判断属性方法
+---
+
+编写JS的过程中,我们经常用到对象，也会用到对象中的属性，下面介绍了关于JS判断对象属性是否存在的几种方案，文中通过实例代码介绍的非常详细，需要的朋友可以参考下
+
+### in
+
+JavaScript的in操作符可以用来判断一个属性是否属于一个对象，也可以用来变量一个对象的属性, [in - JavaScript | MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/in)
+
+``` js
+// 数组
+var arr = ['blue', 'pink', 'yellow'];
+console.log(0 in arr);    //  true
+console.log(1 in arr);    //  true
+console.log(3 in arr);     //  falae 
+// 必须使用索引号,而不是数组元素的值
+console.log('pink' in arr);  // false
+// 数组上有 length 属性
+console.log(length in arr);  // true
+// 也可以判断数组原型上的属性
+console.log('concat' in arr);  // true
+ 
+// Symbol.iterator in trees // 返回true 
+console.log(Symbol.iterator in arr) // 返回true (数组可迭代，只在ES2015+上有效)
+ 
+// 内置对象
+console.log("PI" in Math);  // 返回true
+ 
+// 自定义对象
+var mycar = { make: "Honda", model: "Accord", year: 1998 };
+console.log("make" in mycar);   // 返回true
+console.log("model" in mycar);  // 返回true
+ 
+// in右操作数必须是一个对象值。例如，你可以指定使用String构造函数创建的字符串，但不能指定字符串文字。
+var color1 = new String("green");
+console.log("length" in color1); // 返回true
+var color2 = "coral";
+console.log("length" in color2) // 报错(color2不是对象)Cannot use 'in' operator to search for 'length' in coral
+ 
+// 使用 delete 运算符删除了一个属性，则 in 运算符对所删除属性返回 false。
+var mycar = { make: "Honda", model: "Accord", year: 1998 };
+delete mycar.make;
+"make" in mycar;  // 返回false
+var trees = new Array("redwood", "bay", "cedar", "oak", "maple");
+delete trees[3];
+3 in trees;  // 返回false
+ 
+// 只是将一个属性的值赋值为undefined，而没有删除它，则 in 运算仍然会返回true
+var mycar = { make: "Honda", model: "Accord", year: 1998 };
+mycar.make = undefined;
+"make" in mycar;  // 返回true
+var trees = new Array("redwood", "bay", "cedar", "oak", "maple");
+trees[3] = undefined;
+3 in trees; // 返回true
+ 
+// 如果一个属性是从原型链上继承来的，in 运算符也会返回 true。
+"toString" in {}; // 返回true
+```
+
+注意：
+
+> 如果指定的属性在指定的对象或其原型链中，则 in 运算符 返回true。 
+> 数组使用时，可以使用 数组下标 来判断，但是不能使用数组元素来判断。
+> Symbol.iterator in 数组;     返回true (数组可迭代，只在ES2015+上有效).
+> 也可以判断内置对象上的属性。
+> 使用 delete 运算符删除了一个属性，则 in 运算符对所删除属性返回 false。
+> 只是将一个属性的值赋值为 undefined，而没有删除它，则 in 运算仍然会返回true。
+> 对于字符串的属性也可以判断，只是必须是字符串对象 new String() 创建的字符串。
+
+### hasOwnProperty
+
+`hasOwnProperty()` 方法会返回一个布尔值，指示对象自身属性中是否具有指定的属性（也就是，是否有指定的键），[hasOwnProperty](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty)
+
+```js
+const object1 = {};
+object1.property1 = 42;
+
+console.log(object1.hasOwnProperty('property1'));
+// expected output: true
+
+console.log(object1.hasOwnProperty('toString'));
+// expected output: false
+
+console.log(object1.hasOwnProperty('hasOwnProperty'));
+// expected output: false
+
+```
+
+
+注意：在项目中直接使用对象的 `hasOwnProperty` 属性判断对象是否包含该值，用`eslint fix` 修复代码的时候报如下的错。
+
+```
+Do not access Object.prototype method 'hasOwnProperty' from target object
+```
+
+是 `ESLint` 配置文件中的 `"extends": "eslint:recommended"` 属性启用了此规则。
+
+在 `ECMAScript 5.1` 中，新增了 `Object.create` ，它支持使用指定的 `[[Prototype]]` 创建对象。`Object.create(null)` 是一种常见的模式，用于创建将用作映射的对象。当假定对象将包含来自Object.prototype 的属性时，这可能会导致错误。该规则防止直接从一个对象调用某些 `Object.prototype` 的方法。
+
+此外，对象可以具有属性，这些属性可以将 `Object.prototype` 的内建函数隐藏，可能导致意外行为或拒绝服务安全漏洞。例如，web 服务器解析来自客户机的 `JSON` 输入并直接在结果对象上调用 `hasOwnProperty` 是不安全的，因为恶意客户机可能发送一个JSON值，如 `{"hasOwnProperty": 1}`，并导致服务器崩溃。
+
+为了避免这种细微的 bug，最好总是从 `Object.prototype` 调用这些方法。
+
+最终修改结果如下：
+
+```js
+Object.prototype.hasOwnProperty.calll(state, key)
+```
+
+### Reflect.has()
+
+Reflect是在ES2015新增的一个内置对象，提供了与Javascript对象交互的方法。
+
+[Reflect.has](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect/has)判断一个对象是否存在某个属性，和 in 运算符] 的功能完全相同。
+
+```js
+Reflect.has({name:"搞前端的半夏"}, "name"); // true
+Reflect.has({name:"搞前端的半夏"}, "age"); // false
+
+Reflect.has({name:"搞前端的半夏"}, "toString"); //true
+```
+
+### ES13（ES2022）Object.hasOwn()
+
+[Object.hasOwn](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwn)，目前来看就是替代Object.prototype.hasOwnProperty.call()。
+
+如果用Object.prototype.hasOwnProperty.call() 来封装的话，代码如下：
+
+```js
+function hasOwn(obj, propName) {
+  return Object.prototype.hasOwnProperty.call(obj, propName);
+}
+Object.hasOwn({name: '搞前端的半夏'}, 'name')  // true
+Object.hasOwn({}, 'name')               //false
+Object.hasOwn({}, 'toString')             //false
+Object.hasOwn(Object.create(null), 'name')     //false
+Object.hasOwn({hasOwnProperty: 'yes'}, 'name')  //false
+Object.hasOwn({hasOwn: 'yes'}, 'name')		 //false
+```
+
