@@ -40,7 +40,7 @@ qiankun 的核心设计理念
     🔌 umi 插件，提供了 @umijs/plugin-qiankun 供 umi 应用一键切换成微前端架构系统。
 
 
-demo实例 [主应用 http://main.sunsvi.com](http://main.sunsvi.com/) [子应用 http://sub.sunsvi.com/](http://sub.sunsvi.com/)
+demo实例 [主应用](http://main.sunsvi.com/) [子应用](http://sub.sunsvi.com/)
 
 
 

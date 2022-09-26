@@ -75,7 +75,7 @@ export default defineConfig({
 
 (4).使用方式
 
-```js
+```html
 <script setup lang="ts">
   defineOptions({
     name: 'App'

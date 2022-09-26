@@ -100,7 +100,7 @@ function fileReader (blob) {
 }
 ```
 1.canvasElement.toDataURL()
-可以通过 canvas 图像处理能力，将图片转成 `dataUR`L 形式.
+可以通过 canvas 图像处理能力，将图片转成 `dataURL` 形式.
 ```js
 const canvasToBase64 = async () => {
   return new Promise((resolve, reject) => {
