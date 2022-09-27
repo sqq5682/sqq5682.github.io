@@ -10,7 +10,7 @@ url: "http://sqq5682.github.io"
 # About/contact
 owner: 
   name: "星辰大海"
-  email: sqq5682@126.cn
+  email: sqq5682@126.com
   bio: "勿忘初心"
   bjRecord: "京公网安备 11010502043471号"
   hnRecord: "豫ICP备2020035902号"
@@ -57,6 +57,8 @@ defaults:
       header-img: "img/fantasy.jpg" # We don't want posts without a header image, that whould mean white on white
 
 # Comments 
+#9、IntenseDebate
+intensedebate_comments: true
 comments :
   provider : duoshuo
   duoshuo :
@@ -71,5 +73,3 @@ google_verify:
 bing_verify:
 
 # Links to include in footer navigation
-#9、IntenseDebate
-intensedebate_comments: true
