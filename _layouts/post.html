@@ -66,25 +66,9 @@ layout: default
                     {% endif %}
                 </ul>
                 <hr>
-                <!-- 基于Github的Issues的评论 -->
-                <div id="gitmentContainer"></div>
-                <!-- <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-                <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>Gitment-->
-                <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
-                <!-- <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script> -->
-                <script src="https://sqq5682.github.io/js/gitmint.browser.js"></script>
-                <script>
-                var gitment = new Gitmint({
-                    owner: 'sqq5682',
-                    repo: 'sunsvi.com',
-                    lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
-                    oauth: {
-                        client_id: '43f61a42dcc3221b8ec9',
-                        client_secret: '701e6d334e758da50e537704a3c2d0a38654445c',
-                    },
-                });
-                gitment.render('gitmentContainer');
-                </script>
+                {% if site.intensedebate_comments %}
+                    {% include intensedebate-comments.html %}
+                {% endif %}
             </div>
         </div>
     </div>
