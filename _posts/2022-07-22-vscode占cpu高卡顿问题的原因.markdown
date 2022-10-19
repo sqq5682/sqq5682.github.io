@@ -16,7 +16,7 @@ description: vscode占cpu高卡顿问题的原因
 
 打开vscode设置–工作台–在settings.json中编辑
 
-```json
+```js
 {
   "search.followSymlinks": false,
   "files.exclude": {
@@ -41,7 +41,7 @@ description: vscode占cpu高卡顿问题的原因
 }
 ```
 
-> search.followSymlinks: false 控制是否在搜索中跟踪符号链接   
+> `search.followSymlinks` 控制是否在搜索中跟踪符号链接   
 > `files.exclude` : 配置用于排除文件和文件夹的 glob 模式。例如，文件资源管理器根据此设置决定要显示或隐藏哪些文件和文件夹。   
 > `files.watcherExclude` : 配置文件路径的 glob 模式以从文件监视排除。模式必须在绝对路径上匹配(例如 ** 前缀或完整路径需正确匹配)。更改此设置需要重启。如果在启动时遇到 Code 消耗大量 CPU 时间，则可以排除大型文件夹以减少初始加载。
 
