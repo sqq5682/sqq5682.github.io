@@ -12,7 +12,7 @@ vue3+vite2添加eslint出现问题，如下
 原因默认情况下，ESLint 使用Espree作为其解析器。要指示 npm 模块用作您的解析器，请使用文件中的parser选项指定它.eslintrc。
 .eslintrc配置内容
 
-```json
+```js
 {
   "parser": "vue-eslint-parser",
   "parserOptions": {
