@@ -58,7 +58,7 @@ defaults:
 
 # Comments 
 #9、IntenseDebate
-intensedebate_comments: true
+intensedebate_comments: false
 comments :
   provider : duoshuo
   duoshuo :
