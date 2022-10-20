@@ -83,4 +83,24 @@ export default defineConfig({
 </script>
 ```
 
+5.【vue eslint】报错 `Vue3 [@vue/compiler-sfc] `defineProps` is a compiler macro and no longer needs to be imported.`
+
+解决：
+去掉 `defineProps` , `defineEmits` 导入，直接使用.
+
+```js
+// 去掉主动导入
+import { defineProps, defineEmits } from 'vue'; 
+```
+
+```html
+<script setup>
+// 去掉主动导入，直接使用 defineProps
+const props = defineProps({
+  foo: String
+})
+
+const emit = defineEmits(['change', 'delete'])
+</script>
+```
 
