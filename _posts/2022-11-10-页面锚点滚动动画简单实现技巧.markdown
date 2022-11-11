@@ -1,0 +1,85 @@
+---
+layout: post
+title: 一行代码实现页面锚点滚效果
+categories: [blog]
+tags: [scrollIntoView, scrollTo]
+description: 一行代码实现页面锚点滚效果
+---
+
+
+针对滚动到定位效果需求，发现有两种方法一行代码可以实现此效果
+
+## 一、Element.scrollTo()
+
+`Element` 的 `scrollTo()` 方法可以使界面滚动到给定元素的指定坐标位置。
+
+### 语法： 
+
+```js
+element.scrollTo(x-coord, y-coord)
+element.scrollTo(options)
+```
+
+### 参数
+
++ x-coord 是期望滚动到位置水平轴上距元素左上角的像素。
++ y-coord 是期望滚动到位置竖直轴上距元素左上角的像素。
+
+or
+
++ `options` 是一个`ScrollToOptions`对象。
+
+### 例子
+
+```js
+element.scrollTo(0, 1000);
+```
+
+使用 `options`:
+
+```js
+element.scrollTo({
+  top: 100,
+  left: 100,
+  behavior: 'smooth'
+});
+```
+
+## 二、Element.scrollIntoView()
+
+`Element` 接口的 `scrollIntoView()` 方法会滚动元素的父容器，使被调用 `scrollIntoView()` 的元素对用户可见。
+
+### 语法
+
+```js
+element.scrollIntoView(); // 等同于 element.scrollIntoView(true)
+element.scrollIntoView(alignToTop); // Boolean 型参数
+element.scrollIntoView(scrollIntoViewOptions); // Object 型参数
+```
+
+### 参数
+
+`alignToTop` (可选)，一个 `Boolean` 值：
+
++ 如果为true，元素的顶端将和其所在滚动区的可视区域的顶端对齐。相应的 scrollIntoViewOptions: {block: "start", inline: "nearest"}。这是这个参数的默认值。
++ 如果为false，元素的底端将和其所在滚动区的可视区域的底端对齐。相应的scrollIntoViewOptions: {block: "end", inline: "nearest"}。
+
+`scrollIntoViewOptions` (可选)，一个包含下列属性的对象：
+
++ behavior(可选)，定义动画过渡效果， "auto"或 "smooth" 之一。默认为 "auto"。
++ block (可选), 定义垂直方向的对齐， "start", "center", "end", 或 "nearest"之一。默认为 "start"。
++ inline (可选)，定义水平方向的对齐， "start", "center", "end", 或 "nearest"之一。默认为 "nearest"。
+
+### 示例
+
+```js
+var element = document.getElementById("box");
+element.scrollIntoView();
+element.scrollIntoView(false);
+element.scrollIntoView({block: "end"});
+element.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+```
+
+### 注意
+
+取决于其它元素的布局情况，此元素可能不会完全滚动到顶端或底端。
