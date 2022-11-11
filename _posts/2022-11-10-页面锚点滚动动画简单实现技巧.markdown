@@ -15,12 +15,14 @@ description: 一行代码实现页面锚点滚效果
 
 ### 语法： 
 
+
 ```js
 element.scrollTo(x-coord, y-coord)
 element.scrollTo(options)
 ```
 
 ### 参数
+
 
 + x-coord 是期望滚动到位置水平轴上距元素左上角的像素。
 + y-coord 是期望滚动到位置竖直轴上距元素左上角的像素。
@@ -30,6 +32,7 @@ or
 + `options` 是一个`ScrollToOptions`对象。
 
 ### 例子
+
 
 ```js
 element.scrollTo(0, 1000);
@@ -51,11 +54,13 @@ element.scrollTo({
 
 ### 语法
 
+
 ```js
 element.scrollIntoView(); // 等同于 element.scrollIntoView(true)
 element.scrollIntoView(alignToTop); // Boolean 型参数
 element.scrollIntoView(scrollIntoViewOptions); // Object 型参数
 ```
+
 
 ### 参数
 
@@ -71,6 +76,7 @@ element.scrollIntoView(scrollIntoViewOptions); // Object 型参数
 + inline (可选)，定义水平方向的对齐， "start", "center", "end", 或 "nearest"之一。默认为 "nearest"。
 
 ### 示例
+
 
 ```js
 var element = document.getElementById("box");
