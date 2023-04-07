@@ -51,4 +51,7 @@ description: 不用科学上网，免费的GPT IDE工具Cursor
 
 ![](../img/uploads/2023/20.png)
 
-目前中文提问题，回答是英文，前缀加,,,zh 
+![](../img/uploads/2023/21.png)
+
+目前中文提问题，回答是英文，在MORE这里有应始终遵循的说明，可以输入Answer in Chinese就可以了
+
