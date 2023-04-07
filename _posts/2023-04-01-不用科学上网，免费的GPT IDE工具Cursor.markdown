@@ -34,6 +34,8 @@ description: 不用科学上网，免费的GPT IDE工具Cursor
 
 ![](../img/uploads/2023/15.png)
 
+![](../img/uploads/2023/17.png)
+
 也可以不登录，直接输入openAi的账号api Key，免费使用。
 
 
@@ -42,8 +44,6 @@ description: 不用科学上网，免费的GPT IDE工具Cursor
 主要使用有两个快捷键，⌘K(to generate), ⌘L(to chat)，第一个就是直接生成代码片段，第二个就是和chatGpt一样的，
 
 具体使用：
-
-![](../img/uploads/2023/17.png)
 
 ![](../img/uploads/2023/18.png)
 
