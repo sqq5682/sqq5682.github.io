@@ -1,0 +1,82 @@
+---
+layout: post
+title: Ai辅助编程工具推荐
+categories: [blog]
+tags: [ai, coding]
+description: Ai辅助编程工具推荐
+---
+
+## Ai辅助编程工具
+
+搜集一下最近有代表的辅助编程的Ai工具有GitHub Copilot，GitHub Copilot Labs，以及新的IDE CurSor。
+
+## GitHub Copilot
+
+官方地址： [https://docs.github.com/zh/copilot/](https://docs.github.com/zh/copilot/)
+
+### 功能
+
+1.在代码编辑器中输入注释，Copilot会根据注释自动生成代码
+2.Copilot可以根据上下文自动补全代码
+3.Copilot可以根据代码库中的代码生成代码
+
+缺点：过了试用期收费。
+
+## GitHub Copilot Labs
+
+官方地址： [https://docs.github.com/zh/copilot/](https://docs.github.com/zh/copilot/)
+
+### 功能
+
+包含四种功能分别为**Explain**，**Language translation**，**Brushes**，**Test generation**，下面依次说明一下：
+
+1. **Explain**（解释）
+  有以下5个选择项：
+    1. Custom 自定义，就是指定 Copilot 生成自己想要的的注释，比如下面的：以下是对上述代码的解释、以下是几个使用该方法的范例及其输出、该方法没有考虑到的情况，会在哪出错等
+    2. Explain code (以下是对上述代码的解释：)
+    3. Code does following (上面的代码执行以下操作：)
+    4. Code does following (上面的代码执行以下操作，并用英语进行解释：)
+    5. Show example code (显示示例代码)
+
+2. **Language translation**（翻译代码语言）下面是这个前端比较实用的场景：
+    1. js，ts转换
+    2. Vue、JSX、Svelte 转换
+    3. scss、less 转换
+
+3. **Brushes**（画笔）
+    1. READABLE 加强可读性：包含优化代码和解混淆代码
+    2. ADD TYPES 添加类型：相当于 JS -> TS
+    3. FIX BUG 修复bug
+    4. DEBUG 调试：自动添加输出，方便debug 
+    5. CLEAN 去掉无用代码
+    6. LIST STEPS 注释每一句代码
+    7. MAKE ROBUST 提高代码健壮性
+    8. CHUNK 拆分代码
+    9. DOCUMENT 文件
+    10. CUSTOM 自定义
+
+4. **Test generation**（测试生成）
+    目前老是出现错误，应该是缺少全局的包
+    ```
+    Error running test: Error: Unable to find chai; please install it in your project or globally.
+    (Underlying error: Cannot find module 'chai'
+    Require stack:
+    ```
+缺点：
+    1. Explain没法保存自定义 Prompt，这应该是比较基础的功能，应该后续会增加吧
+    2. 选择代码有限制，最多2000个字符，不太够用
+    3. 不稳定，有时识别中断或失败，毕竟是实验室版本
+
+参考地址：[https://blog.csdn.net/xxxzzzqqq_/article/details/129321145](https://blog.csdn.net/xxxzzzqqq_/article/details/129321145)
+
+## CurSor
+
+官方地址： [https://www.cursor.so/](https://www.cursor.so/)
+
+这是一款与OpenAI合作并且基于GPT的新一代辅助编程神器。 它支持多种文件类型，支持格式化文本，支持多种主题，支持多语言语法高亮，支持快捷键设置，支持代码折叠、括号匹配、自动缩进等功能等功能。 最关键的是，不用科学上网，它能帮助我们生成代码。
+
+### 功能
+
+主要使用有两个快捷键，⌘K(to generate), ⌘L(to chat)，第一个就是直接生成代码片段，第二个就是和chatGpt一样的。最关键的是，不用科学上网，只需要输入openAi api key，就能免费使用。
+
+缺点：需要安装CurSor编码工具，插件现在没有VSCode全，还在完善中。
