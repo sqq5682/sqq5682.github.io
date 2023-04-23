@@ -81,6 +81,9 @@ hr.small {
     width: 500px;
   }
 }
+.loan th,.loan td,.isWrap{
+  word-break: keep-all;white-space:nowrap;
+}
 .post-container a {
   color: #4da6ff;
 }

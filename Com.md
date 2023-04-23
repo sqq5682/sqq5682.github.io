@@ -9,7 +9,7 @@ header-img: "img/plane.jpg"
 
 商贷1249000元，利率5.88%，2020年2月第一次还款，提前还款按照月供不变。
 
-<table cellspacing="10">
+<table class="loan" cellspacing="10">
 <tr>
   <th>提前还款金额</th>
   <th>商贷金额</th>
@@ -51,7 +51,7 @@ header-img: "img/plane.jpg"
     </table>
     </td>
     <td>
-    <table cellspacing="10">
+    <table class="loan" cellspacing="10">
         <tr>
             <th>时间</th>
             <th>本金</th>
