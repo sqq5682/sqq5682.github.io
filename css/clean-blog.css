@@ -84,6 +84,10 @@ hr.small {
 .loan th,.loan td,.isWrap{
   word-break: keep-all;white-space:nowrap;
 }
+.loan td{
+  text-align: center;
+  vertical-align: middle !important;
+}
 .post-container a {
   color: #4da6ff;
 }
