@@ -80,3 +80,5 @@ description: Ai辅助编程工具推荐
 主要使用有两个快捷键，⌘K(to generate), ⌘L(to chat)，第一个就是直接生成代码片段，第二个就是和chatGpt一样的。最关键的是，不用科学上网，只需要输入openAi api key，就能免费使用。
 
 缺点：需要安装CurSor编码工具，插件现在没有VSCode全，还在完善中。
+
+更多ai工具参考：[https://ai-bot.cn/](https://ai-bot.cn/)

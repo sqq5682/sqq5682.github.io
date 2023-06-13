@@ -1,0 +1,180 @@
+---
+layout: post
+title: 谷歌浏览器自动播放策略
+categories: [blog]
+tags: [google, chrome, autoplay]
+description: 谷歌浏览器自动播放策略
+---
+
+## 谷歌浏览器自动播放策略
+
+> 自动播放策略自Chrome66生效    
+
+### 策略详情
+
+策略动机：改善用户体验
+
+Chrome 的自动播放政策很简单：
+1. 始终允许静音自动播放。
+2. 在以下情况下，带声音的自动播放会被允许:
+    1. 用户己经与当前域进行了交互(click、tap)
+    2. 在桌面设备上，用户的媒体参与度指数國值已超过，这意味着用户之前播放过有声视频。
+    3. 用户己将网站添加到移动设备上的主屏幕或在桌面上安装了PWA
+3. 顶部帧可以将自动播放权限委派给其 iframe，以允许自动播放
+
+#### 媒体参与度（MEI，Media Engagement Index）
+
+媒体参与度（MEI）衡量个人在网站上使用多媒体的倾向。
+它是一个数字，可通过[chrome://media-engagement/](chrome://media-engagement/)查看。
+数值越高，用户对该站点的媒体参与度越高，就越有机会自动播放。
+
+对于开发者而言：
+1. 媒体参与度的计算规则无法通过技术手段更改
+2. 媒体参与度的计算规则不同版本的浏览器可能会有变动
+
+### 开发者的个人最佳实践
+
+方案1：互动后播放
+先尝试自动播放，者发生异常，则引导用户进行互动操作，然后再进行播放。
+方案2：互动后出声
+先静音播放，然后根据是否能自动播放决定是否取消静音，如果：
+1. 能自动播放，取消静音
+2. 不能自动播放，引导用户进行互动操作后取消静音
+
+
+实际例子
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>音频自动播放策略demo演示</title>
+    <link rel="stylesheet" type="text/css" href="https://q-fe.aixuexi.com/cloud/partner/1686621347143-2b1da1eca781:reset.css">
+    <style type="text/css">
+      .videoWrap{
+        position: relative;
+        display: inline-block;
+      }
+      .play{
+        position: absolute;
+        width: 100px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        top: 50%;
+        left: 50%;
+        color: #fff;
+        background: #039aff;
+        border-radius: 10px;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="videoWrap">
+      <video src="./movie.mp4" ></video>
+      <div class="play">开始播放</div>
+    </div>
+    <script>
+      const video = document.querySelector('video')
+      const btn = document.querySelector('.play')
+      async function play(){
+        video.muted = true // 视频静音
+        await video.play()
+        const ctx = new AudioContext(); 
+        const canAutoPlay = ctx.state === 'running'; // 判断音频正在进行
+        ctx.close() // 释放api
+        if(canAutoPlay){
+          video.muted = false
+          btn.style.display = 'none'
+          btn.removeEventListener('click', play)
+        } else {
+          btn.addEventListener('click', play)
+        }
+      }
+      play()
+    </script>
+  </body>
+</html>
+```
+
+上面实例，其中 `AudioContext` 是 `Web Audio Api` ，state属性包含suspended（此上下文当前已挂起，上下文时间未继续，音频硬件可能已断电/释放）， running（正在处理音频），closed（此上下文已发布，不能再用于处理音频。所有系统音频资源都已释放。） 
+详细参考：[https://webaudio.github.io/web-audio-api/#enumdef-audiocontextstate](https://webaudio.github.io/web-audio-api/#enumdef-audiocontextstate)
+
+第三方播放器：
+
+[西瓜播放器](https://v2.h5player.bytedance.com/gettingStarted/)
+[mediaelement](https://github.com/mediaelement/mediaelement)
+
+
+当使用 Web Audio API 封装音频播放器时，可以借助 AudioContext 和相关的 API 来实现音频的加载、控制和播放。下面是一个基本的示例，演示如何使用 Web Audio API 封装一个简单的音频播放器：
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Web Audio API 音频播放器示例</title>
+</head>
+<body>
+  <button onclick="play()">播放</button>
+  <button onclick="pause()">暂停</button>
+  <button onclick="stop()">停止</button>
+
+  <script>
+    // 创建 AudioContext 对象
+    var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+    // 创建 AudioBufferSourceNode 对象
+    var sourceNode = audioContext.createBufferSource();
+
+    // 加载音频文件
+    function loadAudio(url) {
+      var request = new XMLHttpRequest();
+      request.open('GET', url, true);
+      request.responseType = 'arraybuffer';
+
+      request.onload = function() {
+        var audioData = request.response;
+
+        audioContext.decodeAudioData(audioData, function(buffer) {
+          sourceNode.buffer = buffer;
+          sourceNode.connect(audioContext.destination);
+        });
+      };
+
+      request.send();
+    }
+
+    // 播放音频
+    function play() {
+      if (!sourceNode.buffer) {
+        loadAudio('path/to/audio.mp3'); // 音频文件的路径
+      }
+      sourceNode.start(0);
+    }
+
+    // 暂停音频
+    function pause() {
+      sourceNode.stop(0);
+    }
+
+    // 停止音频
+    function stop() {
+      sourceNode.stop(0);
+      sourceNode = audioContext.createBufferSource();
+    }
+  </script>
+</body>
+</html>
+```
+在上面的示例中，首先创建了一个 `AudioContext` 对象，并在其中定义了一个 `AudioBufferSourceNode` 对象来处理音频播放。
+
+> `loadAudio` 函数用于加载音频文件。它使用 `XMLHttpRequest` 对象来获取音频文件，并通过 `decodeAudioData` 方法将获取到的音频数据解码为 `AudioBuffer`。解码成功后，我们将 `AudioBuffer` 设置给 `sourceNode` 的 `buffer` 属性，并将其连接到 `AudioContext` 的 `destination` 上，以便播放音频。     
+> `play` 函数用于播放音频。如果尚未加载音频文件，则调用 `loadAudio` 函数加载音频，并通过 `start` 方法启动播放。     
+> `pause` 函数用于暂停音频播放，使用 `stop` 方法将播放停止。     
+> `stop` 函数用于停止音频播放，使用 `stop` 方法停止播放，并重新创建一个新的 `AudioBufferSourceNode` 对象，以便后续再次播放。      
+
+请注意，上述示例仅展示了基本的音频播放器封装，实际应用中可能需要添加更多的功能和交互控制，例如音量调节、循环播放、时间显示等。
+此外，还需要注意浏览器对 Web Audio API 的支持程度和兼容性。在使用之前，请检查浏览器的兼容性和提供相应的降级处理，以确保在各种浏
