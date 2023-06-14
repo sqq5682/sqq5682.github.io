@@ -44,20 +44,20 @@ Chrome 的自动播放政策很简单：
 
 实际例子
 
-```js
+```html
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>音频自动播放策略demo演示</title>
-    <link rel="stylesheet" type="text/css" href="https://q-fe.aixuexi.com/cloud/partner/1686621347143-2b1da1eca781:reset.css">
-    <style type="text/css">
-      .videoWrap{
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>音频自动播放策略demo演示</title>
+<link rel="stylesheet" type="text/css" href="https://q-fe.aixuexi.com/cloud/partner/1686621347143-2b1da1eca781:reset.css">
+<style type="text/css">
+    .videoWrap{
         position: relative;
         display: inline-block;
-      }
-      .play{
+    }
+    .play{
         position: absolute;
         width: 100px;
         height: 30px;
@@ -69,34 +69,34 @@ Chrome 的自动播放政策很简单：
         background: #039aff;
         border-radius: 10px;
         transform: translate(-50%, -50%);
-      }
-    </style>
-  </head>
-  <body>
+    }
+</style>
+</head>
+<body>
     <div class="videoWrap">
-      <video src="./movie.mp4" ></video>
-      <div class="play">开始播放</div>
+        <video src="./movie.mp4" ></video>
+        <div class="play">开始播放</div>
     </div>
     <script>
-      const video = document.querySelector('video')
-      const btn = document.querySelector('.play')
-      async function play(){
+        const video = document.querySelector('video')
+        const btn = document.querySelector('.play')
+        async function play(){
         video.muted = true // 视频静音
         await video.play()
         const ctx = new AudioContext(); 
         const canAutoPlay = ctx.state === 'running'; // 判断音频正在进行
         ctx.close() // 释放api
-        if(canAutoPlay){
-          video.muted = false
-          btn.style.display = 'none'
-          btn.removeEventListener('click', play)
-        } else {
-          btn.addEventListener('click', play)
+            if(canAutoPlay){
+                video.muted = false
+                btn.style.display = 'none'
+                btn.removeEventListener('click', play)
+            } else {
+                btn.addEventListener('click', play)
+            }
         }
-      }
-      play()
+        play()
     </script>
-  </body>
+</body>
 </html>
 ```
 
@@ -113,18 +113,18 @@ Chrome 的自动播放政策很简单：
 
 当使用 Web Audio API 封装音频播放器时，可以借助 AudioContext 和相关的 API 来实现音频的加载、控制和播放。下面是一个基本的示例，演示如何使用 Web Audio API 封装一个简单的音频播放器：
 
-```js
+```html
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Web Audio API 音频播放器示例</title>
+    <title>Web Audio API 音频播放器示例</title>
 </head>
 <body>
-  <button onclick="play()">播放</button>
-  <button onclick="pause()">暂停</button>
-  <button onclick="stop()">停止</button>
+    <button onclick="play()">播放</button>
+    <button onclick="pause()">暂停</button>
+    <button onclick="stop()">停止</button>
 
-  <script>
+    <script>
     // 创建 AudioContext 对象
     var audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -133,41 +133,38 @@ Chrome 的自动播放政策很简单：
 
     // 加载音频文件
     function loadAudio(url) {
-      var request = new XMLHttpRequest();
-      request.open('GET', url, true);
-      request.responseType = 'arraybuffer';
-
-      request.onload = function() {
+        var request = new XMLHttpRequest();
+        request.open('GET', url, true);
+        request.responseType = 'arraybuffer';
+        request.onload = function() {
         var audioData = request.response;
-
-        audioContext.decodeAudioData(audioData, function(buffer) {
-          sourceNode.buffer = buffer;
-          sourceNode.connect(audioContext.destination);
-        });
-      };
-
-      request.send();
+            audioContext.decodeAudioData(audioData, function(buffer) {
+                sourceNode.buffer = buffer;
+                sourceNode.connect(audioContext.destination);
+            });
+        };
+        request.send();
     }
 
     // 播放音频
     function play() {
-      if (!sourceNode.buffer) {
-        loadAudio('path/to/audio.mp3'); // 音频文件的路径
-      }
-      sourceNode.start(0);
+        if (!sourceNode.buffer) {
+            loadAudio('path/to/audio.mp3'); // 音频文件的路径
+        }
+        sourceNode.start(0);
     }
 
     // 暂停音频
     function pause() {
-      sourceNode.stop(0);
+        sourceNode.stop(0);
     }
 
     // 停止音频
     function stop() {
-      sourceNode.stop(0);
-      sourceNode = audioContext.createBufferSource();
+        sourceNode.stop(0);
+        sourceNode = audioContext.createBufferSource();
     }
-  </script>
+    </script>
 </body>
 </html>
 ```
