@@ -44,7 +44,7 @@ Chrome 的自动播放政策很简单：
 
 实际例子
 
-```html
+```js
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -113,7 +113,7 @@ Chrome 的自动播放政策很简单：
 
 当使用 Web Audio API 封装音频播放器时，可以借助 AudioContext 和相关的 API 来实现音频的加载、控制和播放。下面是一个基本的示例，演示如何使用 Web Audio API 封装一个简单的音频播放器：
 
-```html
+```js
 <!DOCTYPE html>
 <html>
 <head>
