@@ -12,7 +12,7 @@ description: 谷歌浏览器自动播放策略
 
 ### 策略详情
 
-策略动机：改善用户体验
+策略动机：改善用户体验 官方地址[https://developer.mozilla.org/zh-CN/docs/Web/Media/Autoplay_guide](https://developer.mozilla.org/zh-CN/docs/Web/Media/Autoplay_guide)
 
 Chrome 的自动播放政策很简单：
 1. 始终允许静音自动播放。
@@ -51,7 +51,7 @@ Chrome 的自动播放政策很简单：
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>音频自动播放策略demo演示</title>
-<link rel="stylesheet" type="text/css" href="https://q-fe.aixuexi.com/cloud/partner/1686621347143-2b1da1eca781:reset.css">
+<link rel="stylesheet" type="text/css" href="./reset.css">
 <style type="text/css">
     .videoWrap{
         position: relative;
@@ -102,13 +102,12 @@ play()
 ```
 
 上面实例，其中 `AudioContext` 是 `Web Audio Api` ，state属性包含suspended（此上下文当前已挂起，上下文时间未继续，音频硬件可能已断电/释放）， running（正在处理音频），closed（此上下文已发布，不能再用于处理音频。所有系统音频资源都已释放。） 
-详细参考：[https://webaudio.github.io/web-audio-api/#enumdef-audiocontextstate](https://webaudio.github.io/web-audio-api/#enumdef-audiocontextstate)
+详细参考：<a href="https://webaudio.github.io/web-audio-api/#enumdef-audiocontextstate" target="_blank">https://webaudio.github.io/web-audio-api/#enumdef-audiocontextstate</a>
 
 ### 第三方播放器：
 
-> [西瓜播放器](https://v2.h5player.bytedance.com/gettingStarted/)      
-
-> [mediaelement](https://github.com/mediaelement/mediaelement)      
+> <a href="https://v2.h5player.bytedance.com/gettingStarted/" target="_blank">西瓜播放器</a>     
+> <a href="https://github.com/mediaelement/mediaelement" target="_blank">mediaelement</a>       
 
 ### 使用Web Audio API 封装音频播放器
 
