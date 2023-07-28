@@ -84,7 +84,7 @@ whistle完全兼容传统hosts配置方式，且支持更多的组合方式：
 ![](../img/uploads/2023/0720/2.jpg)
 
 
-### 通过配置，自动加载Vconsole、eruda等开发调试
+### 通过安装插件inspect，加载Vconsole、eruda等开发调试
 
 `whistle`支持各种插件，其中的inspect是集成 vConsole、eruda、mdebug 等调试H5页面工具的插件。
 
