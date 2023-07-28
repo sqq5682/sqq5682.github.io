@@ -12,17 +12,16 @@ description: whistle跨平台web调试代理工具
 
 `whistle`有以下优点：
 
-> node环境下安装方便     
-> 可以定义多个代理规则切换     
-> 测试环境指向本地开发的地址调试   
-> 通过配置，自动加载Vconsole、eruda等开发调试      
-> 基于接口灵活设置mock数据调试     
-> 利用weinre远程调试移动端网页
+1. node环境下安装方便     
+2. 可以定义多个代理规则切换     
+3. 测试环境指向本地开发的地址调试   
+4. 通过配置，自动加载Vconsole、eruda等开发调试      
+5. 基于接口灵活设置mock数据调试     
+6. 利用weinre远程调试移动端网页
 
 ### node环境下安装方便 
 
 `whistle`安装非常简单，支持v0.10.0以上版本的Node，为获取更好的性能，推荐安装最新版本的Node。
-
 ```
 npm install -g whistle // 全局安装
 
@@ -43,13 +42,13 @@ w2 run // 调试模式启动whistle(主要用于查看whistle的异常及插件�
 ### 可以定义多个代理规则切换 
 
 如下图，在顶部菜单+create，可以快速创建Rules，多个Rules可以自由切换
+
 ![](../img/uploads/2023/0720/1.jpg)
 
 
 ### 测试环境指向本地开发的地址调试
 
 首先，whistle有以下三种配置方式：
-
 1.默认方式：默认是将匹配模式写在左边，操作uri写在右边
 ```
 pattern operatorURI
@@ -57,26 +56,20 @@ pattern operatorURI
 whistle将请求url与pattern匹配，如果匹配到就执行operatorURI对应的操作
 
 2.传统方式：传统方式指的是传统的hosts配置方式，操作URI写在左边
-
 ```
 operatorURI pattern
 ```
-
 如果pattern为路径或域名，且operatorURI为域名或路径
-
 ```
  www.test.com www.example.com/index.html
  http://www.test.com www.example.com/index.html
 ```
-
 这种情况下无法区分pattern和operatorURI，whistle不支持这种传统的方式，只支持默认方式
 3.组合方式：传统hosts的配置对多个域名对于同一个ip可以采用这种方式：
-
 ```
 127.0.0.1  www.test1.com www.test2.com www.testN.com
 ```
 whistle完全兼容传统hosts配置方式，且支持更多的组合方式：
-
 ```
  # 传统组合方式
  pattern operatorURI1 operatorURI2 operatorURIN
