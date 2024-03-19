@@ -8,4 +8,465 @@ description: animeJs使用
 
 ## animeJs
 
-https://animejs.com/
+[animejs官方](https://animejs.com/)
+
+`animejs`是一个很全面很专业的动画库，除了动画的基础功能外，它还有内置了N种缓动函数，内置了自定义缓动方式，时间线控制等，各位可以自行查看官网的效果演示，来感受`animejs`的动画效果.
+`animejs`与`threejs`是可以完美兼容的，所以对于学习`threejs`的同学，如果对`threejs`的动画遇到困难，可以尝试使用一下`animejs`。
+
+### animejs安装
+
+npm 引入
+```
+npm install animejs --save
+```
+
+引入方式
+
+```
+原生
+    <script src="anime.min.js"></script>
+ES6:
+    import anime from 'animejs/lib/anime.es.js';
+CommonJS
+    const anime = require('animejs');
+```
+
+[animejs在Github的链接](https://github.com/juliangarnier/anime/)
+
+### 基础动画
+
+animejs支持给任何 对象 做动画，比如说一个div，一个js对象，甚至一个数组等等。下面是一个简单的例子，点击按钮后，div会向右移动100px。
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    #d1{
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      top:50px;
+      background-color: #7FFF7F;
+    }
+  </style>
+</head>
+<body>
+
+<div id="d1"></div>
+<input type="button" value="播放动画" id="btn">
+
+<script type="module">
+//由于笔者写threejs的习惯，这里已经习惯了使用ES版本的文件
+  import anime from "./anime.es.js";
+
+//获取d1这个div
+  let d1 = document.getElementById('d1');
+//获取按钮
+  let btn = document.getElementById('btn');
+//给按钮绑定点击事件,点击后执行动画
+  btn.onclick = ()=>{
+      anime({
+          targets:d1, //动画目标
+          left:"100px", //目标指定的属性值要变化到多少,这里是让 css样式中的left变化到100px
+          duration:3000 //动画播放时间
+      })
+  }
+
+</script>
+</body>
+</html>
+```
+
+### animejs如何绑定动画目标
+
+上面的代码，可以用另一种写法同样的效果, id选择器
+```js
+// id选择器
+let btn = document.getElementById('btn');
+btn.onclick = ()=>{
+  anime({
+    targets:"#d1",
+    left:"100px",
+    duration:3000
+  })
+}
+```
+
+class选择器, 使用class依然可行
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .d1{
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            top:50px;
+            background-color: #7FFF7F;
+        }
+    </style>
+</head>
+<body>
+
+<div class="d1"></div>
+<input type="button" value="播放动画" id="btn">
+
+<script type="module">
+
+    import anime from "./anime.es.js";
+
+    let btn = document.getElementById('btn');
+
+    btn.onclick = ()=>{
+        anime({
+            targets:".d1",
+            left:"100px",
+            duration:3000
+        })
+    }
+
+</script>
+</body>
+</html>
+```
+
+js对象
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #d1{
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            top:50px;
+            background-color: #7FFF7F;
+        }
+    </style>
+</head>
+<body>
+
+<div id="d1"></div>
+<input type="button" value="播放动画" id="btn">
+
+<script type="module">
+import anime from "./anime.es.js";
+
+let btn = document.getElementById('btn');
+
+let d1 = document.getElementById('d1');
+
+let param = {
+    left:0
+}
+
+btn.onclick = ()=>{
+    anime({
+        targets:param,
+        left:100,
+        duration:3000,
+        update:()=>{ //动画每播放一帧执行一次
+            d1.style.left = param.left + "px";
+        }
+    })
+}
+</script>
+</body>
+</html>
+```
+
+以上所有写法都是同样的效果
+
+### animejs动画对象的编写格式
+
+上面演示的过程中，我们不难发现，执行一次动画，必须需要的东西有：
+
+1. 动画目标
+2. 执行时间
+3. 动画执行方式
+4. 动画配置
+
+animejs中，我们需要传入一个对象，比如说上面的
+
+```js
+anime({
+  targets:'#d1',
+  left:100,
+  duration:3000
+})
+//完全可以写成这样
+let animeConfig = {
+  //动画目标
+  targets:"#d1",
+  //动画的执行方式
+  left:100,
+  //动画的执行时间，默认为1000
+  duration:3000
+  //动画配置
+}
+```
+
+### animejs支持的动画
+
+dom元素动画，比如说
+
+```js
+anime({
+  targets: '.d1',
+  left: '240px',
+  backgroundColor: '#FFF',
+  borderRadius: ['0%', '50%'],
+});
+```
+
+animejs支持 给大部分常见的css元素属性做动画，比如元素的位置，旋转角度，大小，背景色，边框等，css的动画这里就介绍这一点，其他的可以参考官方的说明.
+
+[animejs官网对css属性动画的说明](https://animejs.com/documentation/#cssProperties)
+
+### 对象动画
+
+```js
+let btn = document.getElementById('btn');
+let d1 = document.getElementById('d1');
+
+let param = {
+  left:0,
+  backgroundColor:"#7fff7f",
+  borderRadius:"0%"
+}
+
+btn.onclick = ()=>{
+  anime({
+    targets: param,
+    left:270,
+    backgroundColor: '#00ffff',
+    borderRadius: "50%",
+    update:()=>{
+      d1.style.left = param.left + "px";
+      d1.style.backgroundColor = param.backgroundColor;
+      d1.style.borderRadius = param.borderRadius;
+    }
+  });
+}
+```
+
+### 动画控制
+
+前面讲到了autoplay时，我们其实就已经用了一个动画控制
+
+> anime.play(); 就可以控制动画的播放
+> anime.pause(); 就可以控制动画的暂停，暂停后再使用 play(); 即可从暂停位置继续播放动画
+
+但是要注意，animejs中没有停止，如果你希望停止动画并让动画恢复到原位，需要你调整动画的时间位置
+
+> anime.restart() 重播，执行重播后，动画将从第0秒第一帧开始播放
+> anime.reverse(); 让动画反向播放，这里和动画配置里的direction:reverse 功能一样，但是，使用函数可以更有效的控制动画的正向反向播放
+> anime.seek( time ) 让动画播放到指定的时间，比如说，我当前动画是10秒，那么，我anime.seek(5000)，就可以让动画切换到第5秒的位置
+
+### 对不同的属性做不同的动画效果
+
+这里我就上官网文档的代码了，其实就是对不同的属性做了个不同的效果动画，也是用于做复杂动画时使用
+```js
+anime({
+  targets: '.specific-prop-params-demo .el',
+  translateX: {
+    value: 250,
+    duration: 800
+  },
+  rotate: {
+    value: 360,
+    duration: 1800,
+    easing: 'easeInOutSine'
+  },
+  scale: {
+    value: 2,
+    duration: 1600,
+    delay: 800,
+    easing: 'easeInOutQuart'
+  },
+  delay: 250 // All properties except 'scale' inherit 250ms delay
+});
+
+```
+
+direction : reverse 倒着播放动画
+direction :alternate ，反复播放，需要循环次数大于2才生效
+代码过于简单，不写那么多了
+
+```js
+anime({
+  targets: '.dir-normal',
+  translateX: 250,
+  easing: 'easeInOutSine',
+  direction: 'reverse',
+});
+
+```
+
+### 循环loop
+
+超级好理解，就是动画要播放几次，或是否要无限播放
+loop这个属性，可以传入数字，可以传入true或false，默认值是false，即动画播放一次后就停止
+传入数字必须是正整数，传入的数字是几就循环播放几次
+传入的是true的情况下，动画将无限播放
+
+```js
+anime({
+  targets:'#d1',
+  loop: true,
+})
+```
+
+### 自动播放Autoplay
+
+动画是否创建时就播放，用于控制动画什么时候播放
+```js
+let a1 = anime({
+    targets:"#d1",
+    left:200,
+    autoplay:false
+})
+
+btn.onclick = ()=>{
+    a1.play();
+}
+```
+
+### 时间线偏移
+
+偏移有两种方法，一种是相对一种是绝对
+
+```js
+let timeline = anime.timeline({
+    targets:"#d1",
+    autoplay:false
+})
+
+timeline.add({
+    left:300,
+    duration:1000,
+    easing:"linear"
+});
+
+timeline.add({
+    top:150,
+    duration:1500,
+    easing:"easeOutBounce"
+},"-=500"); //让向下移动的动画提前0.5秒执行
+
+timeline.add({
+    left:0,
+    duration:500,
+    easing:"easeInElastic"
+},1000); //让向左移动的动画,在时间线播放第一秒的时候执行
+
+timeline.add({
+    top:50,
+    duration:2000,
+    easing:"easeOutBack"
+});
+
+
+btn.onclick = ()=>{
+    timeline.play();
+}
+
+```
+
+timeline.add( animeConfig, timelineOffset )
+animeConfig：本质上就前面介绍的那一大堆
+timelineOffset：时间线偏移，比如说，你希望你的某一段动画，在指定的时间执行，那么这里填入具体执行的数字即可，如果你希望你的动画提前或延后一段时间执行，那么，只需要填入字符串表达式即可，如 ： “-=500” (提前0.5秒执行)
+
+### 回调函数
+
+```js
+let anime1 = anime({
+    targets:"#d1",
+    left:500,
+    autoplay:false,
+    delay:500,
+    endDelay:500,
+    loop:5,
+    begin:()=>{ //动画开始前执行,在delay之前
+        index ++;
+        console.log(index + " begin");
+    },
+    update:()=>{
+        //动画每执行一帧执行一次
+    },
+    loopBegin:()=>{//循环开始前执行
+        index ++;
+        console.log(index + " loopBegin");
+    },
+    loopComplete: ()=>{//一轮循环结束后执行
+        index ++;
+        console.log(index + " loopComplete");
+    },
+    complete:()=>{
+        index ++;
+        console.log(index + " complete");
+    },
+    change:()=>{
+        //动画每变化一次执行一次
+    },
+    changeBegin:()=>{//变化开始前执行
+        index ++;
+        console.log(index + " changeBegin");
+    },
+    changeComplete: ()=>{//变化结束后执行
+        index ++;
+        console.log(index + " changeComplete");
+    }
+});
+
+
+btn.onclick = ()=>{
+    anime1.play();
+}
+```
+
+输出
+
+```
+1 begin 
+2 lo0pBegin 
+3 changeBegin 
+4 changeComplete 
+5 lo0pComplete 
+6 loopBegin 
+7 changeBegin 
+8 changeComplete 
+9 lo0pComplete 
+10 loopBegin 
+11 changeBegin 
+12 changeComplete 
+13 loopComplete 
+14 lo0pBegin 
+15 changeBegin 
+16 changeComplete 
+17 loopComplete 
+18 loopBegin 
+19 changeBegin 
+20 changeComplete 
+21 lo0pComplete 
+22 complete
+```
+
+除去两个执行频率特别高的，我打印了执行五次循环的一段动画的生命周期
+
+> begin 在动画的延迟时间之前，一般用于执行一些动画开始前的代码
+> loopBegin 是在每一轮循环的开始之前，一般用于动画循环过程中的监听
+> loopComplete是在每一轮循环播放结束后，同上，但是该函数主要在循环结束时执行
+> changeComplete是在每次动画目标数据变化结束时执行，会跟在loopComplete后面执行，即使没有循环它也会在动画播放完成后执行，主要用于动画结束后执行下一段脚本时使用
+> complete会在动画全部执行完毕时执行，若loop设置为true时,则不执行，同上
+
+一般来说我们常用的就是update和change
+
