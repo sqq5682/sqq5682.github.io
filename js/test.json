@@ -1,0 +1,23 @@
+{
+  "code": 200,
+  "message": "操作成功！",
+  "result": [ {
+    "itemsList": [
+      {
+        "extend": "N",
+        "isUse": "Y",
+        "path": "/pages/my_module/calc_mortgage/index",
+        "des": "房贷计算器",
+        "icon": "https://mmbiz.qpic.cn/mmbiz_png/ncTiaSqpEq9TOFqbxMkzsYYukItmBrREx0IT5JxYDHpseIJaIjL5uJ3WXP2aUkJq2FUbjJSQVia6iaicAnaeNGDIibA/0?wx_fmt=png",
+        "name": "房贷计算器",
+        "typeName": "测算工具",
+        "typeId": 2,
+        "id": "1567024733720154113",
+        "sort": 13,
+        "type": "calc_mortgage"
+      }
+    ]
+  }],
+  "success": true,
+  "timestamp": 1665563730355
+}
