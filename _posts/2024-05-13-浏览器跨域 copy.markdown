@@ -787,7 +787,9 @@ instance.get('/some-endpoint')
   });
 ```
 
-<!-- ### Ajax、fetch、axios区别
+### Ajax、fetch、axios区别
+
+[具体参考]()
 
 #### Ajax
 
@@ -799,7 +801,9 @@ fetch是ES6出现的，自然功能比xhr更强，主要原因就是它是基于
 
 #### axios
 
-axios是用于网络请求的第三方库，它是一个库。axios利用xhr进行了二次封装的请求库，xhr只是axios中的其中一个请求适配器，axios在nodejs端还有个http的请求适配器；axios = xhr + http；它返回一个Promise。 -->
+axios是用于网络请求的第三方库，它是一个库。axios利用xhr进行了二次封装的请求库，xhr只是axios中的其中一个请求适配器，axios在nodejs端还有个http的请求适配器；axios = xhr + http；它返回一个Promise。
+
+
 
 [参考地址](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS)
 
