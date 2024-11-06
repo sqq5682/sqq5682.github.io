@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 浏览器跨域
+title: 前端常用请求方法，Ajax、fetch、axios的区别
 categories: [blog]
 tags: [ajax, fetch, axios]
 description: 前端常用请求方法，Ajax、fetch、axios的区别
