@@ -8,13 +8,13 @@ description: js代码优化技巧
 
 ### 变量名称重复问题
 
+
 ```js
 import { var1, obj } from './module1.js'; // import变量和下面声明变量重复
 const { var1 } = obj // 解构对象出现也会出现变量重复
 let var1 = [1,2,3]
 ```
 改进
-
 ```js
 import { var1 as var1FromImport, obj } from './module1.js';
 const { var1: var1FromObj } = obj
@@ -23,15 +23,15 @@ let var1 = [1,2,3]
 
 ### 带有多个条件的 if 语句
 
+
+
 ```js
-Longhand
+// Longhand
 if (x === 'abc' || x === 'def' || x === 'ghi' || x ==='jkl') {
     //logic
 }
 ```
-
 改进
-
 ```js
 //shorthand
 if (['abc', 'def', 'ghi', 'jkl'].includes(x)) {
@@ -40,6 +40,7 @@ if (['abc', 'def', 'ghi', 'jkl'].includes(x)) {
 ```
 
 ### 简化 if true...else
+
 
 ```js
 // Longhand
@@ -50,9 +51,7 @@ if (x > 100) {
     test = false;
 }
 ```
-
 改进
-
 ```js
 // Shorthand
 let test = (x > 10) ? true : false;
@@ -72,15 +71,14 @@ console.log(test2); // "greater than 100"
 
 ### null、undefined的检查
 
+
 ```js
 // Longhand
 if (test1 !== null || test1 !== undefined) {
     let test2 = test1;
 }
 ```
-
 改进
-
 ```js
 // Shorthand
 let test2 = test1 || '默认值'; // || test1为任何假值（如0、false、空字符串等）时就返回
@@ -90,17 +88,17 @@ let test3 = test1 && '默认值';
 
 ### ?可选链操作符
 
+
 ```js
 const name = obj && obj.name;
 ```
-
 改进
-
 ```js
 const name = obj?.name ?? '默认值';
 ```
 
 ### 给多个变量赋值
+
 
 ```js
 //Longhand 
@@ -109,15 +107,14 @@ test1 = 1;
 test2 = 2;
 test3 = 3;
 ```
-
 改进
-
 ```js
 //Shorthand 
 let [test1, test2, test3] = [1, 2, 3];
 ```
 
 ### 添加对象属性
+
 
 ```js
 const hasCar = true
@@ -129,21 +126,21 @@ if(hasCar){
   people.hasCar = true
 }
 ```
-
 改进
-
 ```js
 const hasCar = true
+const hasCarObj = hasCar ? {
+  hasCar: true
+} : {}
 const people = {
   name: '张三',
   age: 18,
-  ...(hasCar ? {
-    hasCar: true
-  } : {})
+  ...hasCarObj
 }
 ```
 
 ### 使用reduce替代filter().map()
+
 
 ```js
 const arr = [1, 2, 3, 4, 5];
@@ -151,7 +148,6 @@ const filteredArr = arr.filter(item => item % 2 === 0).map(item => item * 2);
 // filteredArr : [4, 8]
 ```
 改进
-
 ```js
 const arr = [1, 2, 3, 4, 5];
 
