@@ -6,7 +6,7 @@ header-img: "img/plane.jpg"
 ---
 
 <center>
-    <p><img src="../img/Zero.png" align="center"></p>
+    <p><img src="../img/Zero.png" style="width:auto;" align="center"></p>
 </center>
 
 最初整理的文章一直在论坛和社区里，中间也弄过单独的域名和空间，最后发现在[gitHub pages](https://pages.github.com/)可以搭建博客，简单又方便，gitHub提供无限流量，世界各地都有理想的访问速度，而且这一切还是免费的，于是接下来就把之前的文章内容搬过来了。
@@ -20,5 +20,5 @@ gitHub：[sqq5682](https://github.com/sqq5682)
 > 勿忘初心
 
 <center>
-    <p><img src="../img/hacker.png" align="center"></p>
+    <p><img src="../img/hacker.png" align="center" style="width:auto;"></p>
 </center>
